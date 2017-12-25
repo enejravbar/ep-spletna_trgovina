@@ -15,9 +15,8 @@ abstract class Entiteta {
      */
     public static function getConnection() {
         if (is_null(self::$dbh)) {
-            self::$dbh = DBInit::getInstance();
+            self::$dbh = DB_connection::getInstance();
         }
-
         return self::$dbh;
     }
 

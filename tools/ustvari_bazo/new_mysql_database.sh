@@ -12,3 +12,4 @@ SQL="${Q1}${Q2}${Q3}${Q4}"
   
 $MYSQL -uroot -p -e "$SQL"
 $MYSQL -uroot -p "ep" < "new_tables.sql"
+$MYSQL -uroot -p "ep" < "insert_data.sql"
