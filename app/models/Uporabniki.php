@@ -4,6 +4,10 @@ require_once "app/models/Entiteta.php";
 
 class Uporabniki extends Entiteta {
 
+    public static function dobiUporabnikaGledeNaEmail(array $email) {
+        return parent::query("SELECT * FROM uporabniki WHERE email = :email", $email);
+    }
+
     public static function get(array $id)
     {
         $uporabnik = parent::query("SELECT * FROM uporabniki WHERE id = :id", $id);

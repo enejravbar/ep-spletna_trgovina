@@ -4,6 +4,14 @@ require_once "app/models/Entiteta.php";
 
 class Izdelki extends Entiteta {
 
+    public static function dobiVseSortiraneIzdelke(array $params) {
+        return parent::query("SELECT * FROM izdelki ORDER BY :kaj :smer", $params);
+    }
+
+    public static function dobiSortiraneIzdelkeIzKategorije(array $params) {
+        return parent::query("SELECT * FROM izdelki WHERE kategorija = :kategorija ORDER BY :kaj :smer", $params);
+    }
+
     public static function get(array $id)
     {
         $izdelek = parent::query("SELECT * FROM izdelki WHERE id = :id", $id);
