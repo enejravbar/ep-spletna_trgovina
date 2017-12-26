@@ -1,7 +1,9 @@
 <?php
 
 require_once "app/controllers/IndexController.php";
+require_once "app/controllers/IzdelekVir.php";
 require_once "ViewUtil.php";
+require_once "Usmerjevalniki.php";
 
 session_start();
 
@@ -12,37 +14,9 @@ define("CSS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/css/");
 $path = isset($_SERVER["PATH_INFO"]) ? trim($_SERVER["PATH_INFO"], "/") : "";
 
 // definicija usmerjevalnikov:
-$urls = [
-    "" => function() {
-        IndexController::index();
-    }
-];
+$urls = Usmerjevalniki::getRouters();
 
 // izvedba usmerjevalnikov:
-try {
-    if (isset($urls[$path])) {
-        $urls[$path]();
-    } else {
-        throw new InvalidArgumentException();
-    }
-} catch (InvalidArgumentException $e){
-    echo "ERROR: 404";
-} catch (Exception $ex){
-    echo "Napaka! $ex";
-}
-
-
-
-/*function jeMetoda($metoda){
-    return $_SERVER["REQUEST_METHOD"] == $metoda;
-}*/
-
-/*function imaVlogo($vloga){
-    $seznam_vlog = $_SESSION["uporabnik"]["vloge"];
-    foreach($seznam_vlog as $i => $item){
-        if($seznam_vlog[$i]["naziv"] == $vloga){
-            return true;
-        }
-    }
-    return false;
-}*/
+Usmerjevalniki::handleRouters($urls, $path);
+// ce se usmerjevalnik ne pometcha, potem sprozi exception:
+ViewUtil::displayError(new InvalidArgumentException("No controller matched!"), true);
