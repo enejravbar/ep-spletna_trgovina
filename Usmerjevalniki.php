@@ -40,7 +40,17 @@ class Usmerjevalniki {
                 }
             },
             "/^mail$/" => function() {
-                EmailService::posljiEmail(new Email("miha_jamsek@windowslive.com", "dds", "dsd"));
+                $email = new Email(
+                    "miha_jamsek@windowslive.com",
+                    "Zadeva",
+                    "Pozdrav!\nKako smo kaj?"
+                );
+                try {
+                    EmailService::posljiEmail($email);
+                } catch (Exception $e){
+                    echo $e;
+                }
+
             }
         ];
     }

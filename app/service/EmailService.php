@@ -8,14 +8,14 @@
 
 require_once "Mail.php";
 require_once "app/models/Email.php";
-require_once "ConfigurationUtilp.php";
+require_once "ConfigurationUtil.php";
 
 class EmailService {
 
     public static function posljiEmail($sporocilo){
 
         if(!is_a($sporocilo, "Email")){
-            return false;
+            throw new Exception("Napačen tip sporočila! Mora biti tipa Email.php");
         }
 
         $headers = array(

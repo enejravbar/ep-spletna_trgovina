@@ -6,10 +6,12 @@
  * Time: 21:19
  */
 
+require_once "ConfigurationUtil.php";
+
 class Email {
 
     private $prejemnik;
-    private $posiljatelj = "ep.projekt2017@gmail.com";
+    private $posiljatelj;
     private $zadeva;
     private $vsebina;
 
@@ -17,6 +19,7 @@ class Email {
         $this->prejemnik = $prejemnik;
         $this->zadeva = $zadeva;
         $this->vsebina = $vsebina;
+        $this->posiljatelj = ConfigurationUtil::getConfByKey("email_username");
     }
 
     /**
@@ -74,5 +77,5 @@ class Email {
     public function setPrejemnik($prejemnik) {
         $this->prejemnik = $prejemnik;
     }
-    
+
 }
