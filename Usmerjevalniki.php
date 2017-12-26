@@ -39,11 +39,11 @@ class Usmerjevalniki {
                         break;
                 }
             },
-            "/^mail$/" => function() {
+            "/^test_mail$/" => function() {
                 $email = new Email(
                     "miha_jamsek@windowslive.com",
                     "Zadeva",
-                    "Pozdrav!\nKako smo kaj?"
+                    "Pozdrav!\nKako smo kaj zdaj ko dela?"
                 );
                 try {
                     EmailService::posljiEmail($email);

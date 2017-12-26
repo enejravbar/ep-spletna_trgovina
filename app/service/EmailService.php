@@ -18,9 +18,12 @@ class EmailService {
             throw new Exception("Napačen tip sporočila! Mora biti tipa Email.php");
         }
 
+        $sender = $sporocilo->getPosiljatelj();
+        $receiver = $sporocilo->getPrejemnik();
+
         $headers = array(
-            "From" => $sporocilo->getPosiljatelj(),
-            "To" => $sporocilo->getPrejemnik(),
+            "From" => "<$sender>",
+            "To" => "<$receiver>",
             "Subject" => $sporocilo->getZadeva()
         );
 
@@ -39,7 +42,7 @@ class EmailService {
             die();
         }
 
-        $mail = $smtp->send($sporocilo->getPosiljatelj(), $headers, $sporocilo->getVsebina());
+        $mail = $smtp->send($sporocilo->getPrejemnik(), $headers, $sporocilo->getVsebina());
 
         if(PEAR::isError($mail)){
             echo('<p>' . $mail->getMessage() . '</p>');
