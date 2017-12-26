@@ -32,6 +32,19 @@ CREATE TABLE IF NOT EXISTS `status_uporabniki` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
+CREATE TABLE IF NOT EXISTS `potrditev_registracije` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `kljuc` VARCHAR(10) NOT NULL,
+  `uporabnik` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_potrd_reg_idx` (`uporabnik` ASC),
+  CONSTRAINT `fk_potrd_reg`
+    FOREIGN KEY (`uporabnik`)
+    REFERENCES `uporabniki` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 CREATE TABLE IF NOT EXISTS `vloge` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `naziv` VARCHAR(45) NOT NULL,

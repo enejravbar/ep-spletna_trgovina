@@ -57,6 +57,9 @@ class Usmerjevalniki {
                 LogService::info("", "test", "To je sporocilo za logirat vse");
                 LogService::error("prodajalec", "test", "To je sporocilo za logirat prodajalce");
                 LogService::warning("admin", "test", "To je sporocilo za logirat admine");
+            },
+            "" => function() {
+
             }
         ];
     }
