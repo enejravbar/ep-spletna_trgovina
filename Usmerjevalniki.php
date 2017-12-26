@@ -44,7 +44,8 @@ class Usmerjevalniki {
                 $email = new Email(
                     "miha_jamsek@windowslive.com",
                     "Zadeva",
-                    "Pozdrav!\nKako smo kaj zdaj ko dela?"
+                    "app/views/confirmation-email.php",
+                    ["kljuc" => "kljuc123"]
                 );
                 try {
                     EmailService::posljiEmail($email);

@@ -26,10 +26,15 @@ class UporabnikService {
             "potrjen" => 0
 
         ]);
+        $potrditveni_kljuc = self::generateConfirmationString();
+
         PotrditevRegistracije::insert([
-            "kljuc" => self::generateConfirmationString(),
+            "kljuc" => $potrditveni_kljuc,
             "uporabnik" => $uporabnik
         ]);
+
+        $body = ViewUtil::render("app/views/confirmation-email.php", ["kljuc" => $potrditveni_kljuc]);
+
 
     }
 

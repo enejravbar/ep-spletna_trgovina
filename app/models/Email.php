@@ -7,6 +7,7 @@
  */
 
 require_once "ConfigurationUtil.php";
+require_once "ViewUtil.php";
 
 class Email {
 
@@ -15,10 +16,10 @@ class Email {
     private $zadeva;
     private $vsebina;
 
-    function __construct($prejemnik, $zadeva, $vsebina) {
+    function __construct($prejemnik, $zadeva, $view, $params = array()) {
         $this->prejemnik = $prejemnik;
         $this->zadeva = $zadeva;
-        $this->vsebina = $vsebina;
+        $this->vsebina = ViewUtil::render($view, $params);
         $this->posiljatelj = ConfigurationUtil::getConfByKey("email_username");
     }
 

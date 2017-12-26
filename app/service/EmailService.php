@@ -42,14 +42,8 @@ class EmailService {
             die();
         }
 
-        //render view
-        $body = ViewUtil::render("app/views/confirmation-email.php", [
-            "zadeva" => $sporocilo->getZadeva(),
-            "vsebina" => $sporocilo->getVsebina()
-        ]);
-
         //poslji sporocilo
-        $mail = $smtp->send($sporocilo->getPrejemnik(), $headers, $body);
+        $mail = $smtp->send($sporocilo->getPrejemnik(), $headers, $sporocilo->getVsebina());
 
         //handle errors
         if(PEAR::isError($mail)){
