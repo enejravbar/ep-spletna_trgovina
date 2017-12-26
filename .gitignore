@@ -162,5 +162,7 @@ $RECYCLE.BIN/
 *.lnk
 
 /target/
-
 /ObjectStore/
+
+#nasa aplikacija
+/logs/

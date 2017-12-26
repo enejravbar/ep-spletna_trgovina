@@ -8,6 +8,7 @@
 
 require_once "ViewUtil.php";
 require_once "app/service/EmailService.php";
+require_once "app/service/LogService.php";
 
 class Usmerjevalniki {
 
@@ -51,6 +52,11 @@ class Usmerjevalniki {
                     echo $e;
                 }
 
+            },
+            "/^test_log$/" => function() {
+                LogService::info("", "test", "To je sporocilo za logirat vse");
+                LogService::error("prodajalec", "test", "To je sporocilo za logirat prodajalce");
+                LogService::warning("admin", "test", "To je sporocilo za logirat admine");
             }
         ];
     }
