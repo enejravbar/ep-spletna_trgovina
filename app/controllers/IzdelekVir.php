@@ -1,12 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: miha
- * Date: 26.12.2017
- * Time: 19:14
- */
 
-require_once("ViewUtil.php");
+require_once "ViewUtil.php";
 require_once "app/models/Izdelki.php";
 
 

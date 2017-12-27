@@ -1,6 +1,14 @@
 <?php
 
+include_once "app/models/Uporabniki.php";
+
 class ViewUtil {
+
+    // simulira prijavljenega uporabnika
+    public static function prijavljenUser($vloga) {
+        // user z id 1 je admin, z 2 je prodajalec, z 3 je kupec
+        return Uporabniki::get(["id" => $vloga]);
+    }
 
     public static function render($file, $variables = array()){
         extract($variables);
