@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: miha
- * Date: 26.12.2017
- * Time: 19:31
- */
 
 require_once "ViewUtil.php";
 require_once "app/service/EmailService.php";

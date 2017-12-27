@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: miha
- * Date: 26.12.2017
- * Time: 21:55
- */
 
 class ConfigurationUtil {
 
