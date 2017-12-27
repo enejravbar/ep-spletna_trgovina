@@ -9,6 +9,7 @@
 require_once "ViewUtil.php";
 require_once "app/service/EmailService.php";
 require_once "app/service/LogService.php";
+require_once "app/service/UporabnikService.php";
 
 class Usmerjevalniki {
 
@@ -59,9 +60,14 @@ class Usmerjevalniki {
                 LogService::error("prodajalec", "test", "To je sporocilo za logirat prodajalce");
                 LogService::warning("admin", "test", "To je sporocilo za logirat admine");
             },
-            "" => function() {
-
+            "/^test_register$/" => function() {
+                UporabnikService::dodajUporabnika(null);
+            },
+            "/^api\/potrdi\/(.+)$/" => function($method, $kljuc){
+                UporabnikService::potrdiUporabnika($kljuc);
+                ViewUtil::redirect(BASE_URL);
             }
+
         ];
     }
 

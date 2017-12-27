@@ -26,9 +26,14 @@ class Uporabniki extends Entiteta {
     public static function insert(array $params)
     {
         return parent::modify(
-            "INSERT INTO uporabniki(vloga, ime, priimek, email, geslo, naslov, status) VALUES(:vloga, :ime, :priimek, :email, :geslo, :naslov, :status)",
+            "INSERT INTO uporabniki(vloga, ime, priimek, email, geslo, naslov, potrjen) " .
+                "VALUES(:vloga, :ime, :priimek, :email, :geslo, :naslov, :potrjen)",
             $params
         );
+    }
+
+    public static function spremeniPotrjen(array $params){
+        return parent::modify("UPDATE uporabniki SET potrjen = :potrjen WHERE id = :id", $params);
     }
 
     public static function update(array $params)

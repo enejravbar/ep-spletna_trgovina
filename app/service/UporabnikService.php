@@ -8,6 +8,9 @@
 
 require_once "app/models/Uporabniki.php";
 require_once "app/models/PotrditevRegistracije.php";
+require_once "app/models/Email.php";
+require_once "app/service/EmailService.php";
+require_once "app/service/LogService.php";
 
 class UporabnikService {
 
@@ -19,22 +22,46 @@ class UporabnikService {
         $uporabnik = Uporabniki::insert([
             "vloga" => 1,
             "ime" => "Janez",
-            "priimek" => "Janša",
+            "priimek" => "Janaa",
             "email" => "miha_jamsek@windowslive.com",
             "geslo" => "hahshsh",
-            "naslov" => "kr en naslov",
+            "naslov" => 1,
             "potrjen" => 0
-
         ]);
-        $potrditveni_kljuc = self::generateConfirmationString();
+        var_dump($uporabnik);
+
+        LogService::info("", "Registracija", "uporabnik $uporabnik je bil registriran!");
+
+        $potrditveni_kljuc = "-1";
+
+        do {
+            $potrditveni_kljuc = self::generateConfirmationString();
+        } while($potrditveni_kljuc != null);
 
         PotrditevRegistracije::insert([
             "kljuc" => $potrditveni_kljuc,
             "uporabnik" => $uporabnik
         ]);
 
-        $body = ViewUtil::render("app/views/confirmation-email.php", ["kljuc" => $potrditveni_kljuc]);
+        $potrditveni_email = new Email("miha_jamsek@windowslive.com",
+            "Dobrodosel!",
+            "app/views/confirmation-email.php",
+            ["kljuc" => $potrditveni_kljuc]);
 
+        try{
+            EmailService::posljiEmail($potrditveni_email);
+        } catch(Exception $e){
+            echo "NAPAKA! " . $e;
+        }
+
+    }
+
+    public static function potrdiUporabnika($kljuc){
+        $potrditev = PotrditevRegistracije::getByKey(["kljuc" => $kljuc]);
+
+        Uporabniki::spremeniPotrjen(["potrjen" => 1, "id" => $potrditev["uporabnik"]]);
+
+        LogService::info("", "Potrditev registracije", "Uporabnik" . $potrditev["uporabnik"] . " je potrdil registracijo!");
 
     }
 

@@ -12,11 +12,21 @@ class PotrditevRegistracije extends Entiteta {
 
 
     public static function get(array $id) {
-        return parent::query("SELECT * FROM potrditev_registracije WHERE id = :id", $id);
+        $polja = parent::query("SELECT * FROM potrditev_registracije WHERE id = :id", $id);
+        if(count($polja) == 1){
+            return $polja[0];
+        } else {
+            throw new InvalidArgumentException("Potrditveno polje ne obstaja");
+        }
     }
 
     public static function getByKey(array $key){
-        return parent::query("SELECT * FROM potrditev_registracije WHERE kljuc = :kljuc", $key);
+        $polja =  parent::query("SELECT * FROM potrditev_registracije WHERE kljuc = :kljuc", $key);
+        if(count($polja) == 1){
+            return $polja[0];
+        } else {
+            return null;
+        }
     }
 
     public static function getAll() {

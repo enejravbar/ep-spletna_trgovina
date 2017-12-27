@@ -7,6 +7,7 @@
  */
 
 require_once "Mail.php";
+require_once "Mail/mime.php";
 require_once "app/models/Email.php";
 require_once "ConfigurationUtil.php";
 require_once "ViewUtil.php";
@@ -42,8 +43,15 @@ class EmailService {
             die();
         }
 
+        $mime = new Mail_mime(PHP_EOL);
+        $mime->setTXTBody($sporocilo->getVsebina());
+        $mime->setHTMLBody($sporocilo->getVsebina());
+
+        $body = $mime->get();
+        $headers = $mime->headers($headers);
+
         //poslji sporocilo
-        $mail = $smtp->send($sporocilo->getPrejemnik(), $headers, $sporocilo->getVsebina());
+        $mail = $smtp->send($sporocilo->getPrejemnik(), $headers, $body);
 
         //handle errors
         if(PEAR::isError($mail)){
