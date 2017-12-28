@@ -63,6 +63,7 @@ class UporabnikService {
 
         LogService::info("", "Potrditev registracije", "Uporabnik" . $potrditev["uporabnik"] . " je potrdil registracijo!");
 
+        PotrditevRegistracije::delete(["id" => $potrditev["id"]]);
     }
 
 }
