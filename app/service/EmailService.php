@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: miha
- * Date: 26.12.2017
- * Time: 20:06
- */
 
 require_once "Mail.php";
 require_once "Mail/mime.php";

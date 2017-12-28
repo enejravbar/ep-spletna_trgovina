@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: miha
- * Date: 26.12.2017
- * Time: 23:06
- */
 
 require_once "app/models/DB_connection.php";
 require_once "ConfigurationUtil.php";

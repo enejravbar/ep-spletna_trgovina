@@ -28,7 +28,6 @@ buildNumber.properties
  .idea/encodings.xml
  .idea/misc.xml
  .idea/modules.xml
- .idea/vcs.xml
 
 # Sensitive or high-churn files:
  .idea/dataSources.ids
