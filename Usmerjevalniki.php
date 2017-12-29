@@ -9,16 +9,18 @@ class Usmerjevalniki {
 
     public static function getRouters(){
         return [
+            //index page
             "/^$/" => function() {
                 IndexController::index();
             },
+            // izdelki
             "/^api\/izdelki\/(\d+)$/" => function($method, $id = null){
                 switch($method){
                     case "PUT":
-                        IzdelekVir::get($id);
+                        IzdelekVir::posodobi($id);
                         break;
                     case "DELETE":
-                        IzdelekVir::get($id);
+                        IzdelekVir::izbrisi($id);
                         break;
                     default:
                         IzdelekVir::get($id);
@@ -28,13 +30,14 @@ class Usmerjevalniki {
             "/^api\/izdelki$/" => function($method){
                 switch($method) {
                     case "POST":
-                        IzdelekVir::getAll();
+                        IzdelekVir::shrani();
                         break;
                     default:
                         IzdelekVir::getAll();
                         break;
                 }
             },
+            //testni routi
             "/^test_mail$/" => function() {
                 $email = new Email(
                     "miha_jamsek@windowslive.com",
@@ -57,6 +60,7 @@ class Usmerjevalniki {
             "/^test_register$/" => function() {
                 UporabnikService::dodajUporabnika(null);
             },
+            //potrditev uporabnika
             "/^api\/potrdi\/(.+)$/" => function($method, $kljuc){
                 UporabnikService::potrdiUporabnika($kljuc);
                 ViewUtil::redirect(BASE_URL);

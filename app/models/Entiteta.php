@@ -61,6 +61,14 @@ abstract class Entiteta {
         return self::getConnection()->lastInsertId();
     }
 
+    protected static function modify_update($sql, array $params = array()) {
+        $stmt = self::getConnection()->prepare($sql);
+        $params_filtered = self::filterParams($sql, $params);
+        $stmt->execute($params_filtered);
+
+        return $stmt->rowCount();
+    }
+
     /**
      * Izvrši poizvedbo s podanimi parametri ter vrne rezultat kot
      * numerično indeksirano polje.

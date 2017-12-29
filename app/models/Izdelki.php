@@ -37,7 +37,7 @@ class Izdelki extends Entiteta {
 
     public static function update(array $params)
     {
-        return parent::modify(
+        return parent::modify_update(
             "UPDATE izdelki SET kategorija = :kategorija, ime = :ime, opis = :opis, cena = :cena, status = :status, slika_url = :slika_url WHERE id = :id",
             $params
         );
@@ -45,7 +45,18 @@ class Izdelki extends Entiteta {
 
     public static function delete(array $id)
     {
-        return parent::modify("DELETE FROM izdelki WHERE id = :id", $id);
+        return parent::modify_update("DELETE FROM izdelki WHERE id = :id", $id);
+    }
+
+    public static function pridobiPravila(){
+        return [
+            "kategorija" => FILTER_VALIDATE_INT,
+            "ime" => FILTER_SANITIZE_SPECIAL_CHARS,
+            "opis" => FILTER_SANITIZE_SPECIAL_CHARS,
+            "cena" => FILTER_VALIDATE_FLOAT,
+            "status" => FILTER_VALIDATE_INT,
+            "slika_url" => FILTER_SANITIZE_SPECIAL_CHARS
+        ];
     }
 
 }
