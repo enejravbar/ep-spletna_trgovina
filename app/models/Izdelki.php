@@ -54,8 +54,7 @@ class Izdelki extends Entiteta {
             "ime" => FILTER_SANITIZE_SPECIAL_CHARS,
             "opis" => FILTER_SANITIZE_SPECIAL_CHARS,
             "cena" => FILTER_VALIDATE_FLOAT,
-            "status" => FILTER_VALIDATE_INT,
-            "slika_url" => FILTER_SANITIZE_SPECIAL_CHARS
+            "status" => FILTER_VALIDATE_INT
         ];
     }
 

@@ -66,4 +66,16 @@ class ViewUtil {
         }
         return $result;
     }
+
+    public static function returnRootURI(){
+        $uri = explode("/", $_SERVER['REQUEST_URI']);
+        $img_uri = array();
+        foreach($uri as $item){
+            array_push($img_uri, $item);
+            if(strpos($item, "ep-spletna") === 0){
+                break;
+            }
+        }
+        return implode("/", $img_uri) . "/";
+    }
 }

@@ -4,6 +4,7 @@ require_once "ViewUtil.php";
 require_once "app/service/EmailService.php";
 require_once "app/service/LogService.php";
 require_once "app/service/UporabnikService.php";
+require_once "app/service/FileService.php";
 
 class Usmerjevalniki {
 
@@ -64,7 +65,33 @@ class Usmerjevalniki {
             "/^api\/potrdi\/(.+)$/" => function($method, $kljuc){
                 UporabnikService::potrdiUporabnika($kljuc);
                 ViewUtil::redirect(BASE_URL);
+            },
+            //test image
+            "/^slika\/preview$/" => function(){
+                echo ViewUtil::render("app/views/slika-preview.php", [
+                    "slika_url" => "data/images/in-flames-desktop.jpg"
+                    ]);
+            },
+            "/^slika$/" => function($method){
+                if($method == "POST"){
+                    //shrani sliko
+                    if(isset($_POST["submit"])){
+                        try {
+                            FileService::naloziSliko($_FILES["img"]);
+                            echo ViewUtil::renderJSON(["msg" => "Uspeh!"], 200);
+                        } catch(InvalidArgumentException $e){
+                                echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 400);
+                        } catch(Exception $ex) {
+                            echo ViewUtil::renderJSON(["napaka" => $ex->getMessage()], 400);
+                        }
+                    } else {
+                        echo ViewUtil::renderJSON(["napaka" => "tukaj sem"], 400);
+                    }
+                } else {
+                    echo ViewUtil::render("app/views/slika.php");
+                }
             }
+
 
         ];
     }

@@ -55,10 +55,12 @@ class IzdelekVir {
 
         if(ViewUtil::checkValues($data)){
             try {
-                $novi_izdelek = IzdelekService::shraniIzdelek($data);
+                $novi_izdelek = IzdelekService::shraniIzdelek($data, $_FILES["slika"]);
                 echo ViewUtil::renderJSON($novi_izdelek, 201);
             } catch(InvalidArgumentException $e){
                 echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 400);
+            } catch(Exception $ex){
+                echo ViewUtil::renderJSON(["napaka" => $ex->getMessage()], 400);
             }
         }
     }
