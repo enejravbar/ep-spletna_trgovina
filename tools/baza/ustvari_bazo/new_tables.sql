@@ -5,15 +5,6 @@ CREATE TABLE IF NOT EXISTS `kategorije` (
 ENGINE = InnoDB
 COMMENT = 'Kategorije izdelkov';
 
-CREATE TABLE IF NOT EXISTS `naslovi` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `postna_st` INT NOT NULL,
-  `kraj` VARCHAR(45) NOT NULL,
-  `ulica` VARCHAR(45) NOT NULL,
-  `hisna_st` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
 CREATE TABLE IF NOT EXISTS `status_izdelki` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `naziv` VARCHAR(100) NOT NULL,
@@ -32,19 +23,6 @@ CREATE TABLE IF NOT EXISTS `status_uporabniki` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `potrditev_registracije` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `kljuc` VARCHAR(10) NOT NULL,
-  `uporabnik` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_potrd_reg_idx` (`uporabnik` ASC),
-  CONSTRAINT `fk_potrd_reg`
-    FOREIGN KEY (`uporabnik`)
-    REFERENCES `uporabniki` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
 CREATE TABLE IF NOT EXISTS `vloge` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `naziv` VARCHAR(45) NOT NULL,
@@ -58,7 +36,6 @@ CREATE TABLE IF NOT EXISTS `izdelki` (
   `opis` VARCHAR(1000) NULL,
   `cena` INT NOT NULL,
   `status` INT NOT NULL,
-  `slika_url` VARCHAR(1000) NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_izdelki_1_idx` (`kategorija` ASC),
   INDEX `fk_izdelki_2_idx` (`status` ASC),
@@ -74,6 +51,35 @@ CREATE TABLE IF NOT EXISTS `izdelki` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+CREATE TABLE IF NOT EXISTS `slike` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `naziv` VARCHAR(45),
+  `lokacija` VARCHAR(100) NOT NULL,
+  `izdelek` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_slike_idx` (`izdelek` ASC),
+  CONSTRAINT `fk_slike`
+  FOREIGN KEY (`izdelek`)
+  REFERENCES `izdelki` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+  ENGINE = InnoDB;
+
+/*CREATE TABLE IF NOT EXISTS `naslovi` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `postna_st` INT NOT NULL,
+  `kraj` VARCHAR(45) NOT NULL,
+  `ulica` VARCHAR(45) NOT NULL,
+  `hisna_st` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+  ENGINE = InnoDB;*/
+
+CREATE TABLE IF NOT EXISTS `posta` (
+  `postna_st` INT NOT NULL,
+  `naziv` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`postna_st`))
+  ENGINE = InnoDB;
+
 CREATE TABLE IF NOT EXISTS `uporabniki` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `vloga` INT NOT NULL,
@@ -81,12 +87,13 @@ CREATE TABLE IF NOT EXISTS `uporabniki` (
   `priimek` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `geslo` VARCHAR(80) NOT NULL,
-  `naslov` INT NULL,
+  `naslov` VARCHAR(200),
+  `posta` INT,
   `status` INT NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC),
   INDEX `fk_uporabniki_2_idx` (`vloga` ASC),
-  INDEX `fk_uporabniki_1_idx` (`naslov` ASC),
+  INDEX `fk_uporabniki_1_idx` (`posta` ASC),
   INDEX `fk_uporabniki_3_idx` (`status` ASC),
   CONSTRAINT `fk_uporabniki_2`
     FOREIGN KEY (`vloga`)
@@ -94,8 +101,8 @@ CREATE TABLE IF NOT EXISTS `uporabniki` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_uporabniki_1`
-    FOREIGN KEY (`naslov`)
-    REFERENCES `naslovi` (`id`)
+    FOREIGN KEY (`posta`)
+    REFERENCES `posta` (`postna_st`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_uporabniki_3`
@@ -104,6 +111,19 @@ CREATE TABLE IF NOT EXISTS `uporabniki` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `potrditev_registracije` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `kljuc` VARCHAR(10) NOT NULL,
+  `uporabnik` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_potrd_reg_idx` (`uporabnik` ASC),
+  CONSTRAINT `fk_potrd_reg`
+  FOREIGN KEY (`uporabnik`)
+  REFERENCES `uporabniki` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+  ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `kosarice` (
   `id_uporabnika` INT NOT NULL,
