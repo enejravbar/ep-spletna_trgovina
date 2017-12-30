@@ -20,7 +20,8 @@ class EmailService {
         $headers = array(
             "From" => "<$sender>",
             "To" => "<$receiver>",
-            "Subject" => $sporocilo->getZadeva()
+            "Subject" => $sporocilo->getZadeva(),
+            "Content-Type" => "text/html; charset=UTF-8"
         );
 
         //nastavitev konfiguracije e-mail streznika
@@ -41,7 +42,13 @@ class EmailService {
         $mime->setTXTBody($sporocilo->getVsebina());
         $mime->setHTMLBody($sporocilo->getVsebina());
 
-        $body = $mime->get();
+        $mime_params = array(
+            "text_charset" => "UTF-8",
+            "html_charset" => "UTF-8",
+            "head_charset" => "UTF-8"
+        );
+
+        $body = $mime->get($mime_params);
         $headers = $mime->headers($headers);
 
         //poslji sporocilo
@@ -49,9 +56,9 @@ class EmailService {
 
         //handle errors
         if(PEAR::isError($mail)){
-            echo('<p>' . $mail->getMessage() . '</p>');
+            throw new Exception("Napaka pri posiljanju emaila!");
         } else {
-            echo('<p>Message successfully sent!</p>');
+            return true;
         }
 
     }

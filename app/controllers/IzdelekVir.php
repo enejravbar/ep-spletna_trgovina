@@ -53,9 +53,14 @@ class IzdelekVir {
     public static function shrani(){
         $data = filter_input_array(INPUT_POST, Izdelki::pridobiPravila());
 
+        $SLIKE = array();
+        for($i = 1; $i <= $data["st_slik"]; $i++){
+            array_push($SLIKE, $_FILES["slika" . $i]);
+        }
+
         if(ViewUtil::checkValues($data)){
             try {
-                $novi_izdelek = IzdelekService::shraniIzdelek($data, $_FILES["slika"]);
+                $novi_izdelek = IzdelekService::shraniIzdelek($data, $SLIKE);
                 echo ViewUtil::renderJSON($novi_izdelek, 201);
             } catch(InvalidArgumentException $e){
                 echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 400);

@@ -55,6 +55,7 @@ CREATE TABLE IF NOT EXISTS `slike` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `naziv` VARCHAR(45),
   `lokacija` VARCHAR(100) NOT NULL,
+  `ext` VARCHAR(10) NOT NULL,
   `izdelek` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_slike_idx` (`izdelek` ASC),

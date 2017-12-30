@@ -9,9 +9,9 @@
 
 
 <body>
-<br/>
-slika:
-<img src="<?= ROOT_URI . $slika_url ?>"/>
+    slika:
+    <br/>
+    <img src="<?= BASE_URL . "api/slike/1" ?>"/>
 </body>
 
 </html>

@@ -1,10 +1,18 @@
 <?php
 
 require_once "ViewUtil.php";
+// servisi
 require_once "app/service/EmailService.php";
 require_once "app/service/LogService.php";
 require_once "app/service/UporabnikService.php";
 require_once "app/service/FileService.php";
+// controllers / viri
+require_once "app/controllers/SlikaVir.php";
+require_once "app/controllers/IndexController.php";
+require_once "app/controllers/IzdelekVir.php";
+// debug
+require_once "app/models/Slika.php";
+
 
 class Usmerjevalniki {
 
@@ -38,13 +46,29 @@ class Usmerjevalniki {
                         break;
                 }
             },
+            // slike
+            "/^api\/slike\/izdelek\/(\d+)$/" => function($method, $id){
+                if($method == "POST"){
+                    SlikaVir::shraniSliko($id);
+                }
+            },
+            "/^api\/slike\/(\d+)$/" => function($method, $id){
+                switch ($method){
+                    case "DELETE":
+                        SlikaVir::izbrisiSliko($id);
+                        break;
+                    default:
+                        SlikaVir::prikaziSliko($id);
+                        break;
+                }
+            },
             //testni routi
             "/^test_mail$/" => function() {
                 $email = new Email(
                     "miha_jamsek@windowslive.com",
                     "Zadeva",
                     "app/views/confirmation-email.php",
-                    ["kljuc" => "kljuc123"]
+                    ["kljuc" => "kljuc123", "ime" => "Janez", "email" => "janez@gmail.com", "geslo" => "abc123"]
                 );
                 try {
                     EmailService::posljiEmail($email);
@@ -72,12 +96,12 @@ class Usmerjevalniki {
                     "slika_url" => "data/images/in-flames-desktop.jpg"
                     ]);
             },
-            "/^slika$/" => function($method){
+            "/^slika\/test$/" => function($method){
                 if($method == "POST"){
                     //shrani sliko
                     if(isset($_POST["submit"])){
                         try {
-                            FileService::naloziSliko($_FILES["img"]);
+                            FileService::naloziSliko($_FILES["img"], "testna_slika123");
                             echo ViewUtil::renderJSON(["msg" => "Uspeh!"], 200);
                         } catch(InvalidArgumentException $e){
                                 echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 400);
@@ -90,7 +114,11 @@ class Usmerjevalniki {
                 } else {
                     echo ViewUtil::render("app/views/slika.php");
                 }
+            },
+            "/^test\/izdelek\/(\d+)$/" => function($method, $id) {
+                echo Slika::pridobiStevilkoSlike(["izdelek_id" => $id]);
             }
+
 
 
         ];

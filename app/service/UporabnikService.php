@@ -11,49 +11,61 @@ require_once "app/models/PotrditevRegistracije.php";
 require_once "app/models/Email.php";
 require_once "app/service/EmailService.php";
 require_once "app/service/LogService.php";
+require_once "app/models/StatusUporabnik.php";
 
 class UporabnikService {
 
+    private static function pridobiZEmailom($email){
+        return Uporabniki::dobiUporabnikaGledeNaEmail(["email" => $email]);
+    }
+
     private static function generateConfirmationString(){
-        return substr(md5(rand()), 0, 10);
+        $potrditveni_kljuc = null;
+        do {
+            $potrditveni_kljuc = substr(md5(rand()), 0, 10);
+            if(PotrditevRegistracije::getByKey(["kljuc" => $potrditveni_kljuc]) != null){
+                $potrditveni_kljuc = null;
+            }
+        } while($potrditveni_kljuc == null);
+        return $potrditveni_kljuc;
     }
 
     public static function dodajUporabnika($podatki){
+
+        $origin_password = $podatki["geslo"];
+
         $uporabnik = Uporabniki::insert([
-            "vloga" => 1,
-            "ime" => "Janez",
-            "priimek" => "Janaa",
-            "email" => "miha_jamsek@windowslive.com",
-            "geslo" => "hahshsh",
-            "naslov" => 1,
-            "potrjen" => 0
+            "vloga" => $podatki["vloga"],
+            "ime" => $podatki["ime"],
+            "priimek" => $podatki["priimek"],
+            "email" => $podatki["email"],
+            "geslo" => password_hash($podatki["geslo"], PASSWORD_DEFAULT),
+            "naslov" => $podatki["naslov"],
+            "posta" => $podatki["posta"],
+            "status" => StatusUporabnik::getByName(["name" => "nepotrjen"])["id"]
         ]);
-        var_dump($uporabnik);
 
-        LogService::info("", "Registracija", "uporabnik $uporabnik je bil registriran!");
+        LogService::info("", "Registracija", "uporabnik " . $podatki["email"] . " je bil registriran!");
 
-        $potrditveni_kljuc = "-1";
-
-        do {
-            $potrditveni_kljuc = self::generateConfirmationString();
-        } while($potrditveni_kljuc != null);
+        $potrditveni_kljuc = self::generateConfirmationString();
 
         PotrditevRegistracije::insert([
             "kljuc" => $potrditveni_kljuc,
             "uporabnik" => $uporabnik
         ]);
 
-        $potrditveni_email = new Email("miha_jamsek@windowslive.com",
+        $potrditveni_email = new Email($podatki["email"],
             "Dobrodosel!",
             "app/views/confirmation-email.php",
-            ["kljuc" => $potrditveni_kljuc]);
+            ["kljuc" => $potrditveni_kljuc,
+             "ime" => $podatki["ime"],
+             "email" => $podatki["email"],
+             "geslo" => $origin_password
+            ]);
 
-        try{
-            EmailService::posljiEmail($potrditveni_email);
-        } catch(Exception $e){
-            echo "NAPAKA! " . $e;
-        }
+        EmailService::posljiEmail($potrditveni_email);
 
+        return Uporabniki::get(["id" => $uporabnik]);
     }
 
     public static function potrdiUporabnika($kljuc){

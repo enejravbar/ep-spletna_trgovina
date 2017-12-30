@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WIKI</title>
+</head>
+<body>
+
+<h1>Wiki</h1>
+
+<div id="izdelki">
+    <h2>Izdelki</h2>
+
+    <h3>Vstavljanje</h3>
+    <table>
+        <tr>
+            <th>Ime atributa</th>
+            <th>Tip</th>
+            <th>Komentar</th>
+        </tr>
+        <tr>
+            <td>kategorija</td>
+            <td>integer</td>
+            <td>polje je izbrano iz baze `kategorije`</td>
+        </tr>
+        <tr>
+            <td>ime</td>
+            <td>string</td>
+            <td>ime izdelka</td>
+        </tr>
+        <tr>
+            <td>opis</td>
+            <td>text (textarea)</td>
+            <td>opis izdelka - 1000 znakov</td>
+        </tr>
+        <tr>
+            <td>cena</td>
+            <td>double</td>
+            <td>cena izdelka</td>
+        </tr>
+        <tr>
+            <td>status</td>
+            <td>integer</td>
+            <td>polje je izbrano iz baze `status_izdelki`</td>
+        </tr>
+        <tr>
+            <td>st_slik</td>
+            <td>integer</td>
+            <td>skrito polje ki pove koliko slik je uporabnik dodal</td>
+        </tr>
+        <tr>
+            <td>slika1, slika2, slika3,...</td>
+            <td>file</td>
+            <td>vsaka nalozena slika je polje slikaX - lahko je od 0 do N slik</td>
+        </tr>
+    </table>
+    <br/>
+    Primer: <br/>
+    <img src="wiki/izdelek_POST.png"/>
+
+    <h3>Urejanje</h3>
+    <img src="wiki/izdelek-edit.png"/>
+    <br/>
+    1. Navadna polja so brez nekih posebnih stvari: <br/>
+    <ul>
+        <li>kategorija</li>
+        <li>ime</li>
+        <li>opis</li>
+        <li>cena</li>
+        <li>status</li>
+    </ul>
+    Slike se pa vse izrišejo, nato pa: <br/>
+    2. z AJAX klicem brišemo obstoječe slike<br/>
+    3. z AJAX klicem dodajamo nove slike <br/>
+</div>
+
+
+</body>
+</html>

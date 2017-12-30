@@ -9,6 +9,7 @@
 require_once "ConfigurationUtil.php";
 require_once "app/models/Izdelki.php";
 require_once "app/service/FileService.php";
+require_once "app/service/SlikaService.php";
 
 class IzdelekService {
 
@@ -42,23 +43,23 @@ class IzdelekService {
         }
     }
 
-    public static function shraniIzdelek($podatki, $SLIKA){
-        $IMG_ROOT = ConfigurationUtil::getConfByKey("images_root_dir");
-        $pot_do_slike = $IMG_ROOT . $SLIKA["name"];
-
-        FileService::naloziSliko($SLIKA);
-
+    public static function shraniIzdelek($podatki, array $SLIKE){
         $new_id = Izdelki::insert([
             "kategorija" => $podatki["kategorija"],
             "ime" => $podatki["ime"],
             "opis" => $podatki["opis"],
             "cena" => $podatki["cena"],
-            "status" => $podatki["status"],
-            "slika_url" => $pot_do_slike
+            "status" => $podatki["status"]
         ]);
         if($new_id == 0){
             throw new InvalidArgumentException("Napaka pri vstavljanju izdelka!");
         }
+
+        for($i = 0; $i < count($SLIKE); $i++){
+            SlikaService::shraniSlikoIzdelka($SLIKE[$i], $new_id);
+        }
+
+
         return self::pridobiEnIzdelek($new_id);
     }
 

@@ -16,15 +16,15 @@ class FileService {
     const GB = 1073741824;
     const TB = 1099511627776;
 
-    public static function naloziSliko($FILE){
+    public static function naloziSliko($FILE, $IME_SLIKE){
 
         $LOKACIJA = ConfigurationUtil::getConfByKey("images_root_dir");
 
-        // ime nove datoteke
-        $target_file = $LOKACIJA . basename($FILE["name"]);
-
         // pridobi tip datoteke
-        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        $imageFileType = strtolower(pathinfo(basename($FILE["name"]), PATHINFO_EXTENSION));
+
+        // ime nove datoteke
+        $target_file = $LOKACIJA . $IME_SLIKE . "." . $imageFileType;
 
         // preveri ce je datoteka veljavna
         $check = getimagesize($FILE["tmp_name"]);

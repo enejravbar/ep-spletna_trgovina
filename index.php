@@ -1,7 +1,5 @@
 <?php
 
-require_once "app/controllers/IndexController.php";
-require_once "app/controllers/IzdelekVir.php";
 require_once "ViewUtil.php";
 require_once "Usmerjevalniki.php";
 

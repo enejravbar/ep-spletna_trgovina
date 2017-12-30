@@ -5,7 +5,12 @@ require_once "app/models/Entiteta.php";
 class Uporabniki extends Entiteta {
 
     public static function dobiUporabnikaGledeNaEmail(array $email) {
-        return parent::query("SELECT * FROM uporabniki WHERE email = :email", $email);
+        $uporabnik = parent::query("SELECT * FROM uporabniki WHERE email = :email", $email);
+        if(count($uporabnik) == 1){
+            return $uporabnik[0];
+        } else {
+            throw new InvalidArgumentException("Ne najdem uporabnika z emailom: " . $email["email"]);
+        }
     }
 
     public static function get(array $id)
@@ -47,6 +52,19 @@ class Uporabniki extends Entiteta {
     public static function delete(array $id)
     {
         return parent::modify("DELETE FROM uporabniki WHERE id = :id", $id);
+    }
+
+    public static function getRules(){
+        return [
+            "vloga" => FILTER_VALIDATE_INT,
+            "ime" => FILTER_SANITIZE_SPECIAL_CHARS,
+            "priimek" => FILTER_SANITIZE_SPECIAL_CHARS,
+            "email" => FILTER_SANITIZE_SPECIAL_CHARS,
+            "geslo" => FILTER_SANITIZE_SPECIAL_CHARS,
+            "naslov" => FILTER_SANITIZE_SPECIAL_CHARS,
+            "posta" => FILTER_VALIDATE_INT,
+            "status" => FILTER_VALIDATE_INT
+        ];
     }
 
 }

@@ -34,14 +34,14 @@ INSERT INTO ep.izdelki(kategorija, ime, opis, cena, status)
   VALUES(1, 'Huawei P10', 'bla', 499.99, 3);
 
 -- slike
-INSERT INTO ep.slike(naziv, lokacija, izdelek)
-  VALUES('izdelek1-1.jpg', 'data/images/izdelek1-1.jpg', 1);
-INSERT INTO ep.slike(naziv, lokacija, izdelek)
-VALUES('izdelek2-1.jpg', 'data/images/izdelek2-1.jpg', 2);
-INSERT INTO ep.slike(naziv, lokacija, izdelek)
-VALUES('izdelek3-1.jpg', 'data/images/izdelek3-1.jpg', 3);
-INSERT INTO ep.slike(naziv, lokacija, izdelek)
-VALUES('izdelek3-2.jpg', 'data/images/izdelek3-2.jpg', 3);
+INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
+  VALUES('izdelek1-1.jpg', 'data/images/izdelek1-1.jpg', 'jpg', 1);
+INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
+VALUES('izdelek2-1.jpg', 'data/images/izdelek2-1.jpg', 'jpg', 2);
+INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
+VALUES('izdelek3-1.jpg', 'data/images/izdelek3-1.jpg', 'jpg', 3);
+INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
+VALUES('izdelek3-2.jpg', 'data/images/izdelek3-2.jpg', 'jpg', 3);
 
 -- posta
 INSERT INTO ep.posta(postna_st, naziv) VALUES(5000, 'Nova Gorica');
