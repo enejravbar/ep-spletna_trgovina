@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,8 @@ public class GlavnaStran extends AppCompatActivity implements Callback<List<Kate
     private ListView seznam;
     private SwipeRefreshLayout container;
     private KategorijaAdapter kategorijaAdapter;
+    private Button odjavaGumb;
+    private Button profilGumb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,26 @@ public class GlavnaStran extends AppCompatActivity implements Callback<List<Kate
 
         seznam = (ListView) findViewById(R.id.kategorije);
 
+        // odjava
+        odjavaGumb = (Button) findViewById(R.id.logout_btn);
+        odjavaGumb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GlavnaStran.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // profil uporabnika
+        profilGumb = (Button) findViewById(R.id.profile_btn);
+        profilGumb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //pojdi na stran profila
+            }
+        });
+
+        // populate seznam
         kategorijaAdapter = new KategorijaAdapter(this);
         seznam.setAdapter(kategorijaAdapter);
         seznam.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -51,6 +74,7 @@ public class GlavnaStran extends AppCompatActivity implements Callback<List<Kate
             }
         });
 
+        // on refresh
         container = (SwipeRefreshLayout) findViewById(R.id.kategorije_container);
         container.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
             @Override
@@ -60,8 +84,6 @@ public class GlavnaStran extends AppCompatActivity implements Callback<List<Kate
         });
 
         KategorijaService.getInstance().vrniVse().enqueue(GlavnaStran.this);
-
-        //SessionVar session = (SessionVar) getApplicationContext();
     }
 
     @Override

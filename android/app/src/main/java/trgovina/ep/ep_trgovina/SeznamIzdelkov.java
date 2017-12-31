@@ -30,9 +30,7 @@ public class SeznamIzdelkov extends AppCompatActivity implements Callback<List<I
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seznam_izdelkov);
 
-        Log.i("ID", "Berem ID...");
         idKategorije = preberiID(getIntent());
-        Log.i("ID", idKategorije+"");
 
         seznam = (ListView) findViewById(R.id.izdelki);
 
@@ -45,9 +43,11 @@ public class SeznamIzdelkov extends AppCompatActivity implements Callback<List<I
                 final Izdelek izdelek = izdelekAdapter.getItem(position);
                 if(izdelek != null){
                     Log.i("TAG", "Prikazujem izdelek: " + izdelek.id);
-                    /*final Intent intent = new Intent(SeznamIzdelkov.this, null);
-                    intent.putExtra("izdelek.id", izdelek.id);
-                    startActivity(intent);*/
+                    final Intent intent = new Intent(SeznamIzdelkov.this, PodrobnostIzdelka.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putLong("izdelek.id", izdelek.id);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                 }
             }
         });

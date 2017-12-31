@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `izdelki` (
   `kategorija` INT NOT NULL,
   `ime` VARCHAR(45) NOT NULL,
   `opis` VARCHAR(1000) NULL,
-  `cena` INT NOT NULL,
+  `cena` DOUBLE NOT NULL,
   `status` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_izdelki_1_idx` (`kategorija` ASC),

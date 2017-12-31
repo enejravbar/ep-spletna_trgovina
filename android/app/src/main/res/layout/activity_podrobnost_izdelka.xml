@@ -6,4 +6,64 @@
     android:layout_height="match_parent"
     tools:context="trgovina.ep.ep_trgovina.PodrobnostIzdelka">
 
+    <TextView
+        android:id="@+id/izd_naziv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="40dp"
+        android:text="Naziv izdelka"
+        android:textSize="30sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="30dp" />
+
+    <TextView
+        android:id="@+id/izd_cena"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:text="{cena}"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toRightOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/izd_naziv"
+        android:layout_marginStart="15dp" />
+
+    <TextView
+        android:id="@+id/izd_opis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:text="Opis izdelka"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/izdelek_cena"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/izd_naziv"
+        android:layout_marginStart="30dp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="20dp"
+        android:text="€"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toRightOf="@+id/izd_cena"
+        app:layout_constraintTop_toBottomOf="@+id/izd_naziv"
+        android:layout_marginStart="2dp" />
+
 </android.support.constraint.ConstraintLayout>
