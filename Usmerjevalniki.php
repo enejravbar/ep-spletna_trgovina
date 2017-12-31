@@ -10,6 +10,8 @@ require_once "app/service/FileService.php";
 require_once "app/controllers/SlikaVir.php";
 require_once "app/controllers/IndexController.php";
 require_once "app/controllers/IzdelekVir.php";
+require_once "app/controllers/PrijavaVir.php";
+require_once "app/controllers/UporabnikVir.php";
 // debug
 require_once "app/models/Slika.php";
 
@@ -21,6 +23,40 @@ class Usmerjevalniki {
             //index page
             "/^$/" => function() {
                 IndexController::index();
+            },
+            // login
+            "/^prijava$/" => function($method){
+                switch($method){
+                    case "POST":
+                        PrijavaVir::prijaviUporabnika();
+                        break;
+                    default:
+                        break;
+                }
+            },
+            //uporabniki
+            "/^api\/uporabniki$/" => function($method){
+                switch($method){
+                    case "POST":
+                        UporabnikVir::dodajUporabnika();
+                        break;
+                    default:
+                        UporabnikVir::pridobiVse();
+                        break;
+                }
+            },
+            "/^api\/uporabniki\/(\d+)$/" => function($method, $id){
+                switch($method){
+                    case "DELETE":
+                        UporabnikVir::izbrisiUporabnika($id);
+                        break;
+                    case "PUT":
+                        UporabnikVir::posodobiUporabnika($id);
+                        break;
+                    default:
+                        UporabnikVir::pridobiEnega($id);
+                        break;
+                }
             },
             // izdelki
             "/^api\/izdelki\/(\d+)$/" => function($method, $id = null){

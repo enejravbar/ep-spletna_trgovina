@@ -5,6 +5,7 @@ require_once "Mail/mime.php";
 require_once "app/models/Email.php";
 require_once "ConfigurationUtil.php";
 require_once "ViewUtil.php";
+require_once "app/service/LogService.php";
 
 class EmailService {
 
@@ -56,6 +57,7 @@ class EmailService {
 
         //handle errors
         if(PEAR::isError($mail)){
+            LogService::error("", "NAPAKA", "Napaka pri posiljanju emaila na naslov " . $sporocilo->getPrejemnik());
             throw new Exception("Napaka pri posiljanju emaila!");
         } else {
             return true;

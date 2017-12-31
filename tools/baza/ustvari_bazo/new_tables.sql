@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `uporabniki` (
   `ime` VARCHAR(45) NOT NULL,
   `priimek` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
-  `geslo` VARCHAR(80) NOT NULL,
+  `geslo` VARCHAR(200) NOT NULL,
   `naslov` VARCHAR(200),
   `posta` INT,
   `status` INT NOT NULL,

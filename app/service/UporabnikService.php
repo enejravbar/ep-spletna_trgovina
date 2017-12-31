@@ -15,8 +15,41 @@ require_once "app/models/StatusUporabnik.php";
 
 class UporabnikService {
 
-    private static function pridobiZEmailom($email){
+    public static function vrniVse(){
+        return Uporabniki::getAll();
+    }
+
+    public static function vrniEnega($id){
+        return Uporabniki::get(["id" => $id]);
+    }
+
+    public static function pridobiZEmailom($email){
         return Uporabniki::dobiUporabnikaGledeNaEmail(["email" => $email]);
+    }
+
+    public static function preveriPrijavoUporabnika($input){
+        $uporabnik = self::pridobiZEmailom($input["email"]);
+        if(password_verify($input["geslo"], $uporabnik["geslo"])){
+            return $uporabnik;
+        } else {
+            return null;
+        }
+    }
+
+    public static function posodobiUporabnika($podatki){
+        $rowAffected = Uporabniki::update([
+           "id" => $podatki["id"],
+           "vloga" => $podatki["vloga"],
+           "ime" => $podatki["ime"],
+           "priimek" => $podatki["priimek"],
+           "email" => $podatki["email"],
+           "geslo" => password_hash($podatki["geslo"], PASSWORD_DEFAULT),
+           "naslov" => $podatki["naslov"],
+           "posta" => $podatki["posta"]
+        ]);
+        if($rowAffected <= 0){
+            throw new InvalidArgumentException("Napaka pri posodabljanju izdelka!");
+        }
     }
 
     private static function generateConfirmationString(){
@@ -55,7 +88,7 @@ class UporabnikService {
         ]);
 
         $potrditveni_email = new Email($podatki["email"],
-            "Dobrodosel!",
+            "Dobrodošel!",
             "app/views/confirmation-email.php",
             ["kljuc" => $potrditveni_kljuc,
              "ime" => $podatki["ime"],
@@ -71,11 +104,27 @@ class UporabnikService {
     public static function potrdiUporabnika($kljuc){
         $potrditev = PotrditevRegistracije::getByKey(["kljuc" => $kljuc]);
 
-        Uporabniki::spremeniPotrjen(["potrjen" => 1, "id" => $potrditev["uporabnik"]]);
+        Uporabniki::spremeniPotrjen(["status" => StatusUporabnik::getByName(["name" => "aktiven"])["id"], "id" => $potrditev["uporabnik"]]);
 
         LogService::info("", "Potrditev registracije", "Uporabnik" . $potrditev["uporabnik"] . " je potrdil registracijo!");
 
         PotrditevRegistracije::delete(["id" => $potrditev["id"]]);
+    }
+
+    public static function izbrisiUporabnika($id){
+        if(self::jeNepotrjen($id)){
+            $rows = PotrditevRegistracije::deleteByUporabnik(["id" => $id]);
+        }
+        $rowsAffected = Uporabniki::delete(["id" => $id]);
+        echo "VRSTIC: " . $rowsAffected;
+        if($rowsAffected <= 0){
+            throw new InvalidArgumentException("Napaka pri brisanju uporabnika!");
+        }
+    }
+
+    private static function jeNepotrjen($id){
+        $uporabnik = Uporabniki::get(["id" => $id]);
+        return $uporabnik["status"] == StatusUporabnik::getByName(["name" => "nepotrjen"])["id"];
     }
 
 }

@@ -28,30 +28,29 @@ class Uporabniki extends Entiteta {
         return parent::query("SELECT * FROM uporabniki ORDER BY id ASC");
     }
 
-    public static function insert(array $params)
-    {
+    public static function insert(array $params) {
         return parent::modify(
-            "INSERT INTO uporabniki(vloga, ime, priimek, email, geslo, naslov, potrjen) " .
-                "VALUES(:vloga, :ime, :priimek, :email, :geslo, :naslov, :potrjen)",
+            "INSERT INTO uporabniki(vloga, ime, priimek, email, geslo, naslov, posta, status) " .
+                "VALUES(:vloga, :ime, :priimek, :email, :geslo, :naslov, :posta, :status)",
             $params
         );
+    }
+
+    public static function update(array $params) {
+        return parent::modify_update(
+            "UPDATE uporabniki SET vloga = :vloga, ime = :ime, priimek = :priimek, ".
+            "email = :email, geslo = :geslo, naslov = :naslov, posta = :posta, ".
+            "status = :status WHERE id = :id",
+            $params
+        );
+    }
+
+    public static function delete(array $id){
+        return parent::modify_update("DELETE FROM uporabniki WHERE id = :id", $id);
     }
 
     public static function spremeniPotrjen(array $params){
-        return parent::modify("UPDATE uporabniki SET potrjen = :potrjen WHERE id = :id", $params);
-    }
-
-    public static function update(array $params)
-    {
-        return parent::modify(
-            "UPDATE uporabniki SET vloga = :vloga, ime = :ime, priimek = :priimek, email = :email, geslo = :geslo, naslov = :naslov, status = :status WHERE id = :id",
-            $params
-        );
-    }
-
-    public static function delete(array $id)
-    {
-        return parent::modify("DELETE FROM uporabniki WHERE id = :id", $id);
+        return parent::modify("UPDATE uporabniki SET status = :status WHERE id = :id", $params);
     }
 
     public static function getRules(){
@@ -62,8 +61,14 @@ class Uporabniki extends Entiteta {
             "email" => FILTER_SANITIZE_SPECIAL_CHARS,
             "geslo" => FILTER_SANITIZE_SPECIAL_CHARS,
             "naslov" => FILTER_SANITIZE_SPECIAL_CHARS,
-            "posta" => FILTER_VALIDATE_INT,
-            "status" => FILTER_VALIDATE_INT
+            "posta" => FILTER_VALIDATE_INT
+        ];
+    }
+
+    public static function getLoginRules(){
+        return [
+          "email" => FILTER_SANITIZE_SPECIAL_CHARS,
+          "geslo" => FILTER_SANITIZE_SPECIAL_CHARS
         ];
     }
 

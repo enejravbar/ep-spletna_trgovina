@@ -41,10 +41,15 @@ class PotrditevRegistracije extends Entiteta {
     }
 
     public static function update(array $params) {
-        return parent::modify("UPDATE potrditev_registracije SET kljuc = :kljuc WHERE id = :id", $params);
+        return parent::modify_update("UPDATE potrditev_registracije SET kljuc = :kljuc WHERE id = :id", $params);
     }
 
     public static function delete(array $id) {
-        return parent::modify("DELETE FROM potrditev_registracije WHERE id = :id", $id);
+        return parent::modify_update("DELETE FROM potrditev_registracije WHERE id = :id", $id);
     }
+
+    public static function deleteByUporabnik(array $id){
+        return parent::modify_update("DELETE FROM potrditev_registracije WHERE uporabnik = :id", $id);
+    }
+
 }
