@@ -98,7 +98,9 @@ class UporabnikService {
 
         EmailService::posljiEmail($potrditveni_email);
 
-        return Uporabniki::get(["id" => $uporabnik]);
+        $vrni_uporabnika = Uporabniki::get(["id" => $uporabnik]);
+        unset($vrni_uporabnika["geslo"]);
+        return $vrni_uporabnika;
     }
 
     public static function potrdiUporabnika($kljuc){

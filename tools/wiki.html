@@ -73,6 +73,63 @@
     2. z AJAX klicem brišemo obstoječe slike<br/>
     3. z AJAX klicem dodajamo nove slike <br/>
 </div>
+<div id="uporabniki">
+    <h2>Uporabniki</h2>
+
+    <h3>Vstavljanje</h3>
+    <table>
+        <tr>
+            <th>Ime atributa</th>
+            <th>Tip</th>
+            <th>Komentar</th>
+        </tr>
+        <tr>
+            <td>vloga</td>
+            <td>integer</td>
+            <td>polje je izbrano iz baze `vloge`</td>
+        </tr>
+        <tr>
+            <td>ime</td>
+            <td>string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>priimek</td>
+            <td>string</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>email</td>
+            <td>string</td>
+            <td>unikaten v bazi</td>
+        </tr>
+        <tr>
+            <td>geslo</td>
+            <td>string</td>
+            <td>hash v bazi</td>
+        </tr>
+        <tr>
+            <td>naslov</td>
+            <td>string</td>
+            <td>ulica in hišna številka</td>
+        </tr>
+        <tr>
+            <td>posta</td>
+            <td>integer</td>
+            <td>postna stevilka, ki je primarni kljuc v tabeli `posta`</td>
+        </tr>
+        <tr>
+            <td>status</td>
+            <td>integer</td>
+            <td>se ga ne pošilja s formo, ampak se ga posebej hendla z drugimi klici. je definiran v bazi `status_uporabniki`</td>
+        </tr>
+    </table>
+    <br/>
+    Primer:<br/>
+    <img src="wiki/uporabnik_POST.png"/>
+
+
+</div>
 
 
 </body>
