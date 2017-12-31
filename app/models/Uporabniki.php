@@ -23,9 +23,12 @@ class Uporabniki extends Entiteta {
         }
     }
 
-    public static function getAll()
-    {
+    public static function getAll() {
         return parent::query("SELECT * FROM uporabniki ORDER BY id ASC");
+    }
+
+    public static function getAllSafe(){
+        return parent::query("SELECT id, vloga, ime, priimek, email, naslov, posta, status FROM uporabniki");
     }
 
     public static function insert(array $params) {

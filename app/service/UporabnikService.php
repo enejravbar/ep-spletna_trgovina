@@ -16,11 +16,17 @@ require_once "app/models/StatusUporabnik.php";
 class UporabnikService {
 
     public static function vrniVse(){
+        return Uporabniki::getAllSafe();
+    }
+
+    public static function vrniVseZGeslom(){
         return Uporabniki::getAll();
     }
 
     public static function vrniEnega($id){
-        return Uporabniki::get(["id" => $id]);
+        $uporabnik = Uporabniki::get(["id" => $id]);
+        unset($uporabnik["geslo"]);
+        return $uporabnik;
     }
 
     public static function pridobiZEmailom($email){
@@ -29,7 +35,8 @@ class UporabnikService {
 
     public static function preveriPrijavoUporabnika($input){
         $uporabnik = self::pridobiZEmailom($input["email"]);
-        if(password_verify($input["geslo"], $uporabnik["geslo"])){
+        if(password_verify($input["geslo"], $uporabnik["geslo"]) && self::jeAktiven($uporabnik["id"])){
+            unset($uporabnik["geslo"]);
             return $uporabnik;
         } else {
             return null;
@@ -127,6 +134,11 @@ class UporabnikService {
     private static function jeNepotrjen($id){
         $uporabnik = Uporabniki::get(["id" => $id]);
         return $uporabnik["status"] == StatusUporabnik::getByName(["name" => "nepotrjen"])["id"];
+    }
+
+    private static function jeAktiven($id){
+        $uporabnik = Uporabniki::get(["id" => $id]);
+        return $uporabnik["status"] == StatusUporabnik::getByName(["name" => "aktiven"])["id"];
     }
 
 }

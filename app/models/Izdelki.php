@@ -8,8 +8,8 @@ class Izdelki extends Entiteta {
         return parent::query("SELECT * FROM izdelki ORDER BY :kaj :smer", $params);
     }
 
-    public static function dobiSortiraneIzdelkeIzKategorije(array $params) {
-        return parent::query("SELECT * FROM izdelki WHERE kategorija = :kategorija ORDER BY :kaj :smer", $params);
+    public static function dobiIzdelkeIzKategorije(array $params) {
+        return parent::query("SELECT * FROM izdelki WHERE kategorija = :kategorija", $params);
     }
 
     public static function get(array $id) {

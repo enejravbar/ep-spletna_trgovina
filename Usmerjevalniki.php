@@ -12,6 +12,7 @@ require_once "app/controllers/IndexController.php";
 require_once "app/controllers/IzdelekVir.php";
 require_once "app/controllers/PrijavaVir.php";
 require_once "app/controllers/UporabnikVir.php";
+require_once "app/controllers/KategorijaVir.php";
 // debug
 require_once "app/models/Slika.php";
 
@@ -25,7 +26,7 @@ class Usmerjevalniki {
                 IndexController::index();
             },
             // login
-            "/^prijava$/" => function($method){
+            "/^api\/prijava$/" => function($method){
                 switch($method){
                     case "POST":
                         PrijavaVir::prijaviUporabnika();
@@ -81,6 +82,13 @@ class Usmerjevalniki {
                         IzdelekVir::getAll();
                         break;
                 }
+            },
+            // kategorije
+            "/^api\/kategorije$/" => function($method){
+                KategorijaVir::pridobiVse();
+            },
+            "/^api\/kategorije\/(\d+)\/izdelki$/" => function($method, $id){
+                KategorijaVir::pridobiVseIzdelkeIzKategorije($id);
             },
             // slike
             "/^api\/slike\/izdelek\/(\d+)$/" => function($method, $id){

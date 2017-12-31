@@ -22,7 +22,7 @@ class PrijavaVir {
             echo ViewUtil::renderJSON(["napaka" => "Napačen e-mail in/ali geslo!"], 400);
         } else {
             //prijava je uspela
-            echo ViewUtil::renderJSON(["prijavljen_uporabnik" => $uporabnik], 200);
+            echo ViewUtil::renderJSON($uporabnik, 200);
         }
 
     }
