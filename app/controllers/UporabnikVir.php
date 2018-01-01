@@ -69,4 +69,12 @@ class UporabnikVir {
         }
     }
 
+    public static function posredujUporabnikaZSeznamomPost($id){
+        try {
+            echo ViewUtil::renderJSON(UporabnikService::vrniUporabnikaSSeznamomPost($id), 200);
+        } catch(InvalidArgumentException $e){
+            echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 400);
+        }
+    }
+
 }

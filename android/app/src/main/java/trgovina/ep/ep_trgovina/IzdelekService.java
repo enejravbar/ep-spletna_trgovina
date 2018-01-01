@@ -8,6 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import trgovina.ep.ep_trgovina.models.Izdelek;
+import trgovina.ep.ep_trgovina.models.IzdelekResponse;
 
 /**
  * Created by miha on 31.12.2017.
@@ -24,7 +25,7 @@ public class IzdelekService {
         Call<List<Izdelek>> vrniVsePoKategoriji(@Path("id") int id);
 
         @GET("izdelki/{id}")
-        Call<Izdelek> vrniEnega(@Path("id") long id);
+        Call<IzdelekResponse> vrniEnega(@Path("id") long id);
 
     }
 

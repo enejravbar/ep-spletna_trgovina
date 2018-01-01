@@ -21,7 +21,8 @@
         </activity>
         <activity android:name=".GlavnaStran" />
         <activity android:name=".SeznamIzdelkov" />
-        <activity android:name=".PodrobnostIzdelka"></activity>
+        <activity android:name=".PodrobnostIzdelka" />
+        <activity android:name=".UporabnikovProfil"></activity>
     </application>
 
 </manifest>

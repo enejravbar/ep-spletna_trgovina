@@ -3,6 +3,7 @@
 require_once "ViewUtil.php";
 require_once "app/models/Izdelki.php";
 require_once "app/service/IzdelekService.php";
+require_once "app/service/SlikaService.php";
 
 class IzdelekVir {
 
@@ -14,7 +15,9 @@ class IzdelekVir {
     // GET /izdelki/:id
     public static function get($id){
         try {
-            echo ViewUtil::renderJSON(IzdelekService::pridobiEnIzdelek($id), 200);
+            $izdelek = IzdelekService::pridobiEnIzdelek($id);
+            $slike = SlikaService::pridobiSlikeIzdelka($id);
+            echo ViewUtil::renderJSON(["izdelek" => $izdelek, "slike" => $slike], 200);
         } catch (InvalidArgumentException $e){
             echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 404);
         }

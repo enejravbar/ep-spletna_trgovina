@@ -59,6 +59,9 @@ class Usmerjevalniki {
                         break;
                 }
             },
+            "/^api\/android\/uporabniki\/(\d+)$/" => function($method, $id){
+                UporabnikVir::posredujUporabnikaZSeznamomPost($id);
+            },
             // izdelki
             "/^api\/izdelki\/(\d+)$/" => function($method, $id = null){
                 switch($method){

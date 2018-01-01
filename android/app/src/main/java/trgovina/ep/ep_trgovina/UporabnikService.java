@@ -9,6 +9,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import trgovina.ep.ep_trgovina.models.Uporabnik;
+import trgovina.ep.ep_trgovina.models.UporabnikResponse;
 
 /**
  * Created by miha on 31.12.2017.
@@ -20,8 +21,8 @@ public class UporabnikService {
         String HOST_LOKALNEGA_RACUNALNIKA = "10.0.2.2";
         String URL = "http://" + HOST_LOKALNEGA_RACUNALNIKA + "/pstorm/ep-spletna_trgovina/api/";
 
-        @GET("uporabniki/{id}")
-        Call<Uporabnik> get(@Path("id") long id);
+        @GET("android/uporabniki/{id}")
+        Call<UporabnikResponse> get(@Path("id") long id);
 
         @FormUrlEncoded
         @POST("prijava")

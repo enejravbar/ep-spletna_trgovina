@@ -1,15 +1,14 @@
 package trgovina.ep.ep_trgovina;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -41,8 +40,14 @@ public class GlavnaStran extends AppCompatActivity implements Callback<List<Kate
         odjavaGumb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GlavnaStran.this, MainActivity.class);
-                startActivity(intent);
+                SessionVar session = (SessionVar) getApplicationContext();
+                if(session != null){
+                    session.prijavljeniUporabnik = null;
+                    Intent intent = new Intent(GlavnaStran.this, MainActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(GlavnaStran.this, "Napaka pri odjavi!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -52,6 +57,8 @@ public class GlavnaStran extends AppCompatActivity implements Callback<List<Kate
             @Override
             public void onClick(View v) {
                 //pojdi na stran profila
+                Intent intent = new Intent(GlavnaStran.this, UporabnikovProfil.class);
+                startActivity(intent);
             }
         });
 

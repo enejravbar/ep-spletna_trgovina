@@ -51,23 +51,33 @@ public class MainActivity extends AppCompatActivity implements Callback<Uporabni
     public void onResponse(Call<Uporabnik> call, Response<Uporabnik> response) {
         final Uporabnik prijavljeniUporabnik = response.body();
 
-        /*if(prijavljeniUporabnik == null){
+        if(prijavljeniUporabnik == null){
             izpis_napaka.setText("Napačen e-mail in/ali geslo!");
         } else {
             SessionVar session = (SessionVar) getApplicationContext();
-            session.prijavljeniUporabnik = prijavljeniUporabnik;
-            Intent intent = new Intent(MainActivity.this, GlavnaStran.class);
-            startActivity(intent);
-        }*/
-
-        Intent intent = new Intent(MainActivity.this, GlavnaStran.class);
-        startActivity(intent);
-
+            if(session != null){
+                session.prijavljeniUporabnik = prijavljeniUporabnik;
+                Intent intent = new Intent(MainActivity.this, GlavnaStran.class);
+                startActivity(intent);
+            } else {
+                izpis_napaka.setText("Napaka pri prijavi!");
+            }
+        }
     }
 
     @Override
     public void onFailure(Call<Uporabnik> call, Throwable t) {
         Log.e(TAG, "Napaka: " + t.getMessage(), t);
         izpis_napaka.setText("Napaka pri pridobivanju podatkov!");
+    }
+
+    @Override
+    public void onBackPressed() {
+        SessionVar session = (SessionVar) getApplicationContext();
+        if(session != null){
+            if(session.prijavljeniUporabnik != null){
+                super.onBackPressed();
+            }
+        }
     }
 }

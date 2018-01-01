@@ -27,11 +27,11 @@ INSERT INTO ep.vloge(naziv) VALUES('stranka');
 
 -- izdelki
 INSERT INTO ep.izdelki(kategorija, ime, opis, cena, status)
-  VALUES (1, 'HTC One', 'bla', 399.99, 1);
+  VALUES (1, 'HTC One', 'Preizkusite najnovejši model znamke HTC - HTC One!\n\nTo je telefon velikih zmogljivosti, ki vam bo zdržal veliko več kot ostala poceni kitajska roba.', 399.99, 1);
 INSERT INTO ep.izdelki(kategorija, ime, opis, cena, status)
-  VALUES(2, 'Polnilec za HTC One', 'bla', 12.95, 2);
+  VALUES(2, 'Polnilec za HTC One', 'To je super polnilec za telefon, ki deluje za vse HTC telefone, pa tudi za nekatere druge.\n\nKupite ga še danes in poglejte kaj pomeni imeti super polnilec', 12.95, 2);
 INSERT INTO ep.izdelki(kategorija, ime, opis, cena, status)
-  VALUES(1, 'Huawei P10', 'bla', 499.99, 3);
+  VALUES(1, 'Huawei P10', 'Moderen telefon z visoko zmogljivostjo za nizko ceno!\n\nKamera 10MP, 4GB RAM-a, baterija ki zdrži 20h.\n\nKaj še čakate? Naročite zdaj!', 499.99, 3);
 
 -- slike
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
@@ -57,7 +57,8 @@ INSERT INTO ep.uporabniki(vloga, ime, priimek, email, geslo, naslov, posta, stat
   VALUES (1, 'Admir', 'Adminović', 'admin@moj-shop.si', 'hash', 'Ulica Darinka Dragota 83a', 1000, 1);
 INSERT INTO ep.uporabniki(vloga, ime, priimek, email, geslo, naslov, posta, status)
   VALUES (2, 'Matej', 'Bizjak', 'matejb96@gmail.com', 'hash', 'Gradnikove brigade 19', 5000, 3);
-
+INSERT INTO ep.uporabniki(vloga, ime, priimek, email, geslo, naslov, posta, status)
+  VALUES (3, 'Miha', 'Jamšek', 'miha_jamsek@windowslive.com', '$2y$10$15CJEaukxLwUq1HVrT43h.cb4BPY3rywRm./vxnhtuT.yp7Lp6yYG', 'Iztokova 4', 5000, 1);
 -- ocene
 INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(1, 1, 4);
 INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(1, 2, 5);

@@ -7,21 +7,26 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import trgovina.ep.ep_trgovina.adapters.SlikaAdapter;
 import trgovina.ep.ep_trgovina.models.Izdelek;
+import trgovina.ep.ep_trgovina.models.IzdelekResponse;
 
-public class PodrobnostIzdelka extends AppCompatActivity implements Callback<Izdelek> {
+public class PodrobnostIzdelka extends AppCompatActivity implements Callback<IzdelekResponse> {
 
     private TextView izdelek_ime;
     private TextView izdelek_cena;
     private TextView izdelek_opis;
     private long idIzdelka;
-    private Izdelek izdelek;
+    private IzdelekResponse izdelekResp;
+    private ListView slike;
+    private SlikaAdapter slikaAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +36,12 @@ public class PodrobnostIzdelka extends AppCompatActivity implements Callback<Izd
         izdelek_cena = (TextView) findViewById(R.id.izd_cena);
         izdelek_ime = (TextView) findViewById(R.id.izd_naziv);
         izdelek_opis = (TextView) findViewById(R.id.izd_opis);
+        slike = (ListView) findViewById(R.id.seznam_slik);
 
         idIzdelka = preberiID(getIntent());
+
+        slikaAdapter = new SlikaAdapter(this);
+        slike.setAdapter(slikaAdapter);
 
         if(idIzdelka > 0){
             IzdelekService.getInstance().vrniEnega(idIzdelka).enqueue(PodrobnostIzdelka.this);
@@ -40,20 +49,24 @@ public class PodrobnostIzdelka extends AppCompatActivity implements Callback<Izd
     }
 
     @Override
-    public void onResponse(Call<Izdelek> call, Response<Izdelek> response) {
-        izdelek = response.body();
+    public void onResponse(Call<IzdelekResponse> call, Response<IzdelekResponse> response) {
+        izdelekResp = response.body();
+
+        Log.i("DEBUG", izdelekResp.toString());
 
         if(response.isSuccessful()){
-            izdelek_cena.setText(String.valueOf(izdelek.cena));
-            izdelek_opis.setText(izdelek.opis);
-            izdelek_ime.setText(izdelek.ime);
+            slikaAdapter.clear();
+            slikaAdapter.addAll(izdelekResp.slike);
+            izdelek_cena.setText(String.valueOf(izdelekResp.izdelek.cena));
+            izdelek_opis.setText(izdelekResp.izdelek.opis);
+            izdelek_ime.setText(izdelekResp.izdelek.ime);
         } else {
             Toast.makeText(this, "NAPAKA!", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
-    public void onFailure(Call<Izdelek> call, Throwable t) {
+    public void onFailure(Call<IzdelekResponse> call, Throwable t) {
         Log.e("NAPAKA", "napaka: " + t.getMessage(), t);
     }
 

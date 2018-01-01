@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import trgovina.ep.ep_trgovina.adapters.IzdelekAdapter;
 import trgovina.ep.ep_trgovina.models.Izdelek;
+import trgovina.ep.ep_trgovina.seja.SessionVar;
 
 public class SeznamIzdelkov extends AppCompatActivity implements Callback<List<Izdelek>> {
 
@@ -24,6 +26,8 @@ public class SeznamIzdelkov extends AppCompatActivity implements Callback<List<I
     private SwipeRefreshLayout container;
     private IzdelekAdapter izdelekAdapter;
     private int idKategorije;
+    private Button logout_btn2;
+    private Button profile_btn2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,8 @@ public class SeznamIzdelkov extends AppCompatActivity implements Callback<List<I
         idKategorije = preberiID(getIntent());
 
         seznam = (ListView) findViewById(R.id.izdelki);
+        logout_btn2 = (Button) findViewById(R.id.logout_btn2);
+        profile_btn2 = (Button) findViewById(R.id.profile_btn2);
 
         izdelekAdapter = new IzdelekAdapter(this);
         seznam.setAdapter(izdelekAdapter);
@@ -49,6 +55,28 @@ public class SeznamIzdelkov extends AppCompatActivity implements Callback<List<I
                     intent.putExtras(bundle);
                     startActivity(intent);
                 }
+            }
+        });
+
+        logout_btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SessionVar session = (SessionVar) getApplicationContext();
+                if(session != null){
+                    session.prijavljeniUporabnik = null;
+                    Intent intent = new Intent(SeznamIzdelkov.this, MainActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(SeznamIzdelkov.this, "Napaka pri odjavi!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        profile_btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SeznamIzdelkov.this, UporabnikovProfil.class);
+                startActivity(intent);
             }
         });
 

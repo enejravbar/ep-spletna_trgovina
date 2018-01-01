@@ -32,6 +32,10 @@ class SlikaService {
         Slika::insert(["naziv" => $ime_slike, "lokacija" => $target_file, "ext" => $imageFileType, "izdelek" => $ID_IZDELKA]);
     }
 
+    public static function pridobiSlikeIzdelka($id){
+        return Slika::pridobiSlikeIzdelka(["id_izdelka" => $id]);
+    }
+
     public static function izbrisiSliko($id){
         $slika = Slika::get(["id" => $id]);
         FileService::izbrisiDatoteko($slika["lokacija"]);

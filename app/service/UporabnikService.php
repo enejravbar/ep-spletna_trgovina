@@ -12,6 +12,7 @@ require_once "app/models/Email.php";
 require_once "app/service/EmailService.php";
 require_once "app/service/LogService.php";
 require_once "app/models/StatusUporabnik.php";
+require_once "app/models/Posta.php";
 
 class UporabnikService {
 
@@ -139,6 +140,13 @@ class UporabnikService {
     private static function jeAktiven($id){
         $uporabnik = Uporabniki::get(["id" => $id]);
         return $uporabnik["status"] == StatusUporabnik::getByName(["name" => "aktiven"])["id"];
+    }
+
+    public static function vrniUporabnikaSSeznamomPost($id){
+        $uporabnik = Uporabniki::get(["id" => $id]);
+        unset($uporabnik["geslo"]);
+        $poste = Posta::getAll();
+        return ["uporabnik" => $uporabnik, "poste" => $poste];
     }
 
 }
