@@ -12,4 +12,11 @@ public class Posta implements Serializable {
 
     public String naziv;
 
+    @Override
+    public String toString() {
+        return "Posta{" +
+                "postna_st=" + postna_st +
+                ", naziv='" + naziv + '\'' +
+                '}';
+    }
 }

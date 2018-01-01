@@ -7,6 +7,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import trgovina.ep.ep_trgovina.models.Uporabnik;
 import trgovina.ep.ep_trgovina.models.UporabnikResponse;
@@ -23,6 +24,17 @@ public class UporabnikService {
 
         @GET("android/uporabniki/{id}")
         Call<UporabnikResponse> get(@Path("id") long id);
+
+        @FormUrlEncoded
+        @PUT("uporabniki/{id}")
+        Call<Uporabnik> update(@Path("id") long id,
+                               @Field("vloga") int vloga,
+                               @Field("ime") String ime,
+                               @Field("priimek") String priimek,
+                               @Field("geslo") String geslo,
+                               @Field("email") String email,
+                               @Field("naslov") String naslov,
+                               @Field("posta") int posta);
 
         @FormUrlEncoded
         @POST("prijava")

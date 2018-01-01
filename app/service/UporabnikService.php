@@ -45,18 +45,35 @@ class UporabnikService {
     }
 
     public static function posodobiUporabnika($podatki){
-        $rowAffected = Uporabniki::update([
-           "id" => $podatki["id"],
-           "vloga" => $podatki["vloga"],
-           "ime" => $podatki["ime"],
-           "priimek" => $podatki["priimek"],
-           "email" => $podatki["email"],
-           "geslo" => password_hash($podatki["geslo"], PASSWORD_DEFAULT),
-           "naslov" => $podatki["naslov"],
-           "posta" => $podatki["posta"]
-        ]);
-        if($rowAffected <= 0){
-            throw new InvalidArgumentException("Napaka pri posodabljanju izdelka!");
+        if($podatki["geslo"]){
+            $rowAffected = Uporabniki::update([
+                "id" => $podatki["id"],
+                "vloga" => $podatki["vloga"],
+                "ime" => $podatki["ime"],
+                "priimek" => $podatki["priimek"],
+                "email" => $podatki["email"],
+                "geslo" => password_hash($podatki["geslo"], PASSWORD_DEFAULT),
+                "naslov" => $podatki["naslov"],
+                "posta" => $podatki["posta"],
+                "status" => Uporabniki::get(["id" => $podatki["id"]])["status"]
+            ]);
+            if($rowAffected <= 0){
+                throw new InvalidArgumentException("Napaka pri posodabljanju izdelka!");
+            }
+        } else {
+            $rowAffected = Uporabniki::updateNoPassword([
+                "id" => $podatki["id"],
+                "vloga" => $podatki["vloga"],
+                "ime" => $podatki["ime"],
+                "priimek" => $podatki["priimek"],
+                "email" => $podatki["email"],
+                "naslov" => $podatki["naslov"],
+                "posta" => $podatki["posta"],
+                "status" => Uporabniki::get(["id" => $podatki["id"]])["status"]
+            ]);
+            if($rowAffected <= 0){
+                throw new InvalidArgumentException("Napaka pri posodabljanju izdelka!");
+            }
         }
     }
 

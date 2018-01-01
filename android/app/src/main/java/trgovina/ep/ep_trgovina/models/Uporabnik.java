@@ -14,6 +14,8 @@ public class Uporabnik implements Serializable {
 
     public String ime;
 
+    public String priimek;
+
     public String email;
 
     public String geslo;

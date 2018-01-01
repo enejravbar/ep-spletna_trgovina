@@ -46,13 +46,14 @@
         android:id="@+id/upb_naslov"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:ems="10"
         android:hint="Ulica in hišna številka"
         android:inputType="textPersonName"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/upb_email" />
+        app:layout_constraintHorizontal_bias="0.496"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/upb_geslo" />
 
     <Spinner
         android:id="@+id/upb_posta"
@@ -97,22 +98,35 @@
         app:layout_constraintHorizontal_bias="0.0">
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/gumb_preklici"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button"
+            android:text="@string/btn_preklici"
             tools:layout_editor_absoluteX="229dp"
             tools:layout_editor_absoluteY="370dp" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/gumb_shrani"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button"
+            android:text="@string/btn_shrani"
             tools:layout_editor_absoluteX="81dp"
             tools:layout_editor_absoluteY="370dp" />
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/upb_geslo"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:ems="10"
+        android:fontFamily="sans-serif"
+        android:hint="Geslo"
+        android:inputType="textPassword"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upb_email" />
 
 </android.support.constraint.ConstraintLayout>

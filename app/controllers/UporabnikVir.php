@@ -47,25 +47,42 @@ class UporabnikVir {
         parse_str(file_get_contents("php://input"), $_PUT);
         $data = filter_var_array($_PUT, Uporabniki::getRules());
 
-        if(ViewUtil::checkValues($data)){
+        if(self::checkPUTValues($data)){
             $data["id"] = $id;
             try {
                 UporabnikService::posodobiUporabnika($data);
-                ViewUtil::renderJSON(UporabnikService::vrniEnega($id), 200);
+                echo ViewUtil::renderJSON(UporabnikService::vrniEnega($id), 200);
             }catch(InvalidArgumentException $e){
-                ViewUtil::renderJSON(["napaka" => $e->getMessage()], 404);
+                echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 404);
+            } catch(Exception $ex){
+                echo ViewUtil::renderJSON(["napaka" => $ex->getMessage()], 400);
+            }
+        } else {
+            echo ViewUtil::renderJSON(["napaka" => "Missing values!"], 400);
+        }
+    }
+
+    private static function checkPUTValues($input){
+        if(empty($input)){
+            return FALSE;
+        }
+        $result = TRUE;
+        foreach ($input as $key => $value){
+            if($key != "geslo"){
+                $result = $result && $value != false;
             }
         }
+        return $result;
     }
 
     public static function izbrisiUporabnika($id){
         try {
             UporabnikService::izbrisiUporabnika($id);
-            ViewUtil::renderJSON(null, 204);
+            echo ViewUtil::renderJSON(null, 204);
         } catch(InvalidArgumentException $e){
-            ViewUtil::renderJSON(["napaka" => $e->getMessage()], 404);
+            echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 404);
         } catch(Exception $ex){
-            ViewUtil::renderJSON(["napaka" => $ex->getMessage()], 400);
+            echo ViewUtil::renderJSON(["napaka" => $ex->getMessage()], 400);
         }
     }
 

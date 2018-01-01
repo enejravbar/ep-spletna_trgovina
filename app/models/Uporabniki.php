@@ -48,6 +48,15 @@ class Uporabniki extends Entiteta {
         );
     }
 
+    public static function updateNoPassword(array $params){
+        return parent::modify_update(
+            "UPDATE uporabniki SET vloga = :vloga, ime = :ime, priimek = :priimek, ".
+            "email = :email, naslov = :naslov, posta = :posta, ".
+            "status = :status WHERE id = :id",
+            $params
+        );
+    }
+
     public static function delete(array $id){
         return parent::modify_update("DELETE FROM uporabniki WHERE id = :id", $id);
     }
