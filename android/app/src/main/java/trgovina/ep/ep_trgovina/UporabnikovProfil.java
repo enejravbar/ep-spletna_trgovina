@@ -18,7 +18,7 @@ public class UporabnikovProfil extends AppCompatActivity implements Callback<Upo
 
     @Override
     public void onResponse(Call<UporabnikResponse> call, Response<UporabnikResponse> response) {
-        
+
     }
 
     @Override
