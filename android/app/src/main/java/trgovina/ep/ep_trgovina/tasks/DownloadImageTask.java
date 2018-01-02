@@ -3,6 +3,7 @@ package trgovina.ep.ep_trgovina.tasks;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ImageView;
 import java.net.URL;
 
@@ -30,6 +31,8 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 
             slika = BitmapFactory.decodeStream(is);
         } catch(Exception e){
+            Log.e("NAPAKA PRI SLIKAH", "Slika se ni prenesla!");
+
             e.printStackTrace();
         }
         return slika;

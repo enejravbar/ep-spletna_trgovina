@@ -1,0 +1,24 @@
+
+Osebni certifikati:
+Uvoz v brskalnik tako kot lasten digitalni podpis
+
+**************************************************************
+
+Strežniški certifikati:
+
+---------- Namestitev -------------
+/etc/apache2/sites-available/default-ssl.conf
+
+# dostopi  do mape  zahtevajo  predložitev  veljavnega  certifikata
+<Directory  /var/www/html/zavarovano/ >
+    SSLVerifyClient  require
+    SSLVerifyDepth 1
+</Directory >
+
+SSLEngine on
+SSLCertificateFile    /etc/apache2/ssl/webmaster@localhost-cert.pem
+SSLCertificateKeyFile    /etc/apache2/ssl/webmaster@localhost-key.pem
+SSLCACertificateFile    /etc/apache2/ssl/epca-cacert.pem
+SSLCARevocationFile    /etc/apache2/ssl/epca-crl.pem
+SSLCARevocationCheck    chain
+
