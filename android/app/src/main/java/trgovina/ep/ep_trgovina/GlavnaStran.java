@@ -56,13 +56,12 @@ public class GlavnaStran extends AppCompatActivity implements Callback<List<Kate
         profilGumb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //pojdi na stran profila
                 Intent intent = new Intent(GlavnaStran.this, UporabnikovProfil.class);
                 startActivity(intent);
             }
         });
 
-        // populate seznam
+        // populate seznam kategorij
         kategorijaAdapter = new KategorijaAdapter(this);
         seznam.setAdapter(kategorijaAdapter);
         seznam.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -71,7 +70,6 @@ public class GlavnaStran extends AppCompatActivity implements Callback<List<Kate
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final Kategorija kategorija = kategorijaAdapter.getItem(position);
                 if(kategorija != null){
-                    Log.i("TAG", "menjam na pogled kategorije");
                     final Intent intent = new Intent(GlavnaStran.this, SeznamIzdelkov.class);
                     Bundle bundle = new Bundle();
                     bundle.putInt("kategorija.id", kategorija.id);
@@ -101,7 +99,7 @@ public class GlavnaStran extends AppCompatActivity implements Callback<List<Kate
             kategorijaAdapter.clear();
             kategorijaAdapter.addAll(rezultati);
         } else {
-            Toast.makeText(this, "NAPAKA!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Napaka pri pridobivanju kategorij!", Toast.LENGTH_LONG).show();
         }
         container.setRefreshing(false);
     }
@@ -109,5 +107,6 @@ public class GlavnaStran extends AppCompatActivity implements Callback<List<Kate
     @Override
     public void onFailure(Call<List<Kategorija>> call, Throwable t) {
         container.setRefreshing(false);
+        Toast.makeText(this, "Napaka pri pridobivanju kategorij!", Toast.LENGTH_LONG).show();
     }
 }

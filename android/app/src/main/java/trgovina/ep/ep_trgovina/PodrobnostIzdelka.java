@@ -49,25 +49,22 @@ public class PodrobnostIzdelka extends AppCompatActivity implements Callback<Izd
     public void onResponse(Call<IzdelekResponse> call, Response<IzdelekResponse> response) {
         izdelekResp = response.body();
 
-        Log.i("DEBUG", izdelekResp.toString());
-
         if(response.isSuccessful()){
             slikaAdapter = new SlikaAdapter(PodrobnostIzdelka.this, izdelekResp.slike);
             slike.setAdapter(slikaAdapter);
 
-            /*slikaAdapter.clear();
-            slikaAdapter.addAll(izdelekResp.slike);*/
             izdelek_cena.setText(String.valueOf(izdelekResp.izdelek.cena));
             izdelek_opis.setText(izdelekResp.izdelek.opis);
             izdelek_ime.setText(izdelekResp.izdelek.ime);
         } else {
-            Toast.makeText(this, "NAPAKA!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Napaka pri pridobivanju podatkov o izdelku!", Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
     public void onFailure(Call<IzdelekResponse> call, Throwable t) {
         Log.e("NAPAKA", "napaka: " + t.getMessage(), t);
+        Toast.makeText(this, "Napaka pri pridobivanju podatkov o izdelku!", Toast.LENGTH_LONG).show();
     }
 
     private long preberiID(Intent intent){

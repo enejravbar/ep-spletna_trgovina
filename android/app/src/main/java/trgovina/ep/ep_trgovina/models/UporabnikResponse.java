@@ -1,6 +1,7 @@
 package trgovina.ep.ep_trgovina.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,6 +12,6 @@ public class UporabnikResponse implements Serializable {
 
     public Uporabnik uporabnik;
 
-    public List<Posta> poste;
+    public ArrayList<Posta> poste;
 
 }

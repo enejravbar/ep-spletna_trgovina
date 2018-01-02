@@ -48,7 +48,6 @@ public class SeznamIzdelkov extends AppCompatActivity implements Callback<List<I
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final Izdelek izdelek = izdelekAdapter.getItem(position);
                 if(izdelek != null){
-                    Log.i("TAG", "Prikazujem izdelek: " + izdelek.id);
                     final Intent intent = new Intent(SeznamIzdelkov.this, PodrobnostIzdelka.class);
                     Bundle bundle = new Bundle();
                     bundle.putLong("izdelek.id", izdelek.id);
@@ -104,7 +103,7 @@ public class SeznamIzdelkov extends AppCompatActivity implements Callback<List<I
             izdelekAdapter.clear();
             izdelekAdapter.addAll(rezultati);
         } else {
-            Toast.makeText(this, "NAPAKA!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Napaka pri pridobivanju izdelkov!", Toast.LENGTH_LONG).show();
         }
         container.setRefreshing(false);
     }
@@ -112,6 +111,7 @@ public class SeznamIzdelkov extends AppCompatActivity implements Callback<List<I
     @Override
     public void onFailure(Call<List<Izdelek>> call, Throwable t) {
         container.setRefreshing(false);
+        Toast.makeText(this, "Napaka pri pridobivanju izdelkov!", Toast.LENGTH_LONG).show();
     }
 
     private int preberiID(Intent intent){

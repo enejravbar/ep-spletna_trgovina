@@ -44,14 +44,13 @@ public class MainActivity extends AppCompatActivity implements Callback<Uporabni
                         .enqueue(MainActivity.this);
             }
         });
-
     }
 
     @Override
     public void onResponse(Call<Uporabnik> call, Response<Uporabnik> response) {
         final Uporabnik prijavljeniUporabnik = response.body();
 
-        /*if(prijavljeniUporabnik == null){
+        if(prijavljeniUporabnik == null){
             izpis_napaka.setText("Napačen e-mail in/ali geslo!");
         } else {
             SessionVar session = (SessionVar) getApplicationContext();
@@ -62,9 +61,7 @@ public class MainActivity extends AppCompatActivity implements Callback<Uporabni
             } else {
                 izpis_napaka.setText("Napaka pri prijavi!");
             }
-        }*/
-        Intent intent = new Intent(MainActivity.this, GlavnaStran.class);
-        startActivity(intent);
+        }
     }
 
     @Override

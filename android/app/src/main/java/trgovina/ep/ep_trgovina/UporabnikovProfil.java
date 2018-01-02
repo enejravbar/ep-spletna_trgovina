@@ -62,13 +62,10 @@ public class UporabnikovProfil extends AppCompatActivity implements Callback<Upo
         upbNaslov.setText(uporabnik.naslov);
         upbEmail.setText(uporabnik.email);
 
-        postaAdapter = new PostaAdapter(this);
-        upbPosta.setAdapter(postaAdapter);
-
         upbPosta.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //posta = postaAdapter.getItem(position);
+                posta = postaAdapter.getItem(position);
             }
 
             @Override
@@ -81,6 +78,8 @@ public class UporabnikovProfil extends AppCompatActivity implements Callback<Upo
             @Override
             public void onClick(View v) {
                 posodobiUporabnika();
+                Intent intent = new Intent(UporabnikovProfil.this, GlavnaStran.class);
+                startActivity(intent);
             }
         });
 
@@ -109,12 +108,12 @@ public class UporabnikovProfil extends AppCompatActivity implements Callback<Upo
         ).enqueue(new Callback<Uporabnik>() {
             @Override
             public void onResponse(Call<Uporabnik> call, Response<Uporabnik> response) {
-                Toast.makeText(UporabnikovProfil.this, "Profil posodobljen!", Toast.LENGTH_SHORT);
+                Toast.makeText(UporabnikovProfil.this, "Profil posodobljen!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<Uporabnik> call, Throwable t) {
-                Toast.makeText(UporabnikovProfil.this, "Napaka pri posodabljanju profila!", Toast.LENGTH_SHORT);
+                Toast.makeText(UporabnikovProfil.this, "Napaka pri posodabljanju profila!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -122,19 +121,12 @@ public class UporabnikovProfil extends AppCompatActivity implements Callback<Upo
     @Override
     public void onResponse(Call<UporabnikResponse> call, Response<UporabnikResponse> response) {
         UporabnikResponse uporabnikResponse = response.body();
-
-        StringBuilder sb = new StringBuilder();
-        for(Posta p : uporabnikResponse.poste){
-            sb.append(p); sb.append(",");
-        }
-
-        Log.i("DEBUG", sb.toString());
-        postaAdapter.addAll(uporabnikResponse.poste);
-
+        postaAdapter = new PostaAdapter(this, R.layout.image_item, uporabnikResponse.poste);
+        upbPosta.setAdapter(postaAdapter);
     }
 
     @Override
     public void onFailure(Call<UporabnikResponse> call, Throwable t) {
-
+        Toast.makeText(UporabnikovProfil.this, "Napaka pri pridobivanju podatkov uporabnika!", Toast.LENGTH_LONG).show();
     }
 }
