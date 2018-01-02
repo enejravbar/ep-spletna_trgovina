@@ -40,9 +40,6 @@ public class PodrobnostIzdelka extends AppCompatActivity implements Callback<Izd
 
         idIzdelka = preberiID(getIntent());
 
-        slikaAdapter = new SlikaAdapter(this);
-        slike.setAdapter(slikaAdapter);
-
         if(idIzdelka > 0){
             IzdelekService.getInstance().vrniEnega(idIzdelka).enqueue(PodrobnostIzdelka.this);
         }
@@ -55,8 +52,11 @@ public class PodrobnostIzdelka extends AppCompatActivity implements Callback<Izd
         Log.i("DEBUG", izdelekResp.toString());
 
         if(response.isSuccessful()){
-            slikaAdapter.clear();
-            slikaAdapter.addAll(izdelekResp.slike);
+            slikaAdapter = new SlikaAdapter(PodrobnostIzdelka.this, izdelekResp.slike);
+            slike.setAdapter(slikaAdapter);
+
+            /*slikaAdapter.clear();
+            slikaAdapter.addAll(izdelekResp.slike);*/
             izdelek_cena.setText(String.valueOf(izdelekResp.izdelek.cena));
             izdelek_opis.setText(izdelekResp.izdelek.opis);
             izdelek_ime.setText(izdelekResp.izdelek.ime);

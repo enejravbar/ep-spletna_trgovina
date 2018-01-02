@@ -1,6 +1,7 @@
 package trgovina.ep.ep_trgovina.adapters;
 
 import android.content.Context;
+import android.media.Image;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
@@ -9,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -22,24 +25,32 @@ import trgovina.ep.ep_trgovina.tasks.DownloadImageTask;
 
 public class SlikaAdapter extends ArrayAdapter<Slika> {
 
-    public SlikaAdapter(Context context) {
-        super(context, 0, new ArrayList<Slika>());
+    private Context context;
+
+    private LayoutInflater inflater;
+
+    private ArrayList<Slika> slike;
+
+    public SlikaAdapter(Context context, ArrayList<Slika> slike) {
+        super(context, R.layout.image_item, slike);
+        this.context = context;
+        this.slike = slike;
+        inflater = LayoutInflater.from(context);
     }
+
 
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent){
-        final Slika slika = getItem(position);
-
         if(convertView == null){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.image_item, parent, false);
+            convertView = inflater.inflate(R.layout.image_item, parent, false);
         }
 
-        final ImageView slikaItem = convertView.findViewById(R.id.slika);
+        long id_slike = slike.get(position).id;
 
         final String HOST_LOKALNEGA_RACUNALNIKA = "10.0.2.2";
-        final String URL_SLIKE = "http://" + HOST_LOKALNEGA_RACUNALNIKA + "/pstorm/ep-spletna_trgovina/api/slike/" + slika.id;
+        final String URL_SLIKE = "http://" + HOST_LOKALNEGA_RACUNALNIKA + "/pstorm/ep-spletna_trgovina/api/slike/" + id_slike;
 
-        new DownloadImageTask(slikaItem).execute(URL_SLIKE);
+        Picasso.with(context).load(URL_SLIKE).fit().into((ImageView) convertView);
 
         return convertView;
     }

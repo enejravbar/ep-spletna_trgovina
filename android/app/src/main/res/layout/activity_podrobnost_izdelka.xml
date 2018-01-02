@@ -1,80 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context="trgovina.ep.ep_trgovina.PodrobnostIzdelka">
 
     <TextView
         android:id="@+id/izd_naziv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="40dp"
         android:text="Naziv izdelka"
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="30dp" />
+        android:layout_marginStart="32dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/izd_cena"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="20dp"
         android:text="{cena}"
         android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/izd_naziv"
-        android:layout_marginStart="15dp" />
+        android:layout_alignBaseline="@+id/textView4"
+        android:layout_alignBottom="@+id/textView4"
+        android:layout_toRightOf="@+id/textView4"
+        android:layout_toEndOf="@+id/textView4"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
         android:text="@string/izdelek_cena"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/izd_naziv"
-        android:layout_marginStart="30dp" />
+        android:layout_below="@+id/izd_naziv"
+        android:layout_alignLeft="@+id/izd_naziv"
+        android:layout_alignStart="@+id/izd_naziv"
+        android:layout_marginTop="30dp" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginLeft="9dp"
         android:text="€"
         android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@+id/izd_cena"
         app:layout_constraintTop_toBottomOf="@+id/izd_naziv"
-        android:layout_marginStart="2dp"/>
+        android:layout_marginStart="2dp"
+        android:layout_alignBaseline="@+id/izd_cena"
+        android:layout_alignBottom="@+id/izd_cena"
+        android:layout_toRightOf="@+id/izd_cena"
+        android:layout_toEndOf="@+id/izd_cena" />
 
     <TextView
         android:id="@+id/izd_opis"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
         android:text="Opis izdelka"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/izd_cena"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignStart="@+id/textView4" />
 
     <ListView
         android:id="@+id/seznam_slik"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:dividerHeight="0dp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintTop_toBottomOf="@id/izd_opis"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </ListView>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/izd_opis"
+        android:layout_below="@+id/izd_opis"
+        android:layout_alignLeft="@+id/izd_opis"
+        android:layout_alignStart="@+id/izd_opis"></ListView>
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
