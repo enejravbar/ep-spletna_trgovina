@@ -36,7 +36,7 @@ class Ocene extends Entiteta {
 
     public static function update(array $params)
     {
-        return parent::modify(
+        return parent::modify_update(
             "UPDATE ocene SET ocena WHERE id_uporabnika = :id_uporabnika AND id_izdelka = :id_izdelka",
             $params
         );
@@ -44,7 +44,7 @@ class Ocene extends Entiteta {
 
     public static function delete(array $params)
     {
-        return parent::modify("DELETE FROM ocena WHERE id_uporabnika = :id_uporabnika AND id_izdelka = :id_izdelka", $params);
+        return parent::modify_update("DELETE FROM ocena WHERE id_uporabnika = :id_uporabnika AND id_izdelka = :id_izdelka", $params);
     }
 
 }

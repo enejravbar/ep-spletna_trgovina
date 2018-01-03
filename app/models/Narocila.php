@@ -37,7 +37,7 @@ class Narocila extends Entiteta {
 
     public static function update(array $params)
     {
-        return parent::modify(
+        return parent::modify_update(
             "UPDATE narocila SET kupec = :kupec, datum = :datum, status = :status WHERE id = :id",
             $params
         );
@@ -45,7 +45,7 @@ class Narocila extends Entiteta {
 
     public static function delete(array $id)
     {
-        return parent::modify("DELETE FROM narocila WHERE id = :id", $id);
+        return parent::modify_update("DELETE FROM narocila WHERE id = :id", $id);
     }
 
 }

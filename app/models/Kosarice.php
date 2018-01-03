@@ -36,7 +36,7 @@ class Kosarice extends Entiteta {
 
     public static function update(array $params)
     {
-        return parent::modify(
+        return parent::modify_update(
             "UPDATE kosarice SET kolicina WHERE id_uporabnika = :id_uporabnika AND id_izdelka = :id_izdelka",
             $params
         );
@@ -44,7 +44,7 @@ class Kosarice extends Entiteta {
 
     public static function delete(array $params)
     {
-        return parent::modify("DELETE FROM kosarice WHERE id_uporabnika = :id_uporabnika AND id_izdelka = :id_izdelka", $params);
+        return parent::modify_update("DELETE FROM kosarice WHERE id_uporabnika = :id_uporabnika AND id_izdelka = :id_izdelka", $params);
     }
 
 }
