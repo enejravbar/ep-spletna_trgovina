@@ -36,11 +36,24 @@ class UporabnikService {
 
     public static function preveriPrijavoUporabnika($input){
         $uporabnik = self::pridobiZEmailom($input["email"]);
+        if($uporabnik == null){
+            return null;
+        }
         if(password_verify($input["geslo"], $uporabnik["geslo"]) && self::jeAktiven($uporabnik["id"])){
             unset($uporabnik["geslo"]);
             return $uporabnik;
         } else {
             return null;
+        }
+    }
+
+    public static function prijaviStranko($input){
+        $uporabnik = self::preveriPrijavoUporabnika($input);
+        if($uporabnik == null){
+            return false;
+        } else {
+            $_SESSION["trenutni_uporabnik"] = $uporabnik;
+            return true;
         }
     }
 
@@ -114,7 +127,7 @@ class UporabnikService {
 
         $potrditveni_email = new Email($podatki["email"],
             "Dobrodošel!",
-            "app/views/confirmation-email.php",
+            "app/views/email/confirmation-email.php",
             ["kljuc" => $potrditveni_kljuc,
              "ime" => $podatki["ime"],
              "email" => $podatki["email"],

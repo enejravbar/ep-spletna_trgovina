@@ -52,15 +52,29 @@ INSERT INTO ep.posta(postna_st, naziv) VALUES(6210, 'Sežana');
 INSERT INTO ep.posta(postna_st, naziv) VALUES(6000, 'Koper');
 INSERT INTO ep.posta(postna_st, naziv) VALUES(6310, 'Izola');
 
--- uporabniki
+-- admin
 INSERT INTO ep.uporabniki(vloga, ime, priimek, email, geslo, naslov, posta, status)
-  VALUES (1, 'Admir', 'Adminović', 'admin@moj-shop.si', 'hash', 'Ulica Darinka Dragota 83a', 1000, 1);
+  VALUES (1, 'Renato', 'Leskovar', 'ep.projekt2017@gmail.com',
+          '$2y$10$15CJEaukxLwUq1HVrT43h.cb4BPY3rywRm./vxnhtuT.yp7Lp6yYG',
+          'Ulica Darinka Dragota 83a', 1000, 1);
+-- prodajalci
 INSERT INTO ep.uporabniki(vloga, ime, priimek, email, geslo, naslov, posta, status)
-  VALUES (2, 'Matej', 'Bizjak', 'matejb96@gmail.com', 'hash', 'Gradnikove brigade 19', 5000, 3);
+  VALUES (2, 'Nataša', 'Maček', 'natasa.macek@ep.com',
+          '$2y$10$15CJEaukxLwUq1HVrT43h.cb4BPY3rywRm./vxnhtuT.yp7Lp6yYG',
+          'Gradnikove brigade 19', 5000, 1);
 INSERT INTO ep.uporabniki(vloga, ime, priimek, email, geslo, naslov, posta, status)
-  VALUES (3, 'Miha', 'Jamšek', 'miha_jamsek@windowslive.com', '$2y$10$15CJEaukxLwUq1HVrT43h.cb4BPY3rywRm./vxnhtuT.yp7Lp6yYG', 'Iztokova 4', 5000, 1);
+  VALUES (2, 'Vlado', 'Petek', 'vlado.petek@ep.com',
+          '$2y$10$15CJEaukxLwUq1HVrT43h.cb4BPY3rywRm./vxnhtuT.yp7Lp6yYG',
+          'Iztokova 4', 6000, 1);
+INSERT INTO ep.uporabniki(vloga, ime, priimek, email, geslo, naslov, posta, status)
+VALUES (2, 'Karl', 'Stopar', 'karl.stopar@ep.com',
+        '$2y$10$15CJEaukxLwUq1HVrT43h.cb4BPY3rywRm./vxnhtuT.yp7Lp6yYG',
+        'Tbilisijska 34', 1000, 1);
+INSERT INTO ep.uporabniki(vloga, ime, priimek, email, geslo, naslov, posta, telefon, status)
+VALUES (3, 'Romana', 'Pogačnik', 'romana.pogaca@gmail.com',
+        '$2y$10$15CJEaukxLwUq1HVrT43h.cb4BPY3rywRm./vxnhtuT.yp7Lp6yYG',
+        'Dunajska 22', 6310, '031298335', 1);
 -- ocene
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(1, 1, 4);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(1, 2, 5);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(1, 3, 2);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(2, 1, 3);
+INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(5, 1, 4);
+INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(5, 2, 5);
+INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(5, 3, 2);

@@ -6,14 +6,22 @@ require_once "app/service/EmailService.php";
 require_once "app/service/LogService.php";
 require_once "app/service/UporabnikService.php";
 require_once "app/service/FileService.php";
-// controllers / viri
-require_once "app/controllers/SlikaVir.php";
+// controllers
 require_once "app/controllers/IndexController.php";
-require_once "app/controllers/IzdelekVir.php";
-require_once "app/controllers/PrijavaVir.php";
-require_once "app/controllers/UporabnikVir.php";
-require_once "app/controllers/KategorijaVir.php";
-// debug
+require_once "app/controllers/LoginController.php";
+require_once "app/controllers/AdminController.php";
+require_once "app/controllers/IzdelekController.php";
+require_once "app/controllers/KosaricaController.php";
+require_once "app/controllers/NarocilaController.php";
+require_once "app/controllers/ProdajaController.php";
+require_once "app/controllers/ProfilController.php";
+// REST viri
+require_once "app/REST/SlikaVir.php";
+require_once "app/REST/IzdelekVir.php";
+require_once "app/REST/PrijavaVir.php";
+require_once "app/REST/UporabnikVir.php";
+require_once "app/REST/KategorijaVir.php";
+// debug (to be deleted in production)
 require_once "app/models/Slika.php";
 
 
@@ -21,11 +29,47 @@ class Usmerjevalniki {
 
     public static function getRouters(){
         return [
+            // **************** POGLEDI ****************************
             //index page
             "/^$/" => function() {
                 IndexController::index();
             },
-            // login
+            "/^prijava$/" => function($method){
+                switch($method) {
+                    case "POST":
+                        //login user
+                        LoginController::prijaviStranko();
+                        break;
+                    default:
+                        //load login page
+                        LoginController::prikaziPrijavnoStran();
+                        break;
+                }
+            },
+            "/^odjava$/" => function($method){
+                LoginController::odjaviUporabnika();
+                //logout user
+            },
+            "/^kosarica$/" => function($method) {
+                switch($method){
+                    case "POST":
+                        break;
+                    default:
+                        KosaricaController::prikaziKosarico();
+                        break;
+                }
+            },
+            //prijava za osebje s certifikatom
+            "/^osebje\/prijava$/" => function($method){
+                switch ($method){
+                    case "POST":
+                        break;
+                    default:
+                        LoginController::prikaziPrijavnoStranZaOsebje();
+                        break;
+                }
+            },
+            // android login
             "/^api\/prijava$/" => function($method){
                 switch($method){
                     case "POST":

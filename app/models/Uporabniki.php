@@ -9,7 +9,7 @@ class Uporabniki extends Entiteta {
         if(count($uporabnik) == 1){
             return $uporabnik[0];
         } else {
-            throw new InvalidArgumentException("Ne najdem uporabnika z emailom: " . $email["email"]);
+            return null;
         }
     }
 

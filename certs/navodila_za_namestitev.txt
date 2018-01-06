@@ -22,3 +22,11 @@ SSLCACertificateFile    /etc/apache2/ssl/epca-cacert.pem
 SSLCARevocationFile    /etc/apache2/ssl/epca-crl.pem
 SSLCARevocationCheck    chain
 
+
+
+posebej login za admine / prodajalce
+
+
+namesto directory location locationmatch(regex)
+pravila za url
+certifikat dodaj v location match v conf file
