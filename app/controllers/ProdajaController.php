@@ -7,39 +7,72 @@
  */
 
 require_once "ViewUtil.php";
+require_once "app/service/PrijavaService.php";
 
 class ProdajaController {
 
     public static function prikaziSeznamIzdelkov(){
-        echo ViewUtil::render("app/views/prodaja/izdelki/pregled-izdelkov.php");
+        if(PrijavaService::uporabnikJeProdajalec()){
+            echo ViewUtil::render("app/views/prodaja/izdelki/pregled-izdelkov.php");
+        } else {
+            ViewUtil::redirect(BASE_URL);
+        }
     }
 
     public static function prikaziDodajanjeIzdelkov(){
-        echo ViewUtil::render("app/views/prodaja/izdelki/dodaj-izdelek.php");
+        if(PrijavaService::uporabnikJeProdajalec()){
+            echo ViewUtil::render("app/views/prodaja/izdelki/dodaj-izdelek.php");
+        } else {
+            ViewUtil::redirect(BASE_URL);
+        }
     }
 
-    public static function prikaziUrejanjeIzdelkov(){
-        echo ViewUtil::render("app/views/prodaja/izdelki/uredi-izdelek.php");
+    public static function prikaziUrejanjeIzdelkov($id){
+        if(PrijavaService::uporabnikJeProdajalec()){
+            echo ViewUtil::render("app/views/prodaja/izdelki/uredi-izdelek.php");
+        } else {
+            ViewUtil::redirect(BASE_URL);
+        }
     }
 
     public static function prikaziSeznamNarocil(){
-        echo ViewUtil::render("app/views/prodaja/narocila/pregled-narocil.php");
+        if(PrijavaService::uporabnikJeProdajalec()){
+            echo ViewUtil::render("app/views/prodaja/narocila/pregled-narocil.php");
+        } else {
+            ViewUtil::redirect(BASE_URL);
+        }
     }
 
-    public static function prikaziPodrobnostNarocil(){
-        echo ViewUtil::render("app/views/prodaja/narocila/podrobnost-narocila.php");
+    public static function prikaziPodrobnostNarocil($id){
+        if(PrijavaService::uporabnikJeProdajalec()){
+            echo ViewUtil::render("app/views/prodaja/narocila/podrobnost-narocila.php");
+        } else {
+            ViewUtil::redirect(BASE_URL);
+        }
     }
 
     public static function prikaziDodajanjeStrank(){
-        echo ViewUtil::render("app/views/prodaja/stranke/dodaj-stranko.php");
+        if(PrijavaService::uporabnikJeProdajalec()){
+            echo ViewUtil::render("app/views/prodaja/stranke/dodaj-stranko.php");
+        } else {
+            ViewUtil::redirect(BASE_URL);
+        }
     }
 
-    public static function prikaziUrejanjeStrank(){
-        echo ViewUtil::render("app/views/prodaja/stranke/uredi-stranko.php");
+    public static function prikaziUrejanjeStrank($id){
+        if(PrijavaService::uporabnikJeProdajalec()){
+            echo ViewUtil::render("app/views/prodaja/stranke/uredi-stranko.php");
+        } else {
+            ViewUtil::redirect(BASE_URL);
+        }
     }
 
     public static function prikaziSeznamStrank(){
-        echo ViewUtil::render("app/views/prodaja/stranke/pregled-strank.php");
+        if(PrijavaService::uporabnikJeProdajalec()){
+            echo ViewUtil::render("app/views/prodaja/stranke/pregled-strank.php");
+        } else {
+            ViewUtil::redirect(BASE_URL);
+        }
     }
 
 }

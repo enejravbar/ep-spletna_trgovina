@@ -41,7 +41,7 @@ VALUES('izdelek2-1.jpg', 'data/images/izdelek2-1.jpg', 'jpg', 2);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
 VALUES('izdelek3-1.jpg', 'data/images/izdelek3-1.jpg', 'jpg', 3);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
-VALUES('izdelek3-2.jpg', 'data/images/izdelek3-2.jpg', 'jpg', 3);
+VALUES('izdelek3-2.jpeg', 'data/images/izdelek3-2.jpeg', 'jpeg', 3);
 
 -- posta
 INSERT INTO ep.posta(postna_st, naziv) VALUES(5000, 'Nova Gorica');
@@ -53,23 +53,19 @@ INSERT INTO ep.posta(postna_st, naziv) VALUES(6000, 'Koper');
 INSERT INTO ep.posta(postna_st, naziv) VALUES(6310, 'Izola');
 
 -- admin
-INSERT INTO ep.uporabniki(vloga, ime, priimek, email, geslo, naslov, posta, status)
+INSERT INTO ep.uporabniki(vloga, ime, priimek, email, geslo, status)
   VALUES (1, 'Renato', 'Leskovar', 'ep.projekt2017@gmail.com',
-          '$2y$10$15CJEaukxLwUq1HVrT43h.cb4BPY3rywRm./vxnhtuT.yp7Lp6yYG',
-          'Ulica Darinka Dragota 83a', 1000, 1);
+          '$2y$10$15CJEaukxLwUq1HVrT43h.cb4BPY3rywRm./vxnhtuT.yp7Lp6yYG', 1);
 -- prodajalci
-INSERT INTO ep.uporabniki(vloga, ime, priimek, email, geslo, naslov, posta, status)
+INSERT INTO ep.uporabniki(vloga, ime, priimek, email, geslo, status)
   VALUES (2, 'Nataša', 'Maček', 'natasa.macek@ep.com',
-          '$2y$10$15CJEaukxLwUq1HVrT43h.cb4BPY3rywRm./vxnhtuT.yp7Lp6yYG',
-          'Gradnikove brigade 19', 5000, 1);
-INSERT INTO ep.uporabniki(vloga, ime, priimek, email, geslo, naslov, posta, status)
+          '$2y$10$15CJEaukxLwUq1HVrT43h.cb4BPY3rywRm./vxnhtuT.yp7Lp6yYG', 1);
+INSERT INTO ep.uporabniki(vloga, ime, priimek, email, geslo, status)
   VALUES (2, 'Vlado', 'Petek', 'vlado.petek@ep.com',
-          '$2y$10$15CJEaukxLwUq1HVrT43h.cb4BPY3rywRm./vxnhtuT.yp7Lp6yYG',
-          'Iztokova 4', 6000, 1);
-INSERT INTO ep.uporabniki(vloga, ime, priimek, email, geslo, naslov, posta, status)
+          '$2y$10$15CJEaukxLwUq1HVrT43h.cb4BPY3rywRm./vxnhtuT.yp7Lp6yYG', 1);
+INSERT INTO ep.uporabniki(vloga, ime, priimek, email, geslo, status)
 VALUES (2, 'Karl', 'Stopar', 'karl.stopar@ep.com',
-        '$2y$10$15CJEaukxLwUq1HVrT43h.cb4BPY3rywRm./vxnhtuT.yp7Lp6yYG',
-        'Tbilisijska 34', 1000, 1);
+        '$2y$10$15CJEaukxLwUq1HVrT43h.cb4BPY3rywRm./vxnhtuT.yp7Lp6yYG', 1);
 INSERT INTO ep.uporabniki(vloga, ime, priimek, email, geslo, naslov, posta, telefon, status)
 VALUES (3, 'Romana', 'Pogačnik', 'romana.pogaca@gmail.com',
         '$2y$10$15CJEaukxLwUq1HVrT43h.cb4BPY3rywRm./vxnhtuT.yp7Lp6yYG',

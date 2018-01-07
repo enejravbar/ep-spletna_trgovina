@@ -9,11 +9,12 @@
 require_once "ViewUtil.php";
 require_once "app/models/Uporabniki.php";
 require_once "app/service/UporabnikService.php";
+require_once "app/service/PrijavaService.php";
 
 class PrijavaVir {
 
     public static function prijaviUporabnika(){
-        $data = filter_input_array(INPUT_POST, Uporabniki::getLoginRules());
+        $data = filter_input_array(INPUT_POST, Uporabniki::pravilaZaPrijavo());
 
         $uporabnik = UporabnikService::preveriPrijavoUporabnika($data);
 
@@ -25,6 +26,19 @@ class PrijavaVir {
             echo ViewUtil::renderJSON($uporabnik, 200);
         }
 
+    }
+
+    public static function pridobiTrenutnegaUporabnika() {
+        if(PrijavaService::uporabnikJePrijavljen()) {
+            $uporabnik = PrijavaService::vrniTrenutnegaUporabnika();
+            if($uporabnik == null) {
+                echo ViewUtil::renderJSON(["prijavljen" => false], 200);
+            } else {
+                echo ViewUtil::renderJSON($uporabnik, 200);
+            }
+        } else {
+            echo ViewUtil::renderJSON(["napaka" => "Uporabnik nima zadostnih pravic!"], 401);
+        }
     }
 
 }

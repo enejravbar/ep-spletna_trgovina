@@ -12,6 +12,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <body>
+    <!--
         <div id="izdelki">
             <?php foreach ($izdelki as $izdelek): ?>
                 <div>
@@ -21,6 +22,9 @@
                 </div>
             <?php endforeach; ?>
         </div>
+        -->
+    <?= var_dump($_SESSION["trenutni_uporabnik"]) ?>
+    <?= var_dump($_SESSION["certifikat"]) ?>
     </body>
 
 </html>

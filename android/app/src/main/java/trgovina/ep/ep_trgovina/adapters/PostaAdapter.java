@@ -34,6 +34,15 @@ public class PostaAdapter extends ArrayAdapter<Posta> {
         this.poste = poste;
     }
 
+    public int getPositionOfPosta(int postna_st) {
+        for(Posta posta: this.poste) {
+            if(posta.postna_st == postna_st) {
+                return this.poste.indexOf(posta);
+            }
+        }
+        return -1;
+    }
+
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent){
         final Posta posta = poste.get(position);

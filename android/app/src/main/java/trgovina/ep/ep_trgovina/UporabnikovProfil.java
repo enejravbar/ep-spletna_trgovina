@@ -28,6 +28,7 @@ public class UporabnikovProfil extends AppCompatActivity implements Callback<Upo
     private EditText upbNaslov;
     private Spinner upbPosta;
     private EditText upbGeslo;
+    private EditText upbTelefon;
     private Button gumbPreklici;
     private Button gumbShrani;
     private Uporabnik uporabnik;
@@ -45,6 +46,7 @@ public class UporabnikovProfil extends AppCompatActivity implements Callback<Upo
         upbNaslov = (EditText) findViewById(R.id.upb_naslov);
         upbPosta = (Spinner) findViewById(R.id.upb_posta);
         upbGeslo = (EditText) findViewById(R.id.upb_geslo);
+        upbTelefon = (EditText) findViewById(R.id.upb_telefon);
 
         gumbPreklici = (Button) findViewById(R.id.gumb_preklici);
         gumbShrani = (Button) findViewById(R.id.gumb_shrani);
@@ -61,6 +63,7 @@ public class UporabnikovProfil extends AppCompatActivity implements Callback<Upo
         upbPriimek.setText(uporabnik.priimek);
         upbNaslov.setText(uporabnik.naslov);
         upbEmail.setText(uporabnik.email);
+        upbTelefon.setText(uporabnik.telefon);
 
         upbPosta.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -102,9 +105,11 @@ public class UporabnikovProfil extends AppCompatActivity implements Callback<Upo
                 upbIme.getText().toString(),
                 upbPriimek.getText().toString(),
                 upbGeslo.getText().toString(),
+                upbGeslo.getText().toString(),
                 upbEmail.getText().toString(),
                 upbNaslov.getText().toString(),
-                posta.postna_st
+                posta.postna_st,
+                upbTelefon.getText().toString()
         ).enqueue(new Callback<Uporabnik>() {
             @Override
             public void onResponse(Call<Uporabnik> call, Response<Uporabnik> response) {
@@ -123,6 +128,8 @@ public class UporabnikovProfil extends AppCompatActivity implements Callback<Upo
         UporabnikResponse uporabnikResponse = response.body();
         postaAdapter = new PostaAdapter(this, R.layout.image_item, uporabnikResponse.poste);
         upbPosta.setAdapter(postaAdapter);
+        int pos = postaAdapter.getPositionOfPosta(uporabnikResponse.uporabnik.posta);
+        upbPosta.setSelection(pos);
     }
 
     @Override

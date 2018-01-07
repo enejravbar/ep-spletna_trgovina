@@ -9,8 +9,9 @@
 
 <body>
 <h2>Login page</h2>
-<form action="#" method="post">
-    <input type="text" name="ime" value="<?= $email ?>" disabled/>
+<form action="<?= BASE_URL . "osebje/prijava" ?>" method="post">
+    <input type="text" name="email" value="<?= $email ?>" readonly/>
+    <input type="password" name="geslo" required/>
     <button type="submit">Prijava</button>
 </form>
 </body>

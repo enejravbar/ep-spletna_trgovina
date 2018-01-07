@@ -7,15 +7,24 @@
  */
 
 require_once "ViewUtil.php";
+require_once "app/service/PrijavaService.php";
 
 class NarocilaController {
 
     public static function prikaziNarocila() {
-        echo ViewUtil::render("app/views/stranka/narocila/seznam-narocil.php");
+        if(PrijavaService::uporabnikJeStranka()){
+            echo ViewUtil::render("app/views/stranka/narocila/seznam-narocil.php");
+        } else {
+            ViewUtil::redirect(BASE_URL);
+        }
     }
 
     public static function prikaziEnoNarocilo(){
-        echo ViewUtil::render("app/views/stranka/narocila/podrobnost-narocila.php");
+        if(PrijavaService::uporabnikJeStranka()){
+            echo ViewUtil::render("app/views/stranka/narocila/podrobnost-narocila.php");
+        } else {
+            ViewUtil::redirect(BASE_URL);
+        }
     }
 
 }

@@ -7,11 +7,18 @@
  */
 
 require_once "ViewUtil.php";
+require_once "app/service/PrijavaService.php";
 
 class ProfilController {
 
     public static function PrikaziUrejanjeProfila(){
-        echo ViewUtil::render("app/views/profil/profil-uporabnika.php");
+
+        if(PrijavaService::uporabnikJePrijavljen()){
+            echo ViewUtil::render("app/views/profil/profil-uporabnika.php");
+        } else {
+            ViewUtil::redirect(BASE_URL);
+        }
+
     }
 
 }

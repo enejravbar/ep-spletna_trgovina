@@ -1,3 +1,5 @@
+SSLRenegBufferSize 10486000
+
 <files conf.ini>
     order deny,allow
     deny from all

@@ -2,29 +2,101 @@
 
 require_once "ViewUtil.php";
 require_once "app/models/Kosarice.php";
+require_once "app/service/KosaricaService.php";
+require_once "app/service/PrijavaService.php";
 
 class KosaricaVir {
 
-    private static $prijavljen;
-
-    function __construct() {
-        $this -> prijavljen = ViewUtil::prijavljenUser(3);
-    }
-
-
     public static function dobiKosarico() {
-        $data = Kosarice::dobiKosaricoUporabnika(["id" => self::$prijavljen["id"]]);
+        if(PrijavaService::uporabnikJeStranka()) {
+            try {
+                $uporabnik = PrijavaService::vrniTrenutnegaUporabnika();
+                $kosarica = KosaricaService::vrniVsebinoKosarice($uporabnik["id"]);
+                echo ViewUtil::renderJSON($kosarica, 200);
+            } catch (InvalidArgumentException $e1) {
+                echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 404);
+            } catch (Exception $e2) {
+                echo ViewUtil::renderJSON(["napaka" => $e2->getMessage()], 400);
+            }
+        } else {
+            echo ViewUtil::renderJSON(["napaka" => "Uporabnik nima zadostnih pravic!"], 401);
+        }
     }
 
-    public static function spremeniKolicinoIzdelka($id_izdelka, $kolicina) {
-        Kosarice::update(["id_uporabnika" => self::$prijavljen["id"], "id_izdelka" => $id_izdelka, "kolicina" => $kolicina]);
+    public static function spremeniKolicinoIzdelkaVKosarici() {
+        if(PrijavaService::uporabnikJeStranka()) {
+
+            $_PUT = [];
+            parse_str(file_get_contents("php://input"), $_PUT);
+            $data = filter_var_array($_PUT, Kosarice::pridobiPravila());
+
+            $uporabnik = PrijavaService::vrniTrenutnegaUporabnika();
+            $data["id_uporabnika"] = $uporabnik["id"];
+
+            if(ViewUtil::checkValues($data)) {
+                try {
+                    KosaricaService::spremeniKolicinoIzdelkaVKosarici($data);
+                    echo ViewUtil::renderJSON(["status" => "Uspeh!"], 200);
+                } catch (Exception $e) {
+                    echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 400);
+                }
+            } else {
+                echo ViewUtil::renderJSON(["napaka" => "Nekateri atributi manjkajo!"], 400);
+            }
+        } else {
+            echo ViewUtil::renderJSON(["napaka" => "Uporabnik nima zadostnih pravic!"], 401);
+        }
     }
 
-    public static function dodajIzdelek($id_izdelka, $kolicina) {
-        Kosarice::insert(["id_uporabnika" => self::$prijavljen["id"], "id_izdelka" => $id_izdelka, "kolicina" => $kolicina]);
+    public static function dodajIzdelekVKosarico() {
+        if(PrijavaService::uporabnikJeStranka()) {
+            $data = filter_input_array(INPUT_POST, Kosarice::pridobiPravila());
+            $uporabnik = PrijavaService::vrniTrenutnegaUporabnika();
+            $data["id_uporabnika"] = $uporabnik["id"];
+
+            if(ViewUtil::checkValues($data)) {
+                try {
+                    KosaricaService::dodajIzdelekVKosarico($data);
+                    echo ViewUtil::renderJSON(["status" => "Uspeh!"], 200);
+                } catch (Exception $e) {
+                    echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 400);
+                }
+            } else {
+                echo ViewUtil::renderJSON(["napaka" => "Nekatere vrednosti manjkajo!"], 400);
+            }
+        } else {
+            echo ViewUtil::renderJSON(["napaka" => "Uporabnik nima zadostnih pravic!"], 401);
+        }
     }
 
-    public static function odstraniIzdelek($id_izdelka) {
-        Kosarice::delete(["id_uporabnika" => self::$prijavljen["id"], "id_izdelka" => $id_izdelka]);
+    public static function odstraniIzdelekIzKosarice($id_izdelka) {
+        if(PrijavaService::uporabnikJeStranka()) {
+            try {
+                $uporabnik = PrijavaService::vrniTrenutnegaUporabnika();
+                KosaricaService::izbrisiIzdelekIzKosarice([
+                    "id_uporabnika" => $uporabnik["id"],
+                    "id_izdelka" => $id_izdelka
+                ]);
+                echo ViewUtil::renderJSON(null, 204);
+            } catch (Exception $e) {
+                echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 400);
+            }
+        } else {
+            echo ViewUtil::renderJSON(["napaka" => "Uporabnik nima zadostnih pravic!"], 401);
+        }
     }
+
+    public static function izprazniKosarico($id_stranke) {
+        if(PrijavaService::uporabnikJeStranka()) {
+            try {
+                KosaricaService::izprazniKosarico($id_stranke);
+                echo ViewUtil::renderJSON(null, 204);
+            } catch (Exception $e) {
+                echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 400);
+            }
+        } else {
+            echo ViewUtil::renderJSON(["napaka" => "Uporabnik nima zadostnih pravic!"], 401);
+        }
+    }
+
 }

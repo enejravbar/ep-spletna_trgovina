@@ -22,6 +22,8 @@ public class Uporabnik implements Serializable {
 
     public String naslov;
 
+    public String telefon;
+
     public int posta;
 
     public int status;
@@ -35,6 +37,7 @@ public class Uporabnik implements Serializable {
                 ", email='" + email + '\'' +
                 ", naslov='" + naslov + '\'' +
                 ", posta=" + posta +
+                ", telefon=" + telefon +
                 ", status=" + status +
                 '}';
     }

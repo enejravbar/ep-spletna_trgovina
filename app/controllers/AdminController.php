@@ -7,19 +7,32 @@
  */
 
 require_once "ViewUtil.php";
+require_once "app/service/PrijavaService.php";
 
 class AdminController {
 
     public static function prikaziSeznamProdajalcev(){
-        echo ViewUtil::render("app/views/admin/prodajalci/pregled-prodajalcev.php");
+        if(PrijavaService::uporabnikJeAdmin()){
+            echo ViewUtil::render("app/views/admin/prodajalci/pregled-prodajalcev.php");
+        } else {
+            ViewUtil::redirect(BASE_URL);
+        }
     }
 
     public static function prikaziDodajanjeProdajalcev(){
-        echo ViewUtil::render("app/views/admin/prodajalci/dodaj-prodajalca.php");
+        if(PrijavaService::uporabnikJeAdmin()){
+            echo ViewUtil::render("app/views/admin/prodajalci/dodaj-prodajalca.php");
+        } else {
+            ViewUtil::redirect(BASE_URL);
+        }
     }
 
-    public static function prikaziUrejanjeProdajalcev(){
-        echo ViewUtil::render("app/views/admin/prodajalci/uredi-prodajalca.php");
+    public static function prikaziUrejanjeProdajalcev($id){
+        if(PrijavaService::uporabnikJeAdmin()){
+            echo ViewUtil::render("app/views/admin/prodajalci/uredi-prodajalca.php");
+        } else {
+            ViewUtil::redirect(BASE_URL);
+        }
     }
 
 }
