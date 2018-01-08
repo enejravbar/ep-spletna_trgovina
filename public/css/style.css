@@ -82,7 +82,7 @@ ul.support li a {
 }
 .account,.cart{
 	float:left;
-	width:40%;
+	width:30%;
 }
 .cart{
 	width:24%;
@@ -106,9 +106,14 @@ ul.support li a {
 	display: inline-block;
 	vertical-align: middle;
 }
-ul.login{
+/*ul.login{
 	float:left;
 	width:36%;
+	margin:0;
+}*/
+ul.login{
+	float:left;
+	width:44%;
 	margin:0;
 }
 ul.login li{
