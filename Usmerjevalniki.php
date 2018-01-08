@@ -273,7 +273,8 @@ class Usmerjevalniki {
                 }
             },
             //uporabniki
-            "/^api\/uporabniki$/" => function($method){
+            //DEPRECATED
+            /*"/^api\/uporabniki$/" => function($method){
                 switch($method){
                     case "POST":
                         UporabnikVir::dodajUporabnika();
@@ -295,7 +296,7 @@ class Usmerjevalniki {
                         UporabnikVir::pridobiEnega($id);
                         break;
                 }
-            },
+            },*/
             // izdelki
             "/^api\/izdelki\/(\d+)$/" => function($method, $id = null){
                 switch($method){
