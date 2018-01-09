@@ -25,7 +25,7 @@ Vue.component('glava', {
                |
                <li><a href="register.html">REGISTRACIJA</a></li>
             </ul>
-            <div class="cart"><a href="#"><span> </span>KOŠARICA</a></div>
+            <div class="cart"><a href="cart.html"><span> </span>KOŠARICA</a></div>
 
             <div class="clearfix"> </div>
          </div>
@@ -37,7 +37,7 @@ Vue.component('glava', {
 
 Vue.component('noga', {
   template:`
-  <div class="footer">
+  <div class="footer" style="position:fixed; width:100%; bottom:0px;;">
    <div class="footer-top">
       <div class="container">
          <div class="latter">
@@ -63,7 +63,7 @@ Vue.component('noga', {
       </div>
    </div>
    <div class="header">
-      <div class="top-header">
+      <div class="top-header" >
          <div class="container" style="height:15px;">
          </div>
       </div>
@@ -136,12 +136,12 @@ Vue.component('artikel-posebna-ponudba', {
   template:`
   <div class=" chain-grid menu-chain">
     <a href="single.html"><img class="img-responsive chain" :src="slika_url" alt=" " /></a>
-    <div class="grid-chain-bottom chain-watch">
-    <h6><a href="single.html">{{ime_artikla}}</a></h6>
-    <div style="margin-top:5px;">
-       <span>CENA: </span>
-       <span class="actual " >{{redna_cena}}€</span>
-   </div>
+    <div class="grid-chain-bottom chain-watch" >
+      <h6 style="display:block;""><a href="single.html">{{ime_artikla}}</a></h6>
+      <div style="display:block; margin-top:5px; padding-bottom:20px;">
+
+         <span style="float:right; "class="actual " ><span> CENA: </span>{{redna_cena}}€</span>
+      </div>
     </div>
   </div>`,
   data: function(){

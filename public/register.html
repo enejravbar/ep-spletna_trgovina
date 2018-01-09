@@ -15,9 +15,14 @@
       <script src="js/vue.js"></script>
       <script src="js/vue_components.js"></script>
       <script src="js/register.js"></script>
+      <style>
+        [v-cloak] {
+          display: none;
+        }
+      </style>
    </head>
    <body>
-      <div id="app">
+      <div id="app" v-cloak>
          <glava></glava>
          <div class="container">
             <navigacijski-menu-wrapper></navigacijski-menu-wrapper>
