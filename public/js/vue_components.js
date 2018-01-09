@@ -95,27 +95,17 @@ Vue.component('artikel-domaca-stran', {
   template:`
   <div v-if="st_slike<=1" class="col-md-4 chain-grid ">
      <a href="single.html"><img class="img-responsive chain" :src="slika_url" alt=" " /></a>
-     <span class="star"> </span>
      <div class="grid-chain-bottom">
         <h6><a href="single.html">{{ime_artikla}}</a></h6>
         <div class="star-price">
            <div class="dolor-grid">
-              <span class="actual">{{znizana_cena}}$</span>
-              <span class="reducedfrom">{{redna_cena}}</span>
+              <span >CENA:</span>
+              <span class="actual">{{znizana_cena}}€</span>
               <span class="rating">
-              <input type="radio" class="rating-input" id="rating-input-1-5" name="rating-input-1">
-              <label for="rating-input-1-5" class="rating-star1"> </label>
-              <input type="radio" class="rating-input" id="rating-input-1-4" name="rating-input-1">
-              <label for="rating-input-1-4" class="rating-star1"> </label>
-              <input type="radio" class="rating-input" id="rating-input-1-3" name="rating-input-1">
-              <label for="rating-input-1-3" class="rating-star"> </label>
-              <input type="radio" class="rating-input" id="rating-input-1-2" name="rating-input-1">
-              <label for="rating-input-1-2" class="rating-star"> </label>
-              <input type="radio" class="rating-input" id="rating-input-1-1" name="rating-input-1">
-              <label for="rating-input-1-1" class="rating-star"> </label>
+
               </span>
            </div>
-           <a class="now-get get-cart" href="#">ADD TO CART</a>
+           <a class="now-get get-cart" href="#">V KOŠARICO</a>
            <div class="clearfix"> </div>
         </div>
      </div>
@@ -123,27 +113,17 @@ Vue.component('artikel-domaca-stran', {
 
   <div v-else class="col-md-4 chain-grid grid-top-chain">
      <a href="single.html"><img class="img-responsive chain" :src="slika_url" alt=" " /></a>
-     <span class="star"> </span>
      <div class="grid-chain-bottom">
         <h6><a href="single.html">{{ime_artikla}}</a></h6>
         <div class="star-price">
            <div class="dolor-grid">
-              <span class="actual">{{znizana_cena}}$</span>
-              <span class="reducedfrom">{{redna_cena}}</span>
+              <span >CENA:</span>
+              <span class="actual">{{znizana_cena}}€</span>
               <span class="rating">
-              <input type="radio" class="rating-input" id="rating-input-1-5" name="rating-input-1">
-              <label for="rating-input-1-5" class="rating-star1"> </label>
-              <input type="radio" class="rating-input" id="rating-input-1-4" name="rating-input-1">
-              <label for="rating-input-1-4" class="rating-star1"> </label>
-              <input type="radio" class="rating-input" id="rating-input-1-3" name="rating-input-1">
-              <label for="rating-input-1-3" class="rating-star"> </label>
-              <input type="radio" class="rating-input" id="rating-input-1-2" name="rating-input-1">
-              <label for="rating-input-1-2" class="rating-star"> </label>
-              <input type="radio" class="rating-input" id="rating-input-1-1" name="rating-input-1">
-              <label for="rating-input-1-1" class="rating-star"> </label>
+
               </span>
            </div>
-           <a class="now-get get-cart" href="#">ADD TO CART</a>
+           <a class="now-get get-cart" href="#">V KOŠARICO</a>
            <div class="clearfix"> </div>
         </div>
      </div>
@@ -152,16 +132,27 @@ Vue.component('artikel-domaca-stran', {
 });
 
 Vue.component('artikel-posebna-ponudba', {
-  props:['slika_url','ime_artikla','redna_cena','znizana_cena'],
+
   template:`
   <div class=" chain-grid menu-chain">
     <a href="single.html"><img class="img-responsive chain" :src="slika_url" alt=" " /></a>
     <div class="grid-chain-bottom chain-watch">
-       <span class="actual dolor-left-grid">{{znizana_cena}}€</span>
-       <span class="reducedfrom">{{redna_cena}}€</span>
-       <h6><a href="single.html">{{ime_artikla}}</a></h6>
+    <h6><a href="single.html">{{ime_artikla}}</a></h6>
+    <div style="margin-top:5px;">
+       <span>CENA: </span>
+       <span class="actual " >{{redna_cena}}€</span>
+   </div>
     </div>
-  </div>`
+  </div>`,
+  data: function(){
+    return {
+      slika_url:"images/ba.jpg",
+      ime_artikla:"Usnjena torba",
+      redna_cena:"410",
+      znizana_cena:"310"
+    }
+  }
+
 });
 
 Vue.component('kategorija', {
@@ -186,5 +177,67 @@ Vue.component('navigacijski-menu', {
     </slot>
     <slot></slot>
   </div>
+  `
+});
+
+Vue.component('navigacijski-menu-wrapper', {
+  props:[],
+  template:`
+  <navigacijski-menu>
+    <div slot="kategorija" v-for="kategorija in tabelaKategorij">
+      <kategorija  :url="kategorija.url" :ime_kategorije="kategorija.ime"> </kategorija>
+    </div>
+    <artikel-posebna-ponudba slot="artikel-posebna-ponudba" ></artikel-posebna-ponudba>
+  </navigacijski-menu>
+  `,
+  data: function(){
+    return {
+      tabelaKategorij:[
+        {ime:"Računalništvo", url:"product.html"},
+        {ime:"Bela Tehnika", url:"product.html"},
+        {ime:"Vrtnarstvo", url:"product.html"},
+        {ime:"Obleke", url:"product.html"}
+      ]
+    }
+  },
+  computed:{
+  }
+
+});
+
+Vue.component('artikel-product-stran', {
+  props:['povezava_artikel','slika_url','ime_artikla','redna_cena','znizana_cena'],
+  template:`
+  <div class="product-grid">
+   <div class="content_box">
+      <a :href="povezava_artikel">
+         <div class="left-grid-view grid-view-left">
+            <img :src="slika_url" class="img-responsive watch-right" alt=""/>
+         </div>
+      </a>
+      <a :href="povezava_artikel"><h4>{{ime_artikla}}</h4></a>
+      <p>It is a long established fact that a reader</p>
+      <div class="star-price">
+         <div class="dolor-grid">
+            <span >CENA:</span>
+            <span class="actual">{{redna_cena}}€</span>
+            <span class="rating">
+
+            </span>
+         </div>
+         <a class="now-get get-cart" href="#">V KOŠARICO</a>
+         <div class="clearfix"> </div>
+      </div>
+   </div>
+</div>`
+});
+
+Vue.component('artikel-slika-single-stran', {
+  props:['slika_url'],
+  template:`
+  <li>
+      <img class="etalage_thumb_image " :src="slika_url"  />
+      <img class="etalage_source_image " :src="slika_url" title="" />
+  </li>
   `
 });

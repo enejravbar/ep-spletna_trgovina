@@ -1,73 +1,60 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Big shope A Ecommerce Category Flat Bootstarp Resposive Website Template | Register :: w3layouts</title>
-<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<!--theme-style-->
-<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-<!--//theme-style-->
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!--fonts-->
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
-<!--//fonts-->
-<script src="js/jquery.min.js"></script>
-<script src="js/vue.js"></script>
-<script src="js/vue_components.js"></script>
-<script src="js/register.js"></script>
-
-</head>
-<body>
-	<div id="app">
-		<glava></glava>
-
-		<div class="container">
-
-				<navigacijski-menu>
-					<kategorija slot="kategorija" v-for="kategorija in tabelaKategorij" :url="kategorija.url" :ime_kategorije="kategorija.ime"> </kategorija>
-					<artikel-posebna-ponudba slot="artikel-posebna-ponudba" :slika_url="artikel.slika_url" :ime_artikla="artikel.ime_artikla" :redna_cena="artikel.redna_cena" :znizana_cena="artikel.znizana_cena"></artikel-posebna-ponudba>
-				</navigacijski-menu>
-
-			<div class="register">
-			  	  <form>
-					 <div class="  register-top-grid">
-						<h3>OSEBNI PODATKI</h3>
-						<div class="mation">
-							<span>IME<label>*</label></span>
-							<input type="text">
-
-							<span>PRIIMEK<label>*</label></span>
-							<input type="text">
-
-							 <span>ELEKTRONSKI NASLOV<label>*</label></span>
-							 <input type="text">
-						</div>
-						 <div class="clearfix"> </div>
-
-						 </div>
-					     <div class="  register-bottom-grid">
-							    <h3>PRIJAVNI PODATKI</h3>
-								<div class="mation">
-									<span>GESLO<label>*</label></span>
-									<input type="text">
-									<span>POTRDI GESLO<label>*</label></span>
-									<input type="text">
-								</div>
-						 </div>
-					</form>
-					<div class="clearfix"> </div>
-					<div class="register-but">
-					   <form>
-						   <input type="submit" value="submit">
-						   <div class="clearfix"> </div>
-					   </form>
-					</div>
-			   </div>
-
-		</div>
-
-		<noga></noga>
-	</div>
-
-</body>
+   <head>
+      <title>Big shope</title>
+      <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+      <!--theme-style-->
+      <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+      <!--//theme-style-->
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+      <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+      <!--fonts-->
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+      <!--//fonts-->
+      <script src="js/jquery.min.js"></script>
+      <script src="js/vue.js"></script>
+      <script src="js/vue_components.js"></script>
+      <script src="js/register.js"></script>
+   </head>
+   <body>
+      <div id="app">
+         <glava></glava>
+         <div class="container">
+            <navigacijski-menu-wrapper></navigacijski-menu-wrapper>
+            <div class="register">
+               <form>
+                  <div class="  register-top-grid">
+                     <h3>OSEBNI PODATKI</h3>
+                     <div class="mation">
+                        <span>IME<label>*</label></span>
+                        <input type="text">
+                        <span>PRIIMEK<label>*</label></span>
+                        <input type="text">
+                        <span>ELEKTRONSKI NASLOV<label>*</label></span>
+                        <input type="text">
+                     </div>
+                     <div class="clearfix"> </div>
+                  </div>
+                  <div class="  register-bottom-grid">
+                     <h3>PRIJAVNI PODATKI</h3>
+                     <div class="mation">
+                        <span>GESLO<label>*</label></span>
+                        <input type="text">
+                        <span>POTRDI GESLO<label>*</label></span>
+                        <input type="text">
+                     </div>
+                  </div>
+               </form>
+               <div class="clearfix"> </div>
+               <div class="register-but">
+                  <form>
+                     <input type="submit" value="REGISTRIRAJ SE">
+                     <div class="clearfix"> </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+         <noga></noga>
+      </div>
+   </body>
 </html>

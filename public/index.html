@@ -9,64 +9,44 @@
       <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
       <script src="js/jquery.min.js"></script>
       <script src="js/vue.js"></script>
-			<script src="js/vue_components.js"></script>
-			<script src="js/jquery.wmuSlider.js"></script>
+      <script src="js/vue_components.js"></script>
+      <script src="js/jquery.wmuSlider.js"></script>
       <script src="js/index.js"></script>
    </head>
    <body>
       <div id="app" >
-         <!--header-->
-				 <div id="glava">
-				 		<glava></glava>
-				</div>
-         <!---->
+         <glava></glava>
          <div class="container" >
-
-					 <navigacijski-menu>
-						 <kategorija slot="kategorija" v-for="kategorija in tabelaKategorij" :url="kategorija.url" :ime_kategorije="kategorija.ime"> </kategorija>
-						 <artikel-posebna-ponudba slot="artikel-posebna-ponudba" :slika_url="artikel.slika_url" :ime_artikla="artikel.ime_artikla" :redna_cena="artikel.redna_cena" :znizana_cena="artikel.znizana_cena"></artikel-posebna-ponudba>
-					 </navigacijski-menu>
-
-						<div class="shoes-grid">
-
-							 <a href="single.html">
-									<div class="wrap-in">
+            <navigacijski-menu-wrapper></navigacijski-menu-wrapper>
+            <div class="shoes-grid">
+               <a href="single.html">
+                  <div class="wrap-in">
                      <div class="wmuSlider example1 slide-grid">
                         <div class="wmuSliderWrapper" v-for="artikel in mnoziceArtiklov.slideShow">
-
-													<slide :slika="artikel.slika_url"></slide>
-
+                           <slide :slika="artikel.slika_url"></slide>
                         </div>
-										</div>
-									</div>
-							 </a>
-
-							 <div class="products">
-						      <h5 class="latest-product">ZADNJI ARTIKLI</h5>
-						      <a class="view-all" href="product.html">POGLEJ OSTALE<span> </span></a>
-						   </div>
-
-               <div class="product-left" v-for="(artikel,i) in mnoziceArtiklov.zadnjiArtikli">
-									<artikel-domaca-stran v-bind:st_slike="i" :slika_url="artikel.slika_url" :ime_artikla="artikel.ime_artikla" :redna_cena="artikel.redna_cena" :znizana_cena="artikel.znizana_cena"></artikel-domaca-stran>
+                     </div>
+                  </div>
+               </a>
+               <div class="products">
+                  <h5 class="latest-product">ZADNJI ARTIKLI</h5>
+                  <a class="view-all" href="product.html">POGLEJ OSTALE<span> </span></a>
                </div>
-
-							 <div class="products">
-						      <h5 class="latest-product">ZADNJI ARTIKLI</h5>
-						      <a class="view-all" href="product.html">POGLEJ OSTALE<span> </span></a>
-						   </div>
-
                <div class="product-left" v-for="(artikel,i) in mnoziceArtiklov.zadnjiArtikli">
-									<artikel-domaca-stran v-bind:st_slike="i" :slika_url="artikel.slika_url" :ime_artikla="artikel.ime_artikla" :redna_cena="artikel.redna_cena" :znizana_cena="artikel.znizana_cena"></artikel-domaca-stran>
+                  <artikel-domaca-stran v-bind:st_slike="i" :slika_url="artikel.slika_url" :ime_artikla="artikel.ime_artikla" :redna_cena="artikel.redna_cena" :znizana_cena="artikel.znizana_cena"></artikel-domaca-stran>
                </div>
-
+               <div class="products">
+                  <h5 class="latest-product">ZADNJI ARTIKLI</h5>
+                  <a class="view-all" href="product.html">POGLEJ OSTALE<span> </span></a>
+               </div>
+               <div class="product-left" v-for="(artikel,i) in mnoziceArtiklov.zadnjiArtikli">
+                  <artikel-domaca-stran v-bind:st_slike="i" :slika_url="artikel.slika_url" :ime_artikla="artikel.ime_artikla" :redna_cena="artikel.redna_cena" :znizana_cena="artikel.znizana_cena"></artikel-domaca-stran>
+               </div>
                <div class="clearfix"> </div>
             </div>
-
             <div class="clearfix"> </div>
          </div>
-
-				 <noga></noga>
-
+         <noga></noga>
       </div>
    </body>
 </html>
