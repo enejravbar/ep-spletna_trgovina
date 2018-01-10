@@ -22,7 +22,8 @@ class Izdelki extends Entiteta {
     }
 
     public static function getAll() {
-        return parent::query("SELECT * FROM izdelki ORDER BY id ASC");
+        return parent::query("SELECT *, (SELECT s.id FROM slike s WHERE s.izdelek=i.id LIMIT 1) as thumbnail ".
+            "FROM izdelki i ORDER BY id ASC");
     }
 
     public static function insert(array $params) {

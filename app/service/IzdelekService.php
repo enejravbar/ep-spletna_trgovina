@@ -28,7 +28,6 @@ class IzdelekService {
             "opis" => $podatki["opis"],
             "cena" => $podatki["cena"],
             "status" => $podatki["status"],
-            "slika_url" => $podatki["slika_url"],
             "id" => $podatki["id"]
         ]);
         if($rowAffected <= 0){

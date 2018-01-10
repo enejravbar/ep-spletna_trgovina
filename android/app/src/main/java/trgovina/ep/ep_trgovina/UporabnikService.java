@@ -22,22 +22,24 @@ public class UporabnikService {
         String HOST_LOKALNEGA_RACUNALNIKA = "10.0.2.2";
         String URL = "http://" + HOST_LOKALNEGA_RACUNALNIKA + "/pstorm/ep-spletna_trgovina/api/";
 
-        @GET("android/uporabniki/{id}")
+        @GET("android/stranke/{id}")
         Call<UporabnikResponse> get(@Path("id") long id);
 
         @FormUrlEncoded
-        @PUT("uporabniki/{id}")
+        @PUT("android/stranke/{id}")
         Call<Uporabnik> update(@Path("id") long id,
                                @Field("vloga") int vloga,
                                @Field("ime") String ime,
                                @Field("priimek") String priimek,
-                               @Field("geslo") String geslo,
+                               @Field("geslo1") String geslo1,
+                               @Field("geslo2") String geslo2,
                                @Field("email") String email,
                                @Field("naslov") String naslov,
-                               @Field("posta") int posta);
+                               @Field("posta") int posta,
+                               @Field("telefon") String telefon);
 
         @FormUrlEncoded
-        @POST("prijava")
+        @POST("android/prijava")
         Call<Uporabnik> prijavi(@Field("email") String email, @Field("geslo") String geslo);
     }
 

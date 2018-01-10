@@ -90,6 +90,7 @@ CREATE TABLE IF NOT EXISTS `uporabniki` (
   `geslo` VARCHAR(200) NOT NULL,
   `naslov` VARCHAR(200),
   `posta` INT,
+  `telefon` VARCHAR(50),
   `status` INT NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC),
