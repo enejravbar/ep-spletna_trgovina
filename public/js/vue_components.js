@@ -35,7 +35,7 @@ Vue.component('glava', {
                <span class="caret"></span></button>
                <ul class="dropdown-menu">
                 <li ><a href="customerOrders.html"><span >Pregled naročil</span> </a></li>
-                 <li ><a href="#"><span >Upravljaj račun</span> </a></li>
+                 <li ><a href="customerManageAccount.html"><span >Upravljaj račun</span> </a></li>
                  <li ><a href="/odjava">Odjava</a></li>
                </ul>
               </div>

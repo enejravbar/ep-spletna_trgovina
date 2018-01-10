@@ -13,7 +13,8 @@ $(document).ready(function(){
         priimek:"Gorišek",
         naslov:"Ljubljana 232",
         tel_stevilka:"041232141",
-      }
+      },
+      narociloOddano:false,
 
     },
     computed:{
@@ -28,6 +29,11 @@ $(document).ready(function(){
         }
 
     },
+    methods:{
+      oddajNarocilo: function(){
+        this.narociloOddano=true;
+      }
+    }
 
   });
 

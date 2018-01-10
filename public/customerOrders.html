@@ -73,22 +73,101 @@
                                   </td>
 
                                   <td>
-                                      <button type="button" class="btn btn-info" style="float:right;">Ogled naročila</button>
+                                      <button type="button" class="btn btn-info" style="float:right;" data-toggle="modal" :data-target="'#narocilo-modal'+narocilo.id_narocila">Ogled naročila</button>
+                                      <div :id="'narocilo-modal'+narocilo.id_narocila" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+
+                                          <!-- Modal content-->
+                                          <div class="modal-content" >
+                                            <div class="modal-header">
+                                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                              <h4 class="modal-title">Podrobnosti naročila</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                              <div class="panel panel-default" style="margin-top:25px;">
+
+                                                <div class="panel-heading">
+                                                  <b>PODATKI O NAROČNIKU</b>
+                                                </div>
+                                                <div class="panel-body">
+                                                  <p style="padding-top:5px; font-size:17px;">
+                                                    Ime: {{uporabnik.ime}}<br>
+                                                    Priimek: {{uporabnik.priimek}}<br>
+                                                    Naslov: {{uporabnik.naslov}}<br>
+                                                    Tel. številka: {{uporabnik.tel_stevilka}}
+                                                  </p>
+                                                </div>
+                                              </div>
+
+                                              <table id="cart" class="table table-hover table-condensed">
+                                                				<thead>
+                                            						<tr>
+                                            							<th style="width:50%">Artikel</th>
+                                            							<th style="width:10%">Cena</th>
+                                            							<th style="width:8%">Količina</th>
+                                            							<th style="width:22%" class="text-center">Skupna cena</th>
+                                            							<th style="width:10%"></th>
+                                            						</tr>
+                                            					</thead>
+                                            					<tbody>
+
+                                                        <tr v-for="artikel in narocilo.tabelaArtiklov">
+
+                                              							<td data-th="Izdelek">
+                                              								<div class="row">
+                                              									<div class="col-sm-2 hidden-xs"><a :href="artikel.povezava_artikel"><img :src="artikel.slika_url" alt="..." class="img-responsive" style="margin-top:12px; width:50px;"/></a></div>
+                                              									<div class="col-sm-8">
+                                              										<h4 style="padding-top:30px;">{{artikel.ime_artikla}}</h4>
+                                              										<p></p>
+                                              									</div>
+                                              								</div>
+                                              							</td>
+                                              							<td data-th="Cena">{{artikel.redna_cena}} €</td>
+                                              							<td data-th="Količina">
+                                              								<p class="text-center"style=" margin-top:24px;">{{artikel.kolicina}}</p>
+                                              							</td>
+                                              							<td data-th="Skupna cena" class="text-center" >{{artikel.kolicina*artikel.redna_cena}} €</td>
+                                                            <td class="actions" data-th="">
+                                              							</td>
+
+                                            						</tr>
+
+                                            					</tbody>
+                                            					<tfoot >
+                                            						<tr class="visible-xs">
+                                            							<td class="text-center"><strong>Za plačilo:  {{narocilo.cena_narocila}}€</strong></td>
+                                                          <td></td>
+                                                          <td></td>
+                                                          <td></td>
+                                                          <td></td>
+                                            						</tr>
+                                            						<tr style="">
+
+                                            							<td class="hidden-xs text-center" style="font-size:20px;"><strong>Za plačilo:  {{narocilo.cena_narocila}}€</strong></td>
+                                                          <td></td>
+                                                          <td></td>
+                                                          <td></td>
+                                                          <td></td>
+                                                          
+                                            						</tr>
+                                            					</tfoot>
+                                            				</table>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-default" data-dismiss="modal">Zapri</button>
+                                            </div>
+                                          </div>
+
+                                        </div>
+                                      </div>
                                   </td>
 
                   						</tr>
 
                 					</tbody>
-                					<tfoot >
 
-                						<tr style="">
-                							<td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                            </tr>
-                					</tfoot>
                 				</table>
+
                     </div>
                </div>
 
