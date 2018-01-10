@@ -14,6 +14,7 @@
       <!--//fonts-->
       <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
       <script src="js/jquery.min.js"></script>
+      <script src="js/bootstrap.js"></script>
       <script src="js/vue.js"></script>
       <script src="js/vue_components.js"></script>
       <script src="js/cart.js"></script>
@@ -42,9 +43,9 @@
                 					</thead>
                 					<tbody>
 
-                            <tr v-for="artikel in tabelaArtiklov">
+                            <tr v-for="artikel in tabelaArtiklov" >
 
-                  							<td data-th="Product">
+                  							<td data-th="Izdelek">
                   								<div class="row">
                   									<div class="col-sm-2 hidden-xs"><a :href="artikel.povezava_artikel"><img :src="artikel.slika_url" alt="..." class="img-responsive" style="margin-top:12px; width:50px;"/></a></div>
                   									<div class="col-sm-8">
@@ -53,13 +54,13 @@
                   									</div>
                   								</div>
                   							</td>
-                  							<td data-th="Price">{{artikel.redna_cena}} €</td>
-                  							<td data-th="Quantity">
+                  							<td data-th="Cena">{{artikel.redna_cena}} €</td>
+                  							<td data-th="Količina">
                   								<input type="number" class="form-control text-center" v-bind:value="artikel.kolicina" v-model.number="artikel.kolicina" min="1">
                   							</td>
-                  							<td data-th="Subtotal" class="text-center">{{artikel.kolicina*artikel.redna_cena}} €</td>
+                  							<td data-th="Skupna cena" class="text-center">{{artikel.kolicina*artikel.redna_cena}} €</td>
                   							<td class="actions" data-th="">
-                  								<button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+                  								<button class="btn btn-md btn-danger " v-on:click="odstraniIzdelekIzKosarice(artikel)"><i class="fa fa-trash-o"></i></button>
                   							</td>
 
                 						</tr>

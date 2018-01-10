@@ -23,6 +23,15 @@ $(document).ready(function(){
           return skupnaCenaKosarice;
         }
     },
+    methods:{
+      odstraniIzdelekIzKosarice: function(izdelek){
+        for(var i = this.tabelaArtiklov.length; i--;) {
+            if(this.tabelaArtiklov[i] === izdelek) {
+                this.tabelaArtiklov.splice(i, 1);
+            }
+        }
+      }
+    }
 
   });
 

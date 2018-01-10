@@ -11,22 +11,49 @@ Vue.component('glava', {
             <div class="logo">
                <a href="index.html"><img src="images/logo.png" alt=" " /></a>
             </div>
-            <div class="search">
+            <div class="search" style="margin-top:26px;">
                <input type="text" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" >
                <input type="submit"  value="ISKANJE">
             </div>
             <div class="clearfix"> </div>
          </div>
          <div class="header-bottom-right">
-            <div class="account" style="dislay:none"><a href="login.html"><span> </span>VAŠ RAČUN</a></div>
+            <!--<div class="account" style="dislay:none"><a href="login.html"><span> </span>Pozdravljeni Enej</a></div>-->
 
-            <ul class="login">
-               <li><a href="login.html"><span> </span>PRIJAVA</a></li>
-               |
-               <li><a href="register.html">REGISTRACIJA</a></li>
-            </ul>
-            <div class="cart"><a href="cart.html"><span> </span>KOŠARICA</a></div>
+            <div style="display:block;">
 
+              <div class="cart" style="display:inline-block;float:right; margin-left:10px;">
+                <a href="cart.html">
+                  <button class="btn btn-default" type="button" ><span> </span>KOŠARICA
+                  </button>
+                </a>
+              </div>
+
+              <div class="dropdown" style="display:inline-block; float:right; margin-left:10px; ">
+               <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" style=" padding: 9px 9px 9px 9px ">Pozdravljeni Enej
+
+               <span class="caret"></span></button>
+               <ul class="dropdown-menu">
+                <li ><a href="customerOrders.html"><span >Pregled naročil</span> </a></li>
+                 <li ><a href="#"><span >Upravljaj račun</span> </a></li>
+                 <li ><a href="/odjava">Odjava</a></li>
+               </ul>
+              </div>
+
+              <div style="display:inline-block; float:right; margin-left:10px;">
+                 <ul class="login" >
+                    <li>
+                      <div>
+                        <a href="login.html">
+                         <button class="btn btn-default" type="button" ><span> </span>PRIJAVA</button>
+                       </a>
+
+                      </div>
+                    </li>
+                 </ul>
+               </div>
+
+            </div>
             <div class="clearfix"> </div>
          </div>
          <div class="clearfix"> </div>
@@ -51,13 +78,7 @@ Vue.component('noga', {
             <div class="clearfix"> </div>
          </div>
          <div class="latter-right">
-            <p>SLEDITE NAM</p>
-            <ul class="face-in-to">
-               <li><a href="#"><span> </span></a></li>
-               <li><a href="#"><span class="facebook-in"> </span></a></li>
-               <div class="clearfix"> </div>
-            </ul>
-            <div class="clearfix"> </div>
+
          </div>
          <div class="clearfix"> </div>
       </div>
