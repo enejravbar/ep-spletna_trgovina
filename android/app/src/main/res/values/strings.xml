@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">EP-trgovina</string>
+    <string name="btn_logout">Odjava</string>
+    <string name="btn_nazaj">Nazaj</string>
+    <string name="btn_profile">Moj profil</string>
+    <string name="btn_preklici">Prekliči</string>
+    <string name="btn_shrani">Shrani</string>
+
+    <string name="izdelek_cena">Cena:</string>
+
+</resources>
