@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Big shope</title>
+      <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+      <!--theme-style-->
+      <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+      <!--//theme-style-->
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+      <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+      <!--fonts-->
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+      <!--//fonts-->
+      <script src="js/jquery.min.js"></script>
+      <script src="js/vue.js"></script>
+      <script src="js/bootstrap.js"></script>
+      <script src="js/vue_components.js"></script>
+      <script src="js/product.js"></script>
+      <!--script-->
+      <style>
+        [v-cloak] {
+          display: none;
+        }
+      </style>
+   </head>
+   <body>
+      <div id="app" v-cloak>
+         <!--header-->
+         <glava></glava>
+         <!-- start content -->
+         <div class="container">
+            <navigacijski-menu-wrapper></navigacijski-menu-wrapper>
+            <div class="women-product">
+               <div class=" w_content">
+                  <div class="women">
+                     <a href="#">
+                        <h4>Ime kategorije - <span>X Izdelkov</span> </h4>
+                     </a>
+                     <ul class="w_nav">
+                        <li>Sortiraj po: </li>
+                        <li><a class="active" href="#">priljubljeno</a></li>
+                        |
+                        <li><a href="#">novo </a></li>
+                        |
+                        <li><a href="#">najnižja cena </a></li>
+                        |
+                        <li><a href="#">najvišja cena </a></li>
+                        <div class="clearfix"> </div>
+                     </ul>
+                     <div class="clearfix"> </div>
+                  </div>
+               </div>
+               <div  class="grid-product" >
+                  <div v-for="artikel in tabelaArtiklov">
+                     <artikel-product-stran  :povezava_artikel="artikel.povezava_artikel" :slika_url="artikel.slika_url" :ime_artikla="artikel.ime_artikla" :redna_cena="artikel.redna_cena" :znizana_cena="artikel.znizana_cena" ></artikel-product-stran>
+                  </div>
+                  <div class="clearfix"> </div>
+               </div>
+            </div>
+            <div class="clearfix"> </div>
+         </div>
+         <noga></noga>
+      </div>
+   </body>
+</html>

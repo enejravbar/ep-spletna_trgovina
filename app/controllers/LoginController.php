@@ -40,7 +40,7 @@ class LoginController {
 
     //naredi akcijo
     public static function prijaviStranko(){
-        $data = filter_input_array(INPUT_POST, Uporabniki::getLoginRules());
+        $data = filter_input_array(INPUT_POST, Uporabniki::pravilaZaPrijavo());
         if(ViewUtil::checkValues($data)){
             $prijavljen = UporabnikService::prijaviStranko($data);
             if($prijavljen){

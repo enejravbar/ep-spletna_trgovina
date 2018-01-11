@@ -5,7 +5,6 @@
       <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
       <!--theme-style-->
       <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-      <link href="css/kosarica.css" rel="stylesheet" type="text/css" media="all" />
       <!--//theme-style-->
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
       <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
@@ -17,7 +16,7 @@
       <script src="js/bootstrap.js"></script>
       <script src="js/vue.js"></script>
       <script src="js/vue_components.js"></script>
-      <script src="js/customerManageAccount.js"></script>
+      <script src="js/confirmPurchase.js"></script>
       <style>
         [v-cloak] {
           display: none;
@@ -29,15 +28,28 @@
          <glava></glava>
          <div class="container" >
 
+
                <div class=" login-right">
 
-                 <div style="margin-top:40px;">
+                 <div style="margin-top:40px;" v-if="narociloOddano">
 
-                   <stranka-forma-podatki stranka=""></stranka-forma-podatki>
-
+                   <div class="alert alert-success">
+                    <h2>Vaše naročilo je bilo uspešno oddano!</h2>
+                  </div>
+                  <td><a href="product.html" class="btn btn-md btn-warning"><i class="fa fa-angle-left"></i> Nadaljuj z nakupovenjem</a></td>
                  </div>
-               </div>
 
+                 <div style="margin-top:40px;" v-else>
+
+                  <h2>Zaključek naročila</h2>
+
+                    <narocilo :narocilo="narocilo"></narocilo>
+
+                    <td><a href="#" class="btn btn-success" style="padding:10px; float:right" v-on:click="oddajNarocilo()" >Oddaj naročilo</a></td>
+                    <td><a href="cart.html" class="btn btn-warning"><i class="fa fa-angle-left"></i> Nazaj na košarico</a></td>
+                 </div>
+
+              </div>
                <div class="clearfix"> </div>
          </div>
 

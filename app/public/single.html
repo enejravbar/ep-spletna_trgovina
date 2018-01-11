@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Big shope</title>
+      <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+      <!--theme-style-->
+      <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+      <link rel="stylesheet" href="css/etalage.css" type="text/css" media="all" />
+      <!--//theme-style-->
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+      <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+      <!--fonts-->
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+      <!--//fonts-->
+      <script src="js/jquery.min.js"></script>
+      <script src="js/vue.js"></script>
+      <script src="js/bootstrap.js"></script>
+      <script src="js/vue_components.js"></script>
+      <script src="js/single.js"></script>
+      <script src="js/jquery.etalage.min.js"></script>
+      <script type="text/javascript" src="js/jquery.flexisel.js"></script>
+      <script>
+         jQuery(document).ready(function($){
+
+         	$('#etalage').etalage({
+         		thumb_image_width: 300,
+         		thumb_image_height: 400,
+         		source_image_width: 900,
+         		source_image_height: 1200,
+         		show_hint: true
+         	});
+
+         });
+      </script>
+      <style>
+        [v-cloak] {
+          display: none;
+        }
+      </style>
+   </head>
+   <body>
+      <div id="app" v-cloak>
+         <glava></glava>
+         <div class="container">
+            <navigacijski-menu-wrapper></navigacijski-menu-wrapper>
+            <div class=" single_top">
+               <div class="single_grid">
+                  <div class="grid images_3_of_2">
+                     <ul id="etalage" >
+                        <artikel-slika-single-stran v-for="url in artikel.tabelaUrlSlik" :slika_url="url"> </artikel-slika-single-stran>
+                     </ul>
+                     <div class="clearfix"> </div>
+                  </div>
+                  <div class="desc1 span_3_of_2">
+                     <h4>{{artikel.ime_artikla}}</h4>
+                     <div class="cart-b">
+                        <div class="left-n ">{{artikel.znizana_cena}}€</div>
+                        <a class="now-get get-cart-in" href="#">V KOŠARICO</a>
+                        <div class="clearfix"></div>
+                     </div>
+                     <h6>Na zalogi</h6>
+                     <p class="m_text">{{artikel.opis_artikla}}</p>
+                     <div class="share">
+                        <h5>Ocenite artikel :</h5>
+                        <div class="rating">
+                           <span>☆</span>
+                           <span>☆</span>
+                           <span>☆</span>
+                           <span>☆</span>
+                           <span>☆</span>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="clearfix"> </div>
+               </div>
+            </div>
+            <div class="clearfix"> </div>
+         </div>
+         <noga></noga>
+      </div>
+   </body>
+</html>

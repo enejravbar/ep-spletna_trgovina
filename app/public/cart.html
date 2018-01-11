@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Big shope</title>
+      <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+      <!--theme-style-->
+      <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+      <link href="css/kosarica.css" rel="stylesheet" type="text/css" media="all" />
+      <!--//theme-style-->
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+      <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+      <!--fonts-->
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+      <!--//fonts-->
+      <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+      <script src="js/jquery.min.js"></script>
+      <script src="js/bootstrap.js"></script>
+      <script src="js/vue.js"></script>
+      <script src="js/vue_components.js"></script>
+      <script src="js/cart.js"></script>
+      <style>
+        [v-cloak] {
+          display: none;
+        }
+      </style>
+   </head>
+   <body>
+      <div id="app" v-cloak>
+         <glava></glava>
+         <div class="container" >
+
+               <div class=" login-right">
+                 <div style="margin-top:40px;">
+                  <table id="cart" class="table table-hover table-condensed">
+                    				<thead>
+                						<tr>
+                							<th style="width:50%">Artikel</th>
+                							<th style="width:10%">Cena</th>
+                							<th style="width:8%">Količina</th>
+                							<th style="width:22%" class="text-center">Skupna cena</th>
+                							<th style="width:10%"></th>
+                						</tr>
+                					</thead>
+                					<tbody>
+
+                            <tr v-for="artikel in tabelaArtiklov" >
+
+                  							<td data-th="Izdelek">
+                  								<div class="row">
+                  									<div class="col-sm-2 hidden-xs"><a :href="artikel.povezava_artikel"><img :src="artikel.slika_url" alt="..." class="img-responsive" style="margin-top:12px; width:50px;"/></a></div>
+                  									<div class="col-sm-8">
+                  										<h4 style="padding-top:30px;">{{artikel.ime_artikla}}</h4>
+                  										<p></p>
+                  									</div>
+                  								</div>
+                  							</td>
+                  							<td data-th="Cena">{{artikel.redna_cena}} €</td>
+                  							<td data-th="Količina">
+                  								<input type="number" class="form-control text-center" v-bind:value="artikel.kolicina" v-model.number="artikel.kolicina" min="1">
+                  							</td>
+                  							<td data-th="Skupna cena" class="text-center">{{artikel.kolicina*artikel.redna_cena}} €</td>
+                  							<td class="actions" data-th="">
+                  								<button class="btn btn-md btn-danger " v-on:click="odstraniIzdelekIzKosarice(artikel)"><i class="fa fa-trash-o"></i></button>
+                  							</td>
+
+                						</tr>
+
+                					</tbody>
+                					<tfoot >
+                						<tr class="visible-xs">
+                							<td class="text-center"><strong>Za plačilo {{skupnaCenaKosarice}}€</strong></td>
+                						</tr>
+                						<tr style="">
+                							<td><a href="product.html" class="btn btn-warning"><i class="fa fa-angle-left"></i> Nadaljuj z nakupovenjem</a></td>
+                							<td colspan="2" class="hidden-xs"></td>
+                							<td class="hidden-xs text-center" style="font-size:20px;"><strong>Za plačilo: {{skupnaCenaKosarice}}€</strong></td>
+                							<td><a href="confirmPurchase.html" class="btn btn-success btn-block" style="padding:10px;">Na blagajno <i class="fa fa-angle-right"></i></a></td>
+                						</tr>
+                					</tfoot>
+                				</table>
+                    </div>
+               </div>
+
+               <div class="clearfix"> </div>
+         </div>
+
+         <noga></noga>
+      </div>
+   </body>
+</html>
