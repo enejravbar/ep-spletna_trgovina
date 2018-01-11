@@ -19,7 +19,8 @@ $(document).ready(function(){
             {kolicina:1, povezava_artikel:"single.html", slika_url:"images/bag.jpg", ime_artikla:"Usnjena torba1", redna_cena:"100", znizana_cena:"200"},
             {kolicina:1, povezava_artikel:"single.html", slika_url:"images/bag1.jpg", ime_artikla:"Usnjena torba2", redna_cena:"100", znizana_cena:"100"},
           ]
-        }
+        },
+        narociloOddano:false
 
     },
     computed:{
