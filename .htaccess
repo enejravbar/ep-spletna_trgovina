@@ -6,7 +6,7 @@ SSLRenegBufferSize 10486000
 </files>
 
 RewriteEngine On
-RewriteBase /pstorm/ep-spletna_trgovina/
+RewriteBase /ep/ep-spletna_trgovina/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*) index.php/$1 [L,PT,QSA]

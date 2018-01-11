@@ -1,48 +1,62 @@
 <!DOCTYPE html>
-
 <html>
-    <head>
-        <meta charset="UTF-8"/>
-        <title>Forum</title>
-        <link rel="stylesheet" type="text/css" href="<?= CSS_URL . "style.css" ?>"/>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    </head>
+   <head>
+      <title>Big shope</title>
+      <link href="<?= CSS_URL .  "bootstrap.css" ?>" rel="stylesheet" type="text/css" media="all" />
+      <link href="<?= CSS_URL .  "style.css" ?>" rel="stylesheet" type="text/css" media="all" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script>
-        //test redirekcij
-        function doAjax() {
-            var req = new XMLHttpRequest();
-            req.open("GET", "https://localhost/pstorm/ep-spletna_trgovina/api/izdelki", true);
-            req.addEventListener("load", function(){
-                res = req.responseText;
-                res = JSON.parse(res);
-                console.log(res);
-            });
-            req.send();
+      <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+      <script src="<?= JS_URL .  "jquery.min.js"  ?>"></script>
+      <script src="<?= JS_URL .  "vue.js"  ?>"></script>
+      <script src="<?= JS_URL .  "vue_components.js"  ?>"></script>
+      <script src="<?= JS_URL .  "bootstrap.js"  ?>"></script>
+      <script src="<?= JS_URL .  "jquery.wmuSlider.js"  ?>"></script>
+      <script src="<?= JS_URL .  "index.js"  ?>"></script>
+
+      <style>
+        [v-cloak] {
+          display: none;
         }
-
-    </script>
-
-    <body>
-    <!--
-        <div id="izdelki">
-            <?php foreach ($izdelki as $izdelek): ?>
-                <div>
-                    <h3><?= $izdelek["ime"] ?></h3>
-                    <p><?= $izdelek["opis"] ?></p>
-                    <p><?= $izdelek["cena"] ?></p>
-                </div>
-            <?php endforeach; ?>
-        </div>
-        -->
-    <?= isset($_SESSION["trenutni_uporabnik"])? var_dump($_SESSION["trenutni_uporabnik"]): "Uporabnik ni prijavljen!" ?>
-    <?= isset($_SESSION["certifikat"])? var_dump($_SESSION["certifikat"]): "" ?>
-    <button onclick="doAjax()">Do Ajax</button>
-    <a href="<?= BASE_URL . "prijava" ?>">Prijava za stranke</a><br/>
-    <br/>
-    <a href="<?= BASE_URL . "osebje/prijava" ?>">Prijava za osebje</a>
-    </body>
-
+      </style>
+   </head>
+   <body>
+      <div id="app" >
+        <input type="hidden" value="<?= BASE_URL ?>" id="baseUrl"/>
+         <glava base_url="<?=BASE_URL?>"></glava>
+         <div class="container" >
+            <navigacijski-menu-wrapper></navigacijski-menu-wrapper>
+            <div class="shoes-grid">
+               <a href="single.html">
+                  <div class="wrap-in">
+                     <div class="wmuSlider example1 slide-grid">
+                        <div class="wmuSliderWrapper" v-for="artikel in mnoziceArtiklov.slideShow">
+                           <slide :slika="artikel.slika_url"></slide>
+                        </div>
+                     </div>
+                  </div>
+               </a>
+               <div class="products">
+                  <h5 class="latest-product">ZADNJI ARTIKLI</h5>
+                  <a class="view-all" href="product.html">POGLEJ OSTALE<span> </span></a>
+               </div>
+               <div class="product-left" v-for="(artikel,i) in mnoziceArtiklov.zadnjiArtikli">
+                  <artikel-domaca-stran v-bind:st_slike="i" :slika_url="artikel.slika_url" :ime_artikla="artikel.ime_artikla" :redna_cena="artikel.redna_cena" :znizana_cena="artikel.znizana_cena"></artikel-domaca-stran>
+               </div>
+               <div class="products">
+                  <h5 class="latest-product">ZADNJI ARTIKLI</h5>
+                  <a class="view-all" href="product.html">POGLEJ OSTALE<span> </span></a>
+               </div>
+               <div class="product-left" v-for="(artikel,i) in mnoziceArtiklov.zadnjiArtikli">
+                  <artikel-domaca-stran v-bind:st_slike="i" :slika_url="artikel.slika_url" :ime_artikla="artikel.ime_artikla" :redna_cena="artikel.redna_cena" :znizana_cena="artikel.znizana_cena"></artikel-domaca-stran>
+               </div>
+               <div class="clearfix"> </div>
+            </div>
+            <div class="clearfix"> </div>
+         </div>
+         <noga></noga>
+      </div>
+   </body>
 </html>

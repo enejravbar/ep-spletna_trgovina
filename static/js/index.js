@@ -3,16 +3,18 @@ $(document).ready(function(){
   var app = new Vue({
     el: '#app',
     data: {
+      base_url:document.getElementById("baseUrl").value,
       mnoziceArtiklov:{
         slideShow:[
-              {slika_url:"images/bag.jpg", ime_artikla:"Usnjena torba", redna_cena:"400", znizana_cena:"300"},
-              {slika_url:"images/bag.jpg", ime_artikla:"Usnjena torba", redna_cena:"400", znizana_cena:"300"},
-              {slika_url:"images/bag.jpg", ime_artikla:"Usnjena torba", redna_cena:"400", znizana_cena:"300"},
+              {slika_url:"api/slike/1", ime_artikla:"Usnjena torba", redna_cena:"400", znizana_cena:"300"},
+              {slika_url:"api/slike/2", ime_artikla:"Usnjena torba", redna_cena:"400", znizana_cena:"300"},
+              {slika_url:"api/slike/3", ime_artikla:"Usnjena torba", redna_cena:"400", znizana_cena:"300"},
+
             ],
         zadnjiArtikli:[
-              {slika_url:"images/ba.jpg", ime_artikla:"Usnjena torba", redna_cena:"400", znizana_cena:"300"},
-              {slika_url:"images/ba.jpg", ime_artikla:"Usnjena torba", redna_cena:"400", znizana_cena:"300"},
-              {slika_url:"images/ba.jpg", ime_artikla:"Usnjena torba", redna_cena:"400", znizana_cena:"300"},
+          {slika_url:"api/slike/1", ime_artikla:"Usnjena torba", redna_cena:"400", znizana_cena:"300"},
+          {slika_url:"api/slike/2", ime_artikla:"Usnjena torba", redna_cena:"400", znizana_cena:"300"},
+          {slika_url:"api/slike/3", ime_artikla:"Usnjena torba", redna_cena:"400", znizana_cena:"300"},
             ],
       },
     }

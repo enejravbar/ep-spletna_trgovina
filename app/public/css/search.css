@@ -1,0 +1,10 @@
+#searchBar {
+    width: 50%;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+/* When the input field gets focus, change its width to 100% */
+#searchBar:focus {
+    width: 50%;
+}
