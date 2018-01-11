@@ -18,7 +18,6 @@ Vue.component('glava', {
             <div class="clearfix"> </div>
          </div>
          <div class="header-bottom-right">
-            <!--<div class="account" style="dislay:none"><a href="login.html"><span> </span>Pozdravljeni Enej</a></div>-->
 
             <div style="display:block;">
 
@@ -52,6 +51,48 @@ Vue.component('glava', {
                     </li>
                  </ul>
                </div>
+
+            </div>
+            <div class="clearfix"> </div>
+         </div>
+         <div class="clearfix"> </div>
+      </div>
+   </div>
+</div>`
+});
+
+Vue.component('glava-prodajalec', {
+  template:`
+  <div class="header">
+   <div class="top-header">
+      <div class="container" style="height:15px;">
+      </div>
+   </div>
+   <div class="bottom-header">
+      <div class="container">
+         <div class="header-bottom-left">
+            <div class="logo">
+               <a href="index.html"><img src="images/logo.png" alt=" " /></a>
+            </div>
+
+            <div class="clearfix"> </div>
+         </div>
+         <div class="header-bottom-right">
+
+            <div style="display:block;">
+
+              <div class="dropdown" style="display:inline-block; float:right; margin-left:10px; ">
+               <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" style=" padding: 9px 9px 9px 9px ">Pozdravljen/a Enej
+
+               <span class="caret"></span></button>
+               <ul class="dropdown-menu">
+                 <li ><a href="sellerOrders.html"><span >Pregled naročil</span> </a></li>
+                 <li ><a href="sellerManageCustomers.html"><span >Upravljanje strank</span> </a></li>
+                 <li ><a href="sellerManageProducts.html"><span >Upravljanje artiklov</span> </a></li>
+                 <li ><a href="sellerManageAccount.html"><span >Upravljaj račun</span> </a></li>
+                 <li ><a href="/odjava">Odjava</a></li>
+               </ul>
+              </div>
 
             </div>
             <div class="clearfix"> </div>
@@ -261,4 +302,232 @@ Vue.component('artikel-slika-single-stran', {
       <img class="etalage_source_image " :src="slika_url" title="" />
   </li>
   `
+});
+
+Vue.component('stranka-forma-podatki', {
+  props:['stranka'],
+  template:`
+<div>
+  <div class="panel panel-default" style="">
+    <div class="panel-heading">
+      <h3>OSEBNI PODATKI</h3>
+    </div>
+    <div class="panel-body">
+      <div class="">
+
+         <div class="form-group">
+           <label for="ime">IME</label>
+           <input type="text" class="form-control" id="ime" placeholder="" name="pwd" :value="stranka.ime">
+         </div>
+         <div class="form-group">
+           <label for="priimek">PRIIMEK</label>
+           <input type="text" class="form-control" id="priimek" placeholder="" name="pwd" :value="stranka.priimek">
+         </div>
+         <div class="form-group">
+           <label for="email">ELEKTRONSKI NASLOV</label>
+           <input type="text" class="form-control" id="email" placeholder="" name="pwd" :value="stranka.email_naslov">
+         </div>
+         <div class="form-group">
+           <label for="email">NASLOV</label>
+           <input type="text" class="form-control" id="naslov" placeholder="" name="pwd" :value="stranka.naslov">
+         </div>
+         <div class="form-group">
+           <label for="email">TELEFONSKA ŠTEVILKA</label>
+           <input type="text" class="form-control" id="tel_stevilka" placeholder="" name="pwd" :value="stranka.tel_stevilka">
+         </div>
+         <button  class="btn btn-success" style="display:inline-block">Shrani spremembe</button>
+         <span class="label label-success"  style="display:inline-block; float:right; padding:6px;">Podatki uspešno posodobljeni!</span>
+      </div>
+      <div class="clearfix"> </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default" style="margin-top:25px;">
+    <div class="panel-heading">
+      <h3>PRIJAVNI PODATKI</h3>
+    </div>
+    <div class="panel-body">
+      <div class="">
+
+        <div class="form-group">
+          <label for="pwd">NOVO GESLO</label>
+          <input type="password" class="form-control" id="pwd" placeholder="Vpiši novo geslo" name="pwd">
+        </div>
+        <div class="form-group">
+          <label for="pwd1">POTRDI NOVO GESLO</label>
+          <input type="password" class="form-control" id="pwd1" placeholder="Potrdi novo geslo" name="pwd">
+        </div>
+
+        <button  class="btn btn-success" style="display:inline-block">Shrani spremembe</button>
+        <span class="label label-success"  style="display:inline-block; float:right; padding:6px;">Podatki uspešno posodobljeni!</span>
+
+      </div>
+      <div class="clearfix"> </div>
+    </div>
+  </div>
+</div>
+  `
+});
+
+Vue.component('prodajalec-forma-podatki', {
+  props:['prodajalec'],
+  template:`
+<div>
+  <div class="panel panel-default" style="">
+    <div class="panel-heading">
+      <h3>OSEBNI PODATKI</h3>
+    </div>
+    <div class="panel-body">
+      <div class="">
+
+         <div class="form-group">
+           <label for="ime">IME</label>
+           <input type="text" class="form-control" id="ime" placeholder="" name="pwd" :value="prodajalec.ime">
+         </div>
+         <div class="form-group">
+           <label for="priimek">PRIIMEK</label>
+           <input type="text" class="form-control" id="priimek" placeholder="" name="pwd" :value="prodajalec.priimek">
+         </div>
+         <div class="form-group">
+           <label for="email">ELEKTRONSKI NASLOV</label>
+           <input type="text" class="form-control" id="email" placeholder="" name="pwd" :value="prodajalec.email_naslov">
+         </div>
+         <button  class="btn btn-success" style="display:inline-block">Shrani spremembe</button>
+         <span class="label label-success"  style="display:inline-block; float:right; padding:6px;">Podatki uspešno posodobljeni!</span>
+      </div>
+      <div class="clearfix"> </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default" style="margin-top:25px;">
+    <div class="panel-heading">
+      <h3>PRIJAVNI PODATKI</h3>
+    </div>
+    <div class="panel-body">
+      <div class="">
+
+        <div class="form-group">
+          <label for="pwd">NOVO GESLO</label>
+          <input type="password" class="form-control" id="pwd" placeholder="Vpiši novo geslo" name="pwd">
+        </div>
+        <div class="form-group">
+          <label for="pwd1">POTRDI NOVO GESLO</label>
+          <input type="password" class="form-control" id="pwd1" placeholder="Potrdi novo geslo" name="pwd">
+        </div>
+
+        <button  class="btn btn-success" style="display:inline-block">Shrani spremembe</button>
+        <span class="label label-success"  style="display:inline-block; float:right; padding:6px;">Podatki uspešno posodobljeni!</span>
+
+      </div>
+      <div class="clearfix"> </div>
+    </div>
+  </div>
+</div>
+  `
+});
+
+Vue.component('narocilo', {
+  props:['narocilo'],
+  template:`
+<div >
+  <div class="panel panel-default" style="margin-top:25px;">
+    <div class="panel-heading">
+      <b>PODATKI O NAROČNIKU</b>
+    </div>
+    <div class="panel-body">
+    <p style="padding-top:5px; font-size:17px;" >
+      Ime: {{narocilo.narocnik.ime}}<br>
+      Priimek: {{narocilo.narocnik.priimek}}<br>
+      Naslov: {{narocilo.narocnik.naslov}}<br>
+      Tel. številka: {{narocilo.narocnik.tel_stevilka}}
+    </p>
+    </div>
+  </div>
+
+  <table id="cart" class="table table-hover table-condensed">
+        <thead>
+        <tr>
+          <th style="width:50%">Artikel</th>
+          <th style="width:10%">Cena</th>
+          <th style="width:8%">Količina</th>
+          <th style="width:22%" class="text-center">Skupna cena</th>
+          <th style="width:10%"></th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr v-for="artikel in narocilo.tabelaArtiklov">
+
+            <td data-th="Izdelek">
+              <div class="row">
+                <div class="col-sm-2 hidden-xs"><a :href="artikel.povezava_artikel"><img :src="artikel.slika_url" alt="..." class="img-responsive" style="margin-top:12px; width:50px;"/></a></div>
+                <div class="col-sm-8">
+                  <h4 style="padding-top:30px;">{{artikel.ime_artikla}}</h4>
+                  <p></p>
+                </div>
+              </div>
+            </td>
+            <td data-th="Cena">{{artikel.redna_cena}} €</td>
+            <td data-th="Količina">
+              <p class="text-center"style=" margin-top:24px;">{{artikel.kolicina}}</p>
+            </td>
+            <td data-th="Skupna cena" class="text-center" >{{artikel.kolicina*artikel.redna_cena}} €</td>
+            <td class="actions" data-th="">
+            </td>
+
+        </tr>
+
+      </tbody>
+      <tfoot >
+        <tr class="visible-xs">
+          <td class="text-center"><strong>Za plačilo {{narocilo.cena_narocila}} €</strong></td>
+        </tr>
+        <tr style="">
+
+          <td colspan="2" class="hidden-xs"></td>
+
+          <td></td>
+
+          <td class="hidden-xs text-center" style="font-size:20px;"><strong>Za plačilo: {{narocilo.cena_narocila}} €</strong></td>
+          <td class="hidden-xs></td>
+          <td class="hidden-xs></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  `,
+  data:function(){
+    return{
+            /*narocilo:{id_narocila:1,
+                      narocnik:{
+                        ime:"Jože1",
+                        priimek:"Gorišek",
+                        naslov:"Ljubljana 232",
+                        tel_stevilka:"041232141",
+                      },
+                      datum_narocila:"12.3.2017 13:33",
+                      status_narocila:"POTRJENO",
+                      cena_narocila:300,
+                      tabelaArtiklov:[
+                        {kolicina:1, povezava_artikel:"single.html", slika_url:"images/ba.jpg", ime_artikla:"Usnjena torba", redna_cena:"100", znizana_cena:"300"},
+                        {kolicina:1, povezava_artikel:"single.html", slika_url:"images/bag.jpg", ime_artikla:"Usnjena torba1", redna_cena:"100", znizana_cena:"200"},
+                        {kolicina:1, povezava_artikel:"single.html", slika_url:"images/bag1.jpg", ime_artikla:"Usnjena torba2", redna_cena:"100", znizana_cena:"100"},
+                      ]
+                    }*/
+      }
+    },
+  computed:{
+      skupnaCenaNarocila:function(){
+          var skupnaCenaKosarice=0;
+          var artikel=null;
+          console.log(this.narocilo)
+          for (var i=0; i< this.narocilo.tabelaArtiklov.length; i++) {
+            artikel=this.narocilo.tabelaArtiklov[i];
+            skupnaCenaKosarice+= parseInt(this.narocilo.kolicina)*parseFloat(artikel.redna_cena);
+          }
+          return skupnaCenaKosarice;
+
+      }
+  }
+
 });

@@ -152,6 +152,21 @@ ul.login li a span{
 	-ms-transition: all 0.5s ease-out;
 	-o-transition: all 0.5s ease-out;
 }
+.search input[type="password"] {
+	border: none;
+	outline: none;
+	background: none;
+	font-size:1em;
+	color:#777;
+	width:68%;
+	padding:7px;
+	-webkit-apperance:none;
+	margin:0;
+	-webkit-transition: all 0.5s ease-out;
+	-moz-transition: all 0.5s ease-out;
+	-ms-transition: all 0.5s ease-out;
+	-o-transition: all 0.5s ease-out;
+}
 .search input[type="submit"] {
 	border-left: 1px solid #ddd;
 	outline: none;
@@ -788,6 +803,17 @@ p.m_text {
 	font-size: 1em;
 	color: #999;
 }
+
+.contact-form input[type="password"] {
+	display: block;
+	width:70%;
+	padding: 10px;
+	border: 1px solid #ddd;
+	outline: none;
+	margin: 1.5em 0;
+	font-size: 1em;
+	color: #999;
+}
 .contact-form textarea {
 	display: block;
 	width: 100%;
@@ -875,6 +901,13 @@ p.m_text {
 	font-size:0.9em;
 	padding:10px;
 }
+.login-right input[type="password"] {
+	border: 1px solid #DDDBDB;
+	outline-color:#fb4d01;
+	width: 96%;
+	font-size:0.9em;
+	padding:10px;
+}
 .login-right input[type="submit"] {
 	background:#F97E76;
 	color: #FFF;
@@ -911,6 +944,14 @@ a.forgot {
 	text-transform: uppercase;
 }
 .register-top-grid input[type="text"], .register-bottom-grid input[type="text"] {
+	border: 1px solid #EEE;
+	outline-color:#FF5B36;
+	width: 85%;
+	font-size: 1em;
+	padding: 0.5em;
+	margin: 0.5em 0;
+}
+.register-top-grid input[type="password"], .register-bottom-grid input[type="password"] {
 	border: 1px solid #EEE;
 	outline-color:#FF5B36;
 	width: 85%;

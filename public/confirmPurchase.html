@@ -5,7 +5,6 @@
       <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
       <!--theme-style-->
       <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-      <link href="css/kosarica.css" rel="stylesheet" type="text/css" media="all" />
       <!--//theme-style-->
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
       <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
@@ -39,70 +38,16 @@
                   </div>
                   <td><a href="product.html" class="btn btn-md btn-warning"><i class="fa fa-angle-left"></i> Nadaljuj z nakupovenjem</a></td>
                  </div>
+
                  <div style="margin-top:40px;" v-else>
 
                   <h2>Zaključek naročila</h2>
-                  <div class="panel panel-default" style="margin-top:25px;">
-                    <div class="panel-heading">
-                      <b>PODATKI O NAROČNIKU</b>
-                    </div>
-                    <div class="panel-body">
-                      <p style="padding-top:5px; font-size:17px;">
-                        Ime: {{uporabnik.ime}}<br>
-                        Priimek: {{uporabnik.priimek}}<br>
-                        Naslov: {{uporabnik.naslov}}<br>
-                        Tel. številka: {{uporabnik.tel_stevilka}}
-                      </p>
-                    </div>
-                  </div>
 
-                  <table id="cart" class="table table-hover table-condensed">
-                    				<thead>
-                						<tr>
-                							<th style="width:50%">Artikel</th>
-                							<th style="width:10%">Cena</th>
-                							<th style="width:8%">Količina</th>
-                							<th style="width:22%" class="text-center">Skupna cena</th>
-                							<th style="width:10%"></th>
-                						</tr>
-                					</thead>
-                					<tbody>
+                    <narocilo :narocilo="narocilo"></narocilo>
 
-                            <tr v-for="artikel in tabelaArtiklov">
-
-                  							<td data-th="Izdelek">
-                  								<div class="row">
-                  									<div class="col-sm-2 hidden-xs"><a :href="artikel.povezava_artikel"><img :src="artikel.slika_url" alt="..." class="img-responsive" style="margin-top:12px; width:50px;"/></a></div>
-                  									<div class="col-sm-8">
-                  										<h4 style="padding-top:30px;">{{artikel.ime_artikla}}</h4>
-                  										<p></p>
-                  									</div>
-                  								</div>
-                  							</td>
-                  							<td data-th="Cena">{{artikel.redna_cena}} €</td>
-                  							<td data-th="Količina">
-                  								<p class="text-center"style=" margin-top:24px;">{{artikel.kolicina}}</p>
-                  							</td>
-                  							<td data-th="Skupna cena" class="text-center" >{{artikel.kolicina*artikel.redna_cena}} €</td>
-                                <td class="actions" data-th="">
-                  							</td>
-
-                						</tr>
-
-                					</tbody>
-                					<tfoot >
-                						<tr class="visible-xs">
-                							<td class="text-center"><strong>Za plačilo {{skupnaCenaKosarice}} €</strong></td>
-                						</tr>
-                						<tr style="">
-                							<td><a href="cart.html" class="btn btn-warning"><i class="fa fa-angle-left"></i> Nazaj na košarico</a></td>
-                							<td colspan="2" class="hidden-xs"></td>
-                							<td class="hidden-xs text-center" style="font-size:20px;"><strong>Za plačilo: {{skupnaCenaKosarice}} €</strong></td>
-                							<td><a href="#" class="btn btn-success btn-block" style="padding:10px;" v-on:click="oddajNarocilo()" >Oddaj naročilo</a></td>
-                						</tr>
-                					</tfoot>
-                				</table>
-                    </div>
+                    <td><a href="#" class="btn btn-success" style="padding:10px; float:right" v-on:click="oddajNarocilo()" >Oddaj naročilo</a></td>
+                    <td><a href="cart.html" class="btn btn-warning"><i class="fa fa-angle-left"></i> Nazaj na košarico</a></td>
+                 </div>
 
               </div>
                <div class="clearfix"> </div>
