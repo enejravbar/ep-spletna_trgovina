@@ -32,12 +32,18 @@ class PrijavaVir {
         if(PrijavaService::uporabnikJePrijavljen()) {
             $uporabnik = PrijavaService::vrniTrenutnegaUporabnika();
             if($uporabnik == null) {
-                echo ViewUtil::renderJSON(["prijavljen" => false], 200);
+                echo ViewUtil::renderJSON(["prijavljen" => false], 500);
             } else {
-                echo ViewUtil::renderJSON($uporabnik, 200);
+                echo ViewUtil::renderJSON([
+                    "uporabnik" => $uporabnik,
+                    "prijavljen" => true
+                ], 200);
             }
         } else {
-            echo ViewUtil::renderJSON(["napaka" => "Uporabnik nima zadostnih pravic!"], 401);
+            echo ViewUtil::renderJSON([
+                "napaka" => "Uporabnik nima zadostnih pravic!",
+                "prijavljen" => false
+            ], 401);
         }
     }
 
