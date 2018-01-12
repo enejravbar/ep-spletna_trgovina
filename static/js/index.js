@@ -3,10 +3,10 @@ $(document).ready(function(){
   var app = new Vue({
     el: '#app',
     data: {
-      base_url:document.getElementById("baseUrl").value,
+      root_url:document.getElementById("rootUrl").value,
       mnoziceArtiklov:{
         slideShow:[
-              {slika_url:"api/slike/1", ime_artikla:"Usnjena torba", redna_cena:"400", znizana_cena:"300"},
+              {slika_url: "/ep/ep-spletna_trgovina/static/images/bag.jpg", ime_artikla:"Usnjena torba", redna_cena:"400", znizana_cena:"300"},
               {slika_url:"api/slike/2", ime_artikla:"Usnjena torba", redna_cena:"400", znizana_cena:"300"},
               {slika_url:"api/slike/3", ime_artikla:"Usnjena torba", redna_cena:"400", znizana_cena:"300"},
 
@@ -17,8 +17,27 @@ $(document).ready(function(){
           {slika_url:"api/slike/3", ime_artikla:"Usnjena torba", redna_cena:"400", znizana_cena:"300"},
             ],
       },
+    },
+    methods:{
+      getData: function(){
+        var request = new XMLHttpRequest();
+        request.open('POST', this.root_url+'api/izdelki/index', true);
+        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        request.addEventListener("load", function() {
+        	var response = JSON.parse(request.responseText);
+          console.log(response);
+        });
+        request.addEventListener("error", function() {
+            console.log("NAPAKA!");
+        });
+        request.send(data);
+      }
     }
+
+
   });
+
+
   $('.example1').wmuSlider();
 });
 

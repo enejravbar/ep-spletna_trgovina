@@ -7,6 +7,7 @@ session_start();
 
 define("BASE_URL", $_SERVER["SCRIPT_NAME"] . "/");
 define("IMAGES_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/images/");
+define("ROOT_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php"));
 define("CSS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/css/");
 define("JS_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/js/");
 define("LIB_URL", rtrim($_SERVER["SCRIPT_NAME"], "index.php") . "static/libraries/");

@@ -1,7 +1,7 @@
 
 
 Vue.component('glava', {
-  props:['base_url'],
+  props:['root_url'],
   template:`
   <div class="header">
    <div class="top-header">
@@ -12,7 +12,9 @@ Vue.component('glava', {
       <div class="container">
          <div class="header-bottom-left">
             <div class="logo">
-               <a href="index.html"><img :src="base_url+'images/logo.png'" alt=" " /></a>
+               <a :href="root_url">
+                <img :src="root_url+'static/images/logo.png'" alt=" " />
+               </a>
             </div>
             <div class="search" style="margin-top:26px;">
                <input type="text" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" >
@@ -37,8 +39,8 @@ Vue.component('glava', {
                <span class="caret"></span></button>
                <ul class="dropdown-menu">
                 <li ><a href="customerOrders.html"><span >Pregled naročil</span> </a></li>
-                 <li ><a :href="base_url+'profil'"><span >Upravljaj račun</span> </a></li>
-                 <li ><a :href="base_url+'odjava'">Odjava</a></li>
+                 <li ><a :href="root_url+'profil'"><span >Upravljaj račun</span> </a></li>
+                 <li ><a :href="root_url+'odjava'">Odjava</a></li>
                </ul>
               </div>
 
@@ -46,7 +48,7 @@ Vue.component('glava', {
                  <ul class="login" >
                     <li>
                       <div>
-                        <a :href="base_url+'prijava'">
+                        <a :href="root_url+'prijava'">
                          <button class="btn btn-default" type="button" ><span> </span>PRIJAVA</button>
                        </a>
 
@@ -294,7 +296,7 @@ Vue.component('navigacijski-menu-wrapper', {
     <div slot="kategorija" v-for="kategorija in tabelaKategorij">
       <kategorija  :url="kategorija.url" :ime_kategorije="kategorija.ime"> </kategorija>
     </div>
-    <artikel-posebna-ponudba slot="artikel-posebna-ponudba" ></artikel-posebna-ponudba>
+    <!-- <artikel-posebna-ponudba slot="artikel-posebna-ponudba" ></artikel-posebna-ponudba> -->
   </navigacijski-menu>
   `,
   data: function(){

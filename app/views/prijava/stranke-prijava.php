@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html>
    <head>
-
      <title>Big shope</title>
-     <link href="<?= CSS_URL .  "bootstrap.css" ?>" rel="stylesheet" type="text/css" media="all" />
-     <link href="<?= CSS_URL .  "style.css" ?>" rel="stylesheet" type="text/css" media="all" />
+     <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+
+     <link href="<?= LIB_URL .  "bootstrap/css/bootstrap.css" ?>" rel="stylesheet" type="text/css" media="all" />
+     <link href="<?= CSS_URL .  "style.css" ?>" rel="stylesheet" type="text/css" media="all" />
      <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
 
-     <script src="<?= JS_URL .  "jquery.min.js"  ?>"></script>
-     <script src="<?= JS_URL .  "vue.js"  ?>"></script>
+     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+
+     <script src="<?= LIB_URL .  "jquery/jquery.min.js"  ?>"></script>
+     <script src="<?= LIB_URL .  "vue/vue.js"  ?>"></script>
+     <script src="<?= LIB_URL .  "bootstrap/js/bootstrap.js"  ?>"></script>
      <script src="<?= JS_URL .  "vue_components.js"  ?>"></script>
-     <script src="<?= JS_URL .  "bootstrap.js"  ?>"></script>
-     <script src="<?= JS_URL .  "jquery.wmuSlider.js"  ?>"></script>
+
      <script src="<?= JS_URL .  "login.js"  ?>"></script>
 
       <style>

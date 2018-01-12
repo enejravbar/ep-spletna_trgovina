@@ -48,10 +48,12 @@ function handleImageUploads(){
       title: "Naloži slike"
       }).on('files.bs.filedialog', function(ev) {
           var files = ev.files;
+
           var form_data = new FormData();
 
           for ( var file in files ) {
               form_data.append(file, files[file]);
+              console.log("Slike"+file)
           }
           console.log(form_data);
 
@@ -67,7 +69,7 @@ function handleImageUploads(){
           	},
           	error: function(){
               console.log("Slike niso bile uspešno naložene")
-              window.location.replace("sellerManageProduct.html")
+              //window.location.replace("sellerManageProduct.html")
             }
           });
 
