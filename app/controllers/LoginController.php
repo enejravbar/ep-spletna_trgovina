@@ -68,7 +68,7 @@ class LoginController {
     }
 
     public static function prijaviOsebje(){
-        $data = filter_input_array(INPUT_POST, Uporabniki::getLoginRules());
+        $data = filter_input_array(INPUT_POST, Uporabniki::pravilaZaPrijavo());
         if(ViewUtil::checkValues($data)){
             $prijavljen = UporabnikService::prijaviOsebje($data);
             if($prijavljen){

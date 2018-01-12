@@ -37,15 +37,16 @@
 
                           <div>
                              <span>ELEKTRONSKI NASLOV <label>*</label></span>
-                             <input type="text" v-model="email">
+                             <input id="email" type="text" value="<?= $email ?>"  readonly>
                           </div>
                           <div>
                              <span>GESLO <label>*</label></span>
-                             <input type="password" v-model="geslo">
+                             <input type="password" v-model="osebje.geslo">
                           </div>
                           <input type="submit" value="PRIJAVA" style="margin-top:10px;" v-on:click="prijaviOsebje()">
+                          <span class="label label-warning"  style="display:inline-block; float:right; padding:10px; margin-top:10px; margin-left:10px;" v-if="prijavaUspesna==false">Prijava ni bila uspešna!</span>
+                          <span class="label label-success"  style="display:inline-block; float:right; padding:10px; margin-top:10px; margin-left:10px;" v-if="prijavaUspesna==true && klikNaGumbPrijava==true">Prijava uspešna!</span>
 
-                    </div>
                     <div class="clearfix"> </div>
                  </div>
 
@@ -54,7 +55,7 @@
                <div class="clearfix"> </div>
          </div>
 
-         <noga></noga>
+        <noga></noga>
       </div>
    </body>
 </html>

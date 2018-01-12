@@ -4,7 +4,7 @@ Vue.component('glava', {
   data: function(){
     return {
       prijavljen:false,
-      vloga:null
+      uporabnik:null
     }
   },
   template:`
@@ -21,7 +21,7 @@ Vue.component('glava', {
                 <img :src="root_url+'static/images/logo.png'" alt=" " />
                </a>
             </div>
-            <div class="search" style="margin-top:26px;">
+            <div class="search" style="margin-top:26px;" v-if=" (prijavljen && uporabnik.vloga==3) || !prijavljen ">
                <input type="text" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" >
                <input type="submit"  value="ISKANJE">
             </div>
@@ -31,25 +31,35 @@ Vue.component('glava', {
 
             <div style="display:block;">
 
-              <div class="cart" style="display:inline-block;float:right; margin-left:10px;">
+              <div class="cart" style="display:inline-block;float:right; margin-left:10px;" v-if="(prijavljen  && uporabnik.vloga==3)">
                 <a href="cart.html">
                   <button class="btn btn-default" type="button" ><span> </span>KOŠARICA
                   </button>
                 </a>
               </div>
 
-              <div class="dropdown" style="display:inline-block; float:right; margin-left:10px; ">
-               <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" style=" padding: 9px 9px 9px 9px ">Pozdravljeni Enej
+              <div class="dropdown" style="display:inline-block; float:right; margin-left:10px; " v-if="prijavljen">
+               <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" style=" padding: 9px 9px 9px 9px ">Pozdravljen/a {{uporabnik.ime}}
 
                <span class="caret"></span></button>
-               <ul class="dropdown-menu">
+
+               <ul class="dropdown-menu" v-if="uporabnik.vloga==3">
                 <li ><a href="customerOrders.html"><span >Pregled naročil</span> </a></li>
                  <li ><a :href="root_url+'profil'"><span >Upravljaj račun</span> </a></li>
                  <li ><a :href="root_url+'odjava'">Odjava</a></li>
                </ul>
+
+               <ul class="dropdown-menu" v-if="uporabnik.vloga==2">
+                 <li ><a href="sellerOrders.html"><span >Pregled naročil</span> </a></li>
+                 <li ><a href="sellerManageCustomers.html"><span >Upravljanje strank</span> </a></li>
+                 <li ><a href="sellerManageProducts.html"><span >Upravljanje artiklov</span> </a></li>
+                 <li ><a href="sellerManageAccount.html"><span >Upravljaj račun</span> </a></li>
+                 <li ><a :href="root_url+'odjava'">Odjava</a></li>
+               </ul>
+
               </div>
 
-              <div style="display:inline-block; float:right; margin-left:10px;">
+              <div style="display:inline-block; float:right; margin-left:10px;" v-if="!prijavljen">
                  <ul class="login" >
                     <li>
                       <div>
@@ -86,10 +96,10 @@ methods:{
 
       if(response.prijavljen){
         ref.prijavljen=true;
-        ref.vloga=response.vloga;
+        ref.uporabnik=response.uporabnik;
       }else{
         ref.prijavljen=false;
-        ref.vloga=null;
+        ref.uporabnik=null;
       }
     });
     request.addEventListener("error", function() {
@@ -100,7 +110,7 @@ methods:{
 
 });
 
-Vue.component('glava-prodajalec', {
+/*Vue.component('glava-prodajalec', {
   template:`
   <div class="header">
    <div class="top-header">
@@ -159,7 +169,7 @@ methods:{
     });
   }
 }
-});
+});*/
 
 Vue.component('glava-login', {
   props:['root_url'],
@@ -179,24 +189,7 @@ Vue.component('glava-login', {
             <div class="clearfix"> </div>
          </div>
          <div class="header-bottom-right">
-
-            <div style="display:block;">
-
-              <div class="dropdown" style="display:inline-block; float:right; margin-left:10px; ">
-               <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" style=" padding: 9px 9px 9px 9px ">Pozdravljen/a Enej
-
-               <span class="caret"></span></button>
-               <ul class="dropdown-menu">
-                 <li ><a href="sellerOrders.html"><span >Pregled naročil</span> </a></li>
-                 <li ><a href="sellerManageCustomers.html"><span >Upravljanje strank</span> </a></li>
-                 <li ><a href="sellerManageProducts.html"><span >Upravljanje artiklov</span> </a></li>
-                 <li ><a href="sellerManageAccount.html"><span >Upravljaj račun</span> </a></li>
-                 <li ><a href="/odjava">Odjava</a></li>
-               </ul>
-              </div>
-
-            </div>
-            <div class="clearfix"> </div>
+         
          </div>
          <div class="clearfix"> </div>
       </div>
