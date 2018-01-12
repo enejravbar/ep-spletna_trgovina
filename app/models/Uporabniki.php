@@ -150,7 +150,7 @@ class Uporabniki extends Entiteta {
         ];
     }
 
-    public static function pravilaZaPrijavo(){
+    public static function pravilaZaPrijavo() {
         return [
           "email" => FILTER_VALIDATE_EMAIL,
           "geslo" => FILTER_SANITIZE_SPECIAL_CHARS

@@ -1,6 +1,7 @@
 <?php
 
 require_once "app/models/Entiteta.php";
+require_once "app/service/PrijavaService.php";
 
 class Narocila extends Entiteta {
 
@@ -10,6 +11,22 @@ class Narocila extends Entiteta {
 
     public static function dobiNarocilaPoStatusu(array $status) {
         return parent::query("SELECT * FROM narocila WHERE status = :$status ORDER BY datum DESC", $status);
+    }
+
+    public static function preveriPravice(array $id_narocila) {
+        // vrne true, če ima prijavljen uporabnik pravice, za gledanje podrobnosti naročila z nekim id-jem
+        // torej če je kupec tega naročila prijavljen, ali pa je prijavljen prodajalec
+        $uporabnik = PrijavaService::vrniTrenutnegaUporabnika();
+        if ($uporabnik["vloga"] == 2)
+            return true;
+        else {
+            $uporabnik_id = $uporabnik["id"];
+            $data = parent::query("SELECT * FROM narocila WHERE id = :$id_narocila AND kupec = :$uporabnik_id", $id_narocila, $uporabnik_id);
+            if (count($data) == 1)
+                return true;
+            else
+                return false;
+        }
     }
 
     public static function get(array $id)
@@ -37,7 +54,7 @@ class Narocila extends Entiteta {
 
     public static function update(array $params)
     {
-        return parent::modify(
+        return parent::modify_update(
             "UPDATE narocila SET kupec = :kupec, datum = :datum, status = :status WHERE id = :id",
             $params
         );
@@ -45,7 +62,7 @@ class Narocila extends Entiteta {
 
     public static function delete(array $id)
     {
-        return parent::modify("DELETE FROM narocila WHERE id = :id", $id);
+        return parent::modify_update("DELETE FROM narocila WHERE id = :id", $id);
     }
 
 }

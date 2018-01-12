@@ -62,4 +62,11 @@ class IzdelekService {
         return self::pridobiEnIzdelek($new_id);
     }
 
+    public static function dobiZadnjihNIzdelkov($n) {
+        return Izdelki::getNLatest(["n" => $n]);
+    }
+
+    public static function dobiNNajboljeOcenjenihIzdelkov($n) {
+        return Izdelki::getNBestrated(["n" => $n]);
+    }
 }

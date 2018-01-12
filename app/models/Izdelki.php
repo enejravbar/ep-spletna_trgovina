@@ -28,7 +28,8 @@ class Izdelki extends Entiteta {
 
     public static function insert(array $params) {
         return parent::modify(
-            "INSERT INTO izdelki(kategorija, ime, opis, cena, status) VALUES(:kategorija, :ime, :opis, :cena, :status)",
+            "INSERT INTO izdelki(kategorija, ime, opis, cena, status, dodan) ".
+            "VALUES(:kategorija, :ime, :opis, :cena, :status, NOW())",
             $params
         );
     }
@@ -53,6 +54,23 @@ class Izdelki extends Entiteta {
             "status" => FILTER_VALIDATE_INT,
             "st_slik" => FILTER_VALIDATE_INT
         ];
+    }
+
+    public static function getNLatest(array $params) {
+        $stmt = parent::getConnection()->prepare("SELECT * FROM izdelki ORDER BY dodan DESC LIMIT :n");
+        $stmt->bindParam(":n", $params["n"], PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
+    public static function getNBestrated(array $params) {
+        $stmt = parent::getConnection()->prepare("SELECT i.*, (SELECT AVG(o.ocena) FROM ocene o ".
+            "WHERE o.id_izdelka = i.id) as avg_ocena FROM izdelki i ORDER BY avg_ocena DESC LIMIT :n;");
+        $stmt->bindParam(":n", $params["n"], PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
     }
 
 }

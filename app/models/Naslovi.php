@@ -29,7 +29,7 @@ class Naslovi extends Entiteta {
 
     public static function update(array $params)
     {
-        return parent::modify(
+        return parent::modify_update(
             "UPDATE naslovi SET postna_st = :postna_st, kraj = :kraj, ulica = :ulica, hisna_st = :hisna_st WHERE id = :id",
             $params
         );
@@ -37,7 +37,7 @@ class Naslovi extends Entiteta {
 
     public static function delete(array $id)
     {
-        return parent::modify("DELETE FROM naslovi WHERE id = :id", $id);
+        return parent::modify_update("DELETE FROM naslovi WHERE id = :id", $id);
     }
 
 }

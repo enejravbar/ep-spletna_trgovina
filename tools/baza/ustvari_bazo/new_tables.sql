@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS `izdelki` (
   `opis` VARCHAR(1000) NULL,
   `cena` DOUBLE NOT NULL,
   `status` INT NOT NULL,
+  `dodan` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_izdelki_1_idx` (`kategorija` ASC),
   INDEX `fk_izdelki_2_idx` (`status` ASC),
@@ -65,15 +66,6 @@ CREATE TABLE IF NOT EXISTS `slike` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
   ENGINE = InnoDB;
-
-/*CREATE TABLE IF NOT EXISTS `naslovi` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `postna_st` INT NOT NULL,
-  `kraj` VARCHAR(45) NOT NULL,
-  `ulica` VARCHAR(45) NOT NULL,
-  `hisna_st` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
-  ENGINE = InnoDB;*/
 
 CREATE TABLE IF NOT EXISTS `posta` (
   `postna_st` INT NOT NULL,

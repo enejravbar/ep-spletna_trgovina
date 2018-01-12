@@ -36,6 +36,18 @@ class IzdelekVir {
         }
     }
 
+    // GET /izdelki/index
+    public static function getForIndex() {
+        try {
+            echo ViewUtil::renderJSON([
+                "zadnji" => IzdelekService::dobiZadnjihNIzdelkov(3),
+                "ocenjeni" => IzdelekService::dobiNNajboljeOcenjenihIzdelkov(3)
+            ], 200);
+        } catch(Exception $e) {
+            echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 400);
+        }
+    }
+
     // PUT /izdelki/:id
     public static function posodobi($id){
         if(PrijavaService::uporabnikJeProdajalec()){
@@ -134,6 +146,25 @@ class IzdelekVir {
         } else {
             echo ViewUtil::renderJSON(["napaka" => "Uporabnik nima zadostnih pravic!"], 401);
         }
+    }
+
+    public static function testirajDodajanjeIzdelka() {
+        $data = filter_input_array(INPUT_POST, Izdelki::pridobiPravila());
+        $FILES = $_FILES["slika"];
+        $SLIKE = array();
+
+        foreach ($FILES["name"] as $key => $value) {
+            array_push($SLIKE, [
+                "name" => $FILES["name"][$key],
+                "size" => $FILES["size"][$key],
+                "type" => $FILES["type"][$key],
+                "tmp_name" => $FILES["tmp_name"][$key],
+                "error" => $FILES["error"][$key]
+            ]);
+        }
+
+        var_dump($data);
+        var_dump($SLIKE);
     }
 
 }
