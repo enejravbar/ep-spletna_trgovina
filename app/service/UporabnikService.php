@@ -74,7 +74,7 @@ class UporabnikService {
     }
 
     public static function prijaviStranko($input){
-        $uporabnik = self::preveriPrijavoUporabnika($input);
+        $uporabnik = self::preveriPrijavoStranke($input);
         if($uporabnik == null){
             return false;
         } else {
@@ -334,6 +334,10 @@ class UporabnikService {
         return Uporabniki::dobiUporabnikaGledeNaEmail(["email" => $email]);
     }
 
+    public static function pridobiZEmailomStranko($email){
+        return Uporabniki::dobiStrankoGledeNaEmail(["email" => $email]);
+    }
+
     public static function posodobiUporabnika($podatki){
         if($podatki["geslo"]){
             $rowAffected = Uporabniki::update([
@@ -418,6 +422,19 @@ class UporabnikService {
         unset($uporabnik["geslo"]);
         $poste = Posta::getAll();
         return ["uporabnik" => $uporabnik, "poste" => $poste];
+    }
+
+    public static function preveriPrijavoStranke($input){
+        $uporabnik = self::pridobiZEmailomStranko($input["email"]);
+        if($uporabnik == null){
+            return null;
+        }
+        if(password_verify($input["geslo"], $uporabnik["geslo"]) && self::jeAktiven($uporabnik["id"])){
+            unset($uporabnik["geslo"]);
+            return $uporabnik;
+        } else {
+            return null;
+        }
     }
 
     public static function preveriPrijavoUporabnika($input){

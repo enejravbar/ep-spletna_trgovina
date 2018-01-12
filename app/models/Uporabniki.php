@@ -13,6 +13,15 @@ class Uporabniki extends Entiteta {
         }
     }
 
+    public static function dobiStrankoGledeNaEmail(array $email) {
+        $uporabnik = parent::query("SELECT * FROM uporabniki WHERE email = :email AND vloga = 3", $email);
+        if(count($uporabnik) == 1){
+            return $uporabnik[0];
+        } else {
+            return null;
+        }
+    }
+
     public static function getOneByVloga($params) {
         $uporabnik = parent::query("SELECT id, vloga, ime, priimek, email, naslov, posta, telefon, status" .
         " FROM uporabniki WHERE id = :id AND vloga = :vloga", $params);
