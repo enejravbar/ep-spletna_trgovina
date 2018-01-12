@@ -15,8 +15,10 @@ $(document).ready(function(){
         zadnjiArtikli:[],
       },
     },
-    mounted: function(){
+    created: function(){
+
       this.getData(this);
+
 
     },
     methods:{
@@ -44,6 +46,7 @@ $(document).ready(function(){
         this.mnoziceArtiklov.slideShow=[];
         for(var i=0; i< tabelaArtiklov.length; i++){
             var artikel=  {
+              id : tabelaArtiklov[i].id,
               slika_url: this.root_url+"api/slike/"+tabelaArtiklov[i].thumbnail,
               ime_artikla: tabelaArtiklov[i].ime,
               redna_cena: tabelaArtiklov[i].cena,
@@ -58,6 +61,7 @@ $(document).ready(function(){
         this.mnoziceArtiklov.zadnjiArtikli=[];
         for(var i=0; i< tabelaArtiklov.length; i++){
             var artikel=  {
+              id:tabelaArtiklov[i].id,
               slika_url: this.root_url+"api/slike/"+tabelaArtiklov[i].thumbnail,
               ime_artikla: tabelaArtiklov[i].ime,
               redna_cena: tabelaArtiklov[i].cena,

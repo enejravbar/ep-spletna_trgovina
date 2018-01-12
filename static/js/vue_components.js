@@ -189,7 +189,7 @@ Vue.component('glava-login', {
             <div class="clearfix"> </div>
          </div>
          <div class="header-bottom-right">
-         
+
          </div>
          <div class="clearfix"> </div>
       </div>
@@ -268,16 +268,16 @@ Vue.component('slide', {
 });
 
 Vue.component('artikel-domaca-stran', {
-  props:['slika_url','ime_artikla','redna_cena','znizana_cena','st_slike'],
+  props:['root_url','artikel','slika_url','ime_artikla','redna_cena','znizana_cena','st_slike'],
   template:`
   <div v-if="st_slike<=1" class="col-md-4 chain-grid ">
-     <a href="single.html"><img class="img-responsive chain" :src="slika_url" alt=" " /></a>
+     <a :href="root_url+'izdelki/'+artikel.id"><img class="img-responsive chain" :src="artikel.slika_url" alt=" " /></a>
      <div class="grid-chain-bottom">
-        <h6><a href="single.html">{{ime_artikla}}</a></h6>
+        <h6><a href="single.html">{{artikel.ime_artikla}}</a></h6>
         <div class="star-price">
            <div class="dolor-grid">
               <span >CENA:</span>
-              <span class="actual">{{redna_cena}}€</span>
+              <span class="actual">{{artikel.redna_cena}}€</span>
               <span class="rating">
 
               </span>
@@ -289,13 +289,13 @@ Vue.component('artikel-domaca-stran', {
   </div>
 
   <div v-else class="col-md-4 chain-grid grid-top-chain">
-     <a href="single.html"><img class="img-responsive chain" :src="slika_url" alt=" " /></a>
+     <a :href="root_url+'izdelki/'+artikel.id"><img class="img-responsive chain" :src="artikel.slika_url" alt=" " /></a>
      <div class="grid-chain-bottom">
-        <h6><a href="single.html">{{ime_artikla}}</a></h6>
+        <h6><a href="single.html">{{artikel.ime_artikla}}</a></h6>
         <div class="star-price">
            <div class="dolor-grid">
               <span >CENA:</span>
-              <span class="actual">{{redna_cena}}€</span>
+              <span class="actual">{{artikel.redna_cena}}€</span>
               <span class="rating">
 
               </span>
@@ -306,30 +306,6 @@ Vue.component('artikel-domaca-stran', {
      </div>
   </div>
   `
-});
-
-Vue.component('artikel-posebna-ponudba', {
-
-  template:`
-  <div class=" chain-grid menu-chain">
-    <a href="single.html"><img class="img-responsive chain" :src="slika_url" alt=" " /></a>
-    <div class="grid-chain-bottom chain-watch" >
-      <h6 style="display:block;""><a href="single.html">{{ime_artikla}}</a></h6>
-      <div style="display:block; margin-top:5px; padding-bottom:20px;">
-
-         <span style="float:right; "class="actual " ><span> CENA: </span>{{redna_cena}}€</span>
-      </div>
-    </div>
-  </div>`,
-  data: function(){
-    return {
-      slika_url:"images/ba.jpg",
-      ime_artikla:"Usnjena torba",
-      redna_cena:"410",
-      znizana_cena:"310"
-    }
-  }
-
 });
 
 Vue.component('kategorija', {

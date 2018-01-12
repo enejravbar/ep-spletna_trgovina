@@ -47,7 +47,7 @@
                   <a class="view-all" href="product.html">POGLEJ OSTALE<span> </span></a>
                </div>
                <div class="product-left" v-for="(artikel,i) in mnoziceArtiklov.slideShow">
-                  <artikel-domaca-stran v-bind:st_slike="i" :slika_url="artikel.slika_url" :ime_artikla="artikel.ime_artikla" :redna_cena="artikel.redna_cena" :znizana_cena="artikel.znizana_cena"></artikel-domaca-stran>
+                  <artikel-domaca-stran root_url="<?= ROOT_URL ?>" v-bind:st_slike="i" :artikel="artikel" ></artikel-domaca-stran>
                </div>
 
                <div class="products">
@@ -55,7 +55,7 @@
                   <a class="view-all" href="product.html">POGLEJ OSTALE<span> </span></a>
                </div>
                <div class="product-left" v-for="(artikel,i) in mnoziceArtiklov.zadnjiArtikli">
-                  <artikel-domaca-stran v-bind:st_slike="i" :slika_url="artikel.slika_url" :ime_artikla="artikel.ime_artikla" :redna_cena="artikel.redna_cena" :znizana_cena="artikel.znizana_cena"></artikel-domaca-stran>
+                  <artikel-domaca-stran root_url="<?= ROOT_URL ?>" v-bind:st_slike="i" :artikel="artikel" ></artikel-domaca-stran>
                </div>
 
                <div class="clearfix"> </div>
