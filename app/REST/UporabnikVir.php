@@ -6,6 +6,7 @@ require_once "app/service/UporabnikService.php";
 require_once "app/models/StatusUporabnik.php";
 require_once "app/service/PrijavaService.php";
 require_once "app/models/VlogaUporabnik.php";
+require_once "app/models/Posta.php";
 
 class UporabnikVir {
 
@@ -29,6 +30,14 @@ class UporabnikVir {
             }
         } else {
             echo ViewUtil::renderJSON(["napaka" => "Uporabnik nima zadostnih pravic!"], 401);
+        }
+    }
+
+    public static function posredujPoste() {
+        try {
+            echo ViewUtil::renderJSON([Posta::getAll()], 200);
+        } catch (Exception $e) {
+            echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 400);
         }
     }
 
