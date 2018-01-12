@@ -216,6 +216,11 @@ class Usmerjevalniki {
                     UporabnikVir::posodobiSvojProfil($id);
                 }
             },
+            "/^api\/poste$/" => function($method) {
+                if($method == "GET") {
+                    UporabnikVir::posredujPoste();
+                }
+            },
             // stranke
             "/^api\/stranke$/" => function($method) {
                 switch ($method) {

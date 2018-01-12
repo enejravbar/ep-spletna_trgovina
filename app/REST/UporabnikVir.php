@@ -6,6 +6,7 @@ require_once "app/service/UporabnikService.php";
 require_once "app/models/StatusUporabnik.php";
 require_once "app/service/PrijavaService.php";
 require_once "app/models/VlogaUporabnik.php";
+require_once "app/models/Posta.php";
 
 class UporabnikVir {
 
@@ -29,6 +30,14 @@ class UporabnikVir {
             }
         } else {
             echo ViewUtil::renderJSON(["napaka" => "Uporabnik nima zadostnih pravic!"], 401);
+        }
+    }
+
+    public static function posredujPoste() {
+        try {
+            echo ViewUtil::renderJSON([Posta::getAll()], 200);
+        } catch (Exception $e) {
+            echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 400);
         }
     }
 
@@ -97,7 +106,7 @@ class UporabnikVir {
                     self::posodobiProdajalca($id);
                     break;
                 case VlogaUporabnik::getIdStranka():
-                    self::posodobiStranko($id);
+                    self::posodobiSelfStranko($id);
                     break;
                 case VlogaUporabnik::getIdAdmin():
                     self::posodobiAdmina($id);
@@ -162,6 +171,42 @@ class UporabnikVir {
                 }
             } else {
                 echo ViewUtil::renderJSON(["napaka" => "Niso podane vse vrednosti!"], 400);
+            }
+        } else {
+            echo ViewUtil::renderJSON(["napaka" => "Uporabnik nima zadostnih pravic!"], 401);
+        }
+    }
+
+    public static function posodobiSelfStranko($id) {
+        if(PrijavaService::uporabnikJeStranka()) {
+            $_PUT = [];
+            parse_str(file_get_contents("php://input"), $_PUT);
+            $data = filter_var_array($_PUT, Uporabniki::pravilaZaStranke());
+
+            if(UporabnikService::preveriDaNiPraznihVrednosti($data)) {
+                $data["id"] = $id;
+                try {
+                    $uporabnik = UporabnikService::posodobiStranko($data);
+                    LogService::info("prodajalec", "UPORABNIK", "Prodajalec " .
+                        PrijavaService::vrniIdTrenutnegaUporabnika() . " je posodobil stranko" . $uporabnik["id"]);
+                    echo ViewUtil::renderJSON($uporabnik, 200);
+                } catch (InvalidArgumentException $e1) {
+                    echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 404);
+                } catch (Exception $e2) {
+                    echo ViewUtil::renderJSON(["napaka" => $e2->getMessage()], 400);
+                }
+            } else if(UporabnikService::preveriDaNiPraznihVrednostiPreskociGeslo($data)) {
+                $data["id"] = $id;
+                try {
+                    $uporabnik = UporabnikService::posodobiStranko($data);
+                    echo ViewUtil::renderJSON($uporabnik, 200);
+                } catch (InvalidArgumentException $e1) {
+                    echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 404);
+                } catch (Exception $e2) {
+                    echo ViewUtil::renderJSON(["napaka" => $e2->getMessage()], 400);
+                }
+            } else {
+                echo ViewUtil::renderJSON(["napaka" => "Nekateri atributi manjkajo!"], 200);
             }
         } else {
             echo ViewUtil::renderJSON(["napaka" => "Uporabnik nima zadostnih pravic!"], 401);

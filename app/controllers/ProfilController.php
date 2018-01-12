@@ -14,7 +14,12 @@ class ProfilController {
     public static function PrikaziUrejanjeProfila(){
 
         if(PrijavaService::uporabnikJePrijavljen()){
-            echo ViewUtil::render("app/views/profil/profil-uporabnika.php");
+
+            if(PrijavaService::uporabnikJeStranka()) {
+                echo ViewUtil::render("app/views/profil/profil-stranke.php");
+            } else {
+                echo ViewUtil::render("app/views/profil/profil-osebje.php");
+            }
         } else {
             ViewUtil::redirect(BASE_URL);
         }
