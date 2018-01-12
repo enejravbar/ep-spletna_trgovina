@@ -103,6 +103,35 @@ Vue.component('glava-prodajalec', {
 </div>`
 });
 
+Vue.component('glava-login', {
+  template:`
+  <div class="header">
+   <div class="top-header">
+      <div class="container" style="height:15px;">
+      </div>
+   </div>
+   <div class="bottom-header">
+      <div class="container">
+         <div class="header-bottom-left">
+            <div class="logo">
+               <a href="index.html"><img src="images/logo.png" alt=" " /></a>
+            </div>
+
+            <div class="clearfix"> </div>
+         </div>
+         <div class="header-bottom-right">
+
+            <div style="display:block;">
+
+            </div>
+            <div class="clearfix"> </div>
+         </div>
+         <div class="clearfix"> </div>
+      </div>
+   </div>
+</div>`
+});
+
 Vue.component('noga', {
   template:`
   <div class="footer" style="position:fixed; width:100%; bottom:0px;;">

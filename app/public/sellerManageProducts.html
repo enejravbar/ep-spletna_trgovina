@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Big shope</title>
+      <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+      <!--theme-style-->
+      <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+            <link href="css/search.css" rel="stylesheet" type="text/css" media="all" />
+      <!--//theme-style-->
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+      <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+      <!--fonts-->
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+      <!--//fonts-->
+      <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+      <script src="js/jquery.min.js"></script>
+      <script src="js/bootstrap.js"></script>
+      <script src="js/vue.js"></script>
+      <script src="js/vue_components.js"></script>
+      <script src="js/sellerManageProducts.js"></script>
+      <style>
+        [v-cloak] {
+          display: none;
+        }
+      </style>
+   </head>
+   <body>
+      <div id="app" v-cloak>
+         <glava-prodajalec></glava-prodajalec>
+         <div class="container" >
+
+               <div class=" login-right">
+
+                 <div style="margin-top:40px;">
+
+                   <div class="panel panel-default">
+                    <div class="panel-body">
+                      <div style="display:block;">
+                        <div style="display:inline-block;"><span style="font-size:20px; margin-top:8px;">Upravljanje artiklov</span></div>
+
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div style="display:block; margin-top:10px;">
+                    <input id="searchBar" type="text" name="search" placeholder="Iskanje..." style="display:inline-block; margin-right:0px;">
+                    <button type="button" class="btn btn-info" style="padding-top:8px; padding-bottom:8px;">Iskanje</button>
+                    <a href="sellerManageProduct.html"><button class="btn btn-success" data-toggle="modal" data-target="#dodajStranko" style="float:right; padding-top:8px; padding-bottom:8px;">Dodaj artikel</button></a>
+                  </div>
+
+                   <table id="cart" class="table table-hover table-condensed" style="margin-top: 20px;">
+                            <thead>
+                            <tr>
+                              <th style="width:50%">Artikel</th>
+                              <th style="">Cena</th>
+
+                              <th style=""></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+
+                             <tr v-for="artikel in tabelaArtiklov" >
+
+                                <td data-th="Izdelek">
+                                  <div class="row">
+                                    <div class="col-sm-2 hidden-xs"><a :href="artikel.povezava_artikel"><img :src="artikel.slika_url" alt="..." class="img-responsive" style="margin-top:12px; width:50px;"/></a></div>
+                                    <div class="col-sm-8">
+                                      <h4 style="padding-top:30px;">{{artikel.ime_artikla}}</h4>
+                                      <p></p>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td data-th="Cena"><span style="margin-top:20px;">{{artikel.redna_cena}} €</span></td>
+
+
+                                <td class="actions" data-th="">
+
+                                  <div style="display:block;" style="">
+                                    <button type="button" class="btn btn-danger" style="display: inline-block; float:right;  width:40.5%;  margin-top:20px;" >Odstrani</button>
+                                    <button type="button" class="btn btn-warning" style="display: inline-block; float:right;  width:40.5%; margin-right:1%; margin-top:20px;" >Uredi</button>
+
+                                  </div>
+                                </td>
+
+                            </tr>
+
+                          </tbody>
+
+                        </table>
+                 </div>
+               </div>
+
+               <div class="clearfix"> </div>
+         </div>
+
+         <noga></noga>
+      </div>
+   </body>
+</html>

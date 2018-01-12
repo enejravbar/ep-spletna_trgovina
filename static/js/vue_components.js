@@ -1,7 +1,12 @@
 
-
 Vue.component('glava', {
-  props:['base_url'],
+  props:['root_url'],
+  data: function(){
+    return {
+      prijavljen:false,
+      uporabnik:null
+    }
+  },
   template:`
   <div class="header">
    <div class="top-header">
@@ -12,9 +17,11 @@ Vue.component('glava', {
       <div class="container">
          <div class="header-bottom-left">
             <div class="logo">
-               <a href="index.html"><img :src="base_url+'images/logo.png'" alt=" " /></a>
+               <a :href="root_url">
+                <img :src="root_url+'static/images/logo.png'" alt=" " />
+               </a>
             </div>
-            <div class="search" style="margin-top:26px;">
+            <div class="search" style="margin-top:26px;" v-if=" (prijavljen && uporabnik.vloga==3) || !prijavljen ">
                <input type="text" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" >
                <input type="submit"  value="ISKANJE">
             </div>
@@ -24,29 +31,39 @@ Vue.component('glava', {
 
             <div style="display:block;">
 
-              <div class="cart" style="display:inline-block;float:right; margin-left:10px;">
+              <div class="cart" style="display:inline-block;float:right; margin-left:10px;" v-if="(prijavljen  && uporabnik.vloga==3)">
                 <a href="cart.html">
                   <button class="btn btn-default" type="button" ><span> </span>KOŠARICA
                   </button>
                 </a>
               </div>
 
-              <div class="dropdown" style="display:inline-block; float:right; margin-left:10px; ">
-               <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" style=" padding: 9px 9px 9px 9px ">Pozdravljeni Enej
+              <div class="dropdown" style="display:inline-block; float:right; margin-left:10px; " v-if="prijavljen">
+               <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" style=" padding: 9px 9px 9px 9px ">Pozdravljen/a {{uporabnik.ime}}
 
                <span class="caret"></span></button>
-               <ul class="dropdown-menu">
+
+               <ul class="dropdown-menu" v-if="uporabnik.vloga==3">
                 <li ><a href="customerOrders.html"><span >Pregled naročil</span> </a></li>
-                 <li ><a :href="base_url+'profil'"><span >Upravljaj račun</span> </a></li>
-                 <li ><a :href="base_url+'odjava'">Odjava</a></li>
+                 <li ><a :href="root_url+'profil'"><span >Upravljaj račun</span> </a></li>
+                 <li ><a :href="root_url+'odjava'">Odjava</a></li>
                </ul>
+
+               <ul class="dropdown-menu" v-if="uporabnik.vloga==2">
+                 <li ><a href="sellerOrders.html"><span >Pregled naročil</span> </a></li>
+                 <li ><a href="sellerManageCustomers.html"><span >Upravljanje strank</span> </a></li>
+                 <li ><a href="sellerManageProducts.html"><span >Upravljanje artiklov</span> </a></li>
+                 <li ><a href="sellerManageAccount.html"><span >Upravljaj račun</span> </a></li>
+                 <li ><a :href="root_url+'odjava'">Odjava</a></li>
+               </ul>
+
               </div>
 
-              <div style="display:inline-block; float:right; margin-left:10px;">
+              <div style="display:inline-block; float:right; margin-left:10px;" v-if="!prijavljen">
                  <ul class="login" >
                     <li>
                       <div>
-                        <a :href="base_url+'prijava'">
+                        <a :href="root_url+'prijava'">
                          <button class="btn btn-default" type="button" ><span> </span>PRIJAVA</button>
                        </a>
 
@@ -61,10 +78,39 @@ Vue.component('glava', {
          <div class="clearfix"> </div>
       </div>
    </div>
-</div>`
+</div>`,
+mounted: function(){
+  this.preveriPrijavo();
+},
+methods:{
+  preveriPrijavo: function(){
+    var request = new XMLHttpRequest();
+    var ref=this;
+    request.open('GET', this.root_url+'api/profil', true);
+    request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    request.send();
+
+    request.addEventListener("load", function() {
+      var response = JSON.parse(request.responseText);
+      console.log("Response "+response);
+
+      if(response.prijavljen){
+        ref.prijavljen=true;
+        ref.uporabnik=response.uporabnik;
+      }else{
+        ref.prijavljen=false;
+        ref.uporabnik=null;
+      }
+    });
+    request.addEventListener("error", function() {
+        console.log("NAPAKA!");
+    });
+  }
+}
+
 });
 
-Vue.component('glava-prodajalec', {
+/*Vue.component('glava-prodajalec', {
   template:`
   <div class="header">
    <div class="top-header">
@@ -103,7 +149,71 @@ Vue.component('glava-prodajalec', {
          <div class="clearfix"> </div>
       </div>
    </div>
-</div>`
+</div>`,
+mounted: function(){
+  this.preveriPrijavo();
+},
+methods:{
+  preveriPrijavo: function(){
+    var request = new XMLHttpRequest();
+    request.open('GET', this.root_url+'api/profil', true);
+    request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    request.send();
+
+    request.addEventListener("load", function() {
+      var response = JSON.parse(request.responseText);
+      console.log("Response "+response);
+    });
+    request.addEventListener("error", function() {
+        console.log("NAPAKA!");
+    });
+  }
+}
+});*/
+
+Vue.component('glava-login', {
+  props:['root_url'],
+  template:`
+  <div class="header">
+   <div class="top-header">
+      <div class="container" style="height:15px;">
+      </div>
+   </div>
+   <div class="bottom-header">
+      <div class="container">
+         <div class="header-bottom-left">
+            <div class="logo">
+               <img :src="root_url+'static/images/logo.png'" alt=" " />
+            </div>
+
+            <div class="clearfix"> </div>
+         </div>
+         <div class="header-bottom-right">
+         
+         </div>
+         <div class="clearfix"> </div>
+      </div>
+   </div>
+</div>`,
+mounted: function(){
+  this.preveriPrijavo();
+},
+methods:{
+  preveriPrijavo: function(){
+    var request = new XMLHttpRequest();
+    request.open('GET', this.root_url+'api/profil', true);
+    request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    request.send();
+
+    request.addEventListener("load", function() {
+      var response = JSON.parse(request.responseText);
+      console.log("Response "+response);
+    });
+    request.addEventListener("error", function() {
+        console.log("NAPAKA!");
+    });
+  }
+}
 });
 
 Vue.component('noga', {
@@ -137,17 +247,19 @@ Vue.component('noga', {
 });
 
 Vue.component('slide', {
-  props:['slika'],
+  props:['slika_url'],
   template:`
   <article style="position: absolute; width: 100%; opacity: 0;">
      <div class="banner-matter">
         <div class="col-md-5 banner-bag">
-           <img class="img-responsive " :src="slika" alt=" " />
+           <img class="img-responsive " :src="slika_url" alt=" " />
         </div>
         <div class="col-md-7 banner-off">
           <h2>FLAT 50% 0FF</h2>
           <label>FOR ALL PURCHASE <b>VALUE</b></label>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et </p>
+          <p>
+
+          </p>
           <span class="on-get">KUPI SEDAJ</span>
         </div>
         <div class="clearfix"> </div>
@@ -165,7 +277,7 @@ Vue.component('artikel-domaca-stran', {
         <div class="star-price">
            <div class="dolor-grid">
               <span >CENA:</span>
-              <span class="actual">{{znizana_cena}}€</span>
+              <span class="actual">{{redna_cena}}€</span>
               <span class="rating">
 
               </span>
@@ -183,7 +295,7 @@ Vue.component('artikel-domaca-stran', {
         <div class="star-price">
            <div class="dolor-grid">
               <span >CENA:</span>
-              <span class="actual">{{znizana_cena}}€</span>
+              <span class="actual">{{redna_cena}}€</span>
               <span class="rating">
 
               </span>
@@ -246,26 +358,53 @@ Vue.component('navigacijski-menu', {
 });
 
 Vue.component('navigacijski-menu-wrapper', {
-  props:[],
+  props:['root_url'],
   template:`
   <navigacijski-menu>
     <div slot="kategorija" v-for="kategorija in tabelaKategorij">
       <kategorija  :url="kategorija.url" :ime_kategorije="kategorija.ime"> </kategorija>
     </div>
-    <artikel-posebna-ponudba slot="artikel-posebna-ponudba" ></artikel-posebna-ponudba>
+    <!-- <artikel-posebna-ponudba slot="artikel-posebna-ponudba" ></artikel-posebna-ponudba> -->
   </navigacijski-menu>
   `,
   data: function(){
     return {
       tabelaKategorij:[
-        {ime:"Računalništvo", url:"product.html"},
-        {ime:"Bela Tehnika", url:"product.html"},
-        {ime:"Vrtnarstvo", url:"product.html"},
-        {ime:"Obleke", url:"product.html"}
+
       ]
     }
   },
-  computed:{
+  mounted: function(){
+    this.getData(this);
+
+  },
+  methods:{
+    getData: function(ref){
+      console.log("PRIDOBIVAM PODATKE!!!!!!!!!!!!!")
+      var request = new XMLHttpRequest();
+      request.open('GET', this.root_url+'api/kategorije', true);
+      request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+      request.send();
+
+      request.addEventListener("load", function() {
+        var response = JSON.parse(request.responseText);
+        var tabelaKategorij = response;
+        ref.posodobiKategorije(tabelaKategorij)
+      });
+      request.addEventListener("error", function() {
+          console.log("NAPAKA!");
+      });
+    },
+    posodobiKategorije: function(tabelaKategorij){
+      this.tabelaKategorij=[];
+      for(var i=0; i< tabelaKategorij.length; i++){
+          var kategorija=  {
+            kategorija_id: tabelaKategorij[i].id,
+            ime: tabelaKategorij[i].ime,
+          };
+          this.tabelaKategorij.push(kategorija);
+        }
+    },
   }
 
 });
