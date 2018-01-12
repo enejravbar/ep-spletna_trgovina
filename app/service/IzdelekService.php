@@ -13,8 +13,13 @@ require_once "app/service/SlikaService.php";
 
 class IzdelekService {
 
-    public static function pridobiVseIzdelke(){
-        return Izdelki::getAll();
+    public static function pridobiVseIzdelke($stran = 1, $limit = null){
+        $limit = ($limit == null)? (int)ConfigurationUtil::getConfByKey("query_izdelki_limit") : (int)$limit;
+        $offset = $limit * ($stran - 1);
+        $rez = array();
+        $rez["izdelki"] = Izdelki::getAllByPage(["offset" => $offset, "limit" => $limit]);
+        $rez["stevec"] = Izdelki::countByPages(["limit" => $limit])[0];
+        return $rez;
     }
 
     public static function pridobiEnIzdelek($id){

@@ -13,7 +13,8 @@ class Izdelki extends Entiteta {
     }
 
     public static function get(array $id) {
-        $izdelek = parent::query("SELECT * FROM izdelki WHERE id = :id", $id);
+        $izdelek = parent::query("SELECT *, (select avg(ocena) from ocene where id_izdelka = i.id) as ocena".
+            " FROM izdelki i WHERE id = :id", $id);
         if (count($izdelek) == 1) {
             return $izdelek[0];
         } else {
@@ -23,7 +24,30 @@ class Izdelki extends Entiteta {
 
     public static function getAll() {
         return parent::query("SELECT *, (SELECT s.id FROM slike s WHERE s.izdelek=i.id LIMIT 1) as thumbnail ".
-            "FROM izdelki i ORDER BY id ASC");
+            "FROM izdelki i WHERE status != (select id from status_izdelki where naziv = 'neaktiven') ORDER BY id ASC");
+    }
+
+    public static function getAllByPage(array $params) {
+        $stmt = parent::getConnection()->prepare("SELECT *, ".
+            "(SELECT s.id FROM slike s WHERE s.izdelek=i.id LIMIT 1) as thumbnail, ".
+            "(select avg(ocena) from ocene o where o.id_izdelka = i.id) as ocena FROM izdelki i ORDER BY id ASC " .
+            "LIMIT :limit OFFSET :offset");
+        $stmt->bindParam(":limit", $params["limit"], PDO::PARAM_INT);
+        $stmt->bindParam(":offset", $params["offset"], PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
+    public static function countByPages(array $params) {
+        $stmt = parent::getConnection()->prepare("SELECT count(*) as st_zadetkov, " .
+            "CEIL(count(*) / :limit) as st_strani FROM izdelki ".
+            "WHERE status != (select id from status_izdelki where naziv = 'neaktiven')");
+        $stmt->bindParam(":limit", $params["limit"], PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+
     }
 
     public static function insert(array $params) {

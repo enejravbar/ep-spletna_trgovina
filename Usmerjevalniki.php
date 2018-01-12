@@ -272,31 +272,6 @@ class Usmerjevalniki {
                     UporabnikVir::deaktivirajUporabnika($id);
                 }
             },
-            //uporabniki
-            //DEPRECATED
-            /*"/^api\/uporabniki$/" => function($method){
-                switch($method){
-                    case "POST":
-                        UporabnikVir::dodajUporabnika();
-                        break;
-                    default:
-                        UporabnikVir::pridobiVse();
-                        break;
-                }
-            },
-            "/^api\/uporabniki\/(\d+)$/" => function($method, $id){
-                switch($method){
-                    case "DELETE":
-                        UporabnikVir::izbrisiUporabnika($id);
-                        break;
-                    case "PUT":
-                        UporabnikVir::posodobiUporabnika($id);
-                        break;
-                    default:
-                        UporabnikVir::pridobiEnega($id);
-                        break;
-                }
-            },*/
             // izdelki
             "/^api\/izdelki\/(\d+)$/" => function($method, $id = null){
                 switch($method){
