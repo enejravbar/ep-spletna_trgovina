@@ -23,12 +23,12 @@ class KosaricaVir {
         }
     }
 
-    public static function spremeniKolicinoIzdelkaVKosarici() {
+    public static function spremeniKolicinoIzdelkaVKosarici() { // +1 ali -1
         if(PrijavaService::uporabnikJeStranka()) {
 
             $_PUT = [];
             parse_str(file_get_contents("php://input"), $_PUT);
-            $data = filter_var_array($_PUT, Kosarice::pridobiPravila());
+            $data = filter_var_array($_PUT, Kosarice::pridobiPravilaSpremembaKolicine());
 
             $uporabnik = PrijavaService::vrniTrenutnegaUporabnika();
             $data["id_uporabnika"] = $uporabnik["id"];
