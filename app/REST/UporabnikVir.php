@@ -182,7 +182,7 @@ class UporabnikVir {
             $_PUT = [];
             parse_str(file_get_contents("php://input"), $_PUT);
             $data = filter_var_array($_PUT, Uporabniki::pravilaZaStranke());
-
+            
             if(UporabnikService::preveriDaNiPraznihVrednosti($data)) {
                 $data["id"] = $id;
                 try {
@@ -206,7 +206,7 @@ class UporabnikVir {
                     echo ViewUtil::renderJSON(["napaka" => $e2->getMessage()], 400);
                 }
             } else {
-                echo ViewUtil::renderJSON(["napaka" => "Nekateri atributi manjkajo!"], 200);
+                echo ViewUtil::renderJSON(["napaka" => "Nekateri atributi manjkajo!"], 400);
             }
         } else {
             echo ViewUtil::renderJSON(["napaka" => "Uporabnik nima zadostnih pravic!"], 401);

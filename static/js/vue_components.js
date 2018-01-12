@@ -1,3 +1,13 @@
+function JSON_to_URLEncoded(element,key,list){
+  var list = list || [];
+  if(typeof(element)=='object'){
+    for (var idx in element)
+      JSON_to_URLEncoded(element[idx],key?key+'['+idx+']':idx,list);
+  } else {
+    list.push(key+'='+encodeURIComponent(element));
+  }
+  return list.join('&');
+}
 
 Vue.component('glava', {
   props:['root_url'],
@@ -166,26 +176,6 @@ Vue.component('noga', {
 </div>`
 });
 
-Vue.component('slide', {
-  props:['slika_url'],
-  template:`
-  <article style="position: absolute; width: 100%; opacity: 0;">
-     <div class="banner-matter">
-        <div class="col-md-5 banner-bag">
-           <img class="img-responsive " :src="slika_url" alt=" " />
-        </div>
-        <div class="col-md-7 banner-off">
-          <h2>FLAT 50% 0FF</h2>
-          <label>FOR ALL PURCHASE <b>VALUE</b></label>
-          <p>
-
-          </p>
-          <span class="on-get">KUPI SEDAJ</span>
-        </div>
-        <div class="clearfix"> </div>
-     </div>
-  </article>`
-});
 
 Vue.component('artikel-domaca-stran', {
   props:['root_url','artikel','slika_url','ime_artikla','redna_cena','znizana_cena','st_slike'],
@@ -332,15 +322,6 @@ Vue.component('artikel-product-stran', {
 </div>`
 });
 
-Vue.component('artikel-slika-single-stran', {
-  props:['slika_url'],
-  template:`
-  <li>
-      <img class="etalage_thumb_image " :src="slika_url"  />
-      <img class="etalage_source_image " :src="slika_url" title="" />
-  </li>
-  `
-});
 
 Vue.component('stranka-forma-podatki', {
   props:["root_url"],
@@ -354,7 +335,9 @@ Vue.component('stranka-forma-podatki', {
         telefon:"",
         geslo1:"",
         geslo2:"",
-      }
+        posta:1000,
+      },
+      tabelaPosta:[],
     }
   },
   template:`
@@ -375,19 +358,28 @@ Vue.component('stranka-forma-podatki', {
            <input type="text" class="form-control" id="priimek" placeholder="" name="pwd" v-model="uporabnik.priimek">
          </div>
          <div class="form-group">
-           <label for="email">ELEKTRONSKI NASLOV</label>
-           <input type="email" class="form-control" id="email" placeholder="" name="pwd" v-model="uporabnik.email" >
-         </div>
-         <div class="form-group">
            <label for="email">NASLOV</label>
            <input type="text" class="form-control" id="naslov" placeholder="" name="pwd" v-model="uporabnik.naslov">
          </div>
+         <div class="form-group">
+           <label for="sel1">POŠTA:</label>
+           <select class="form-control" id="sel1" >
+             <option v-for="posta in tabelaPosta">1</option>
+
+           </select>
+          </div>
+         <div class="form-group">
+           <label for="email">ELEKTRONSKI NASLOV</label>
+           <input type="email" class="form-control" id="email" placeholder="" name="pwd" v-model="uporabnik.email" >
+         </div>
+
          <div class="form-group">
            <label for="email">TELEFONSKA ŠTEVILKA</label>
            <input type="text" class="form-control" id="tel_stevilka" placeholder="" name="pwd" v-model="uporabnik.telefon">
          </div>
          <button  class="btn btn-success" style="display:inline-block" v-on:click="posodobiPodatkeStranke()" >Shrani spremembe</button>
          <span class="label label-success"  style="display:inline-block; float:right; padding:6px;">Podatki uspešno posodobljeni!</span>
+         <span class="label label-warning"  style="display:inline-block; float:right; padding:6px;">Preverite pravilnost podatkov!</span>
       </div>
       <div class="clearfix"> </div>
     </div>
@@ -418,17 +410,36 @@ Vue.component('stranka-forma-podatki', {
   </div>
 </div>
   `,
+  mounted: function(){
+    this.getData();
+  },
   methods:{
+    getData: function(){
+      var request = new XMLHttpRequest();
+      var ref=this;
+
+      //console.log(data);
+      request.open('GET',this.root_url+'api/poste' ,true);
+      request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+      request.send();
+
+      request.addEventListener("load", function() {
+        var response = JSON.parse(request.responseText);
+        console.log(response)
+      });
+      request.addEventListener("error", function() {
+          console.log("NAPAKA!");
+      });
+    },
     posodobiPodatkeStranke: function(){
       var request = new XMLHttpRequest();
       var ref=this;
       var uporabnik=this.uporabnik;
-
-      var data="ime="+uporabnik.ime+"&"+"priimek="+uporabnik.priimek+"&"+"email="+uporabnik.email+"&"+"naslov="+uporabnik.naslov+"&"+"telefon="+uporabnik.telefon;
-      console.log(data);
+      var data=JSON_to_URLEncoded(uporabnik);
+      //console.log(data);
       request.open('PUT', this.root_url+'api/profil', true);
       request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-      request.send();
+      request.send(data);
 
       request.addEventListener("load", function() {
         var response = JSON.parse(request.responseText);
