@@ -60,6 +60,7 @@ class FileService {
 
     public static function izbrisiDatoteko($filename){
         if(file_exists($filename)){
+            LogService::info("", "DELETE", "Slika " . $filename . " je izbrisana!");
             unlink($filename);
         } else {
             throw new InvalidArgumentException("Ne najdem slike za izbris!");

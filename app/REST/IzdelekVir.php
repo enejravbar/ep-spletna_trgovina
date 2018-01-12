@@ -5,23 +5,29 @@ require_once "app/models/Izdelki.php";
 require_once "app/service/IzdelekService.php";
 require_once "app/service/SlikaService.php";
 require_once "app/service/PrijavaService.php";
+require_once "app/service/LogService.php";
 
 class IzdelekVir {
 
     // GET /izdelki
     public static function getAll(){
-        if(isset($_GET["order"])) {
-
+        if(isset($_GET["stran"])) {
+            $stran = $_GET["stran"];
+        } else {
+            $stran = 1;
         }
 
-
-
-
-
         try {
-            echo ViewUtil::renderJSON(IzdelekService::pridobiVseIzdelke(), 200);
+            $izdelki = IzdelekService::pridobiVseIzdelke($stran);
+            echo ViewUtil::renderJSON([
+                "glava" => [
+                    "st_vseh_zadetkov" => $izdelki["stevec"]["st_zadetkov"],
+                    "st_strani" => $izdelki["stevec"]["st_strani"]
+                ],
+                "telo" => $izdelki["izdelki"]
+            ], 200);
         } catch (Exception $e) {
-            echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 400);
+            echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 500);
         }
     }
 
@@ -59,6 +65,8 @@ class IzdelekVir {
                 $data["id"] = $id;
                 try{
                     IzdelekService::posodobiIzdelek($data);
+                    LogService::info("prodajalec", "IZDELEK", "Prodajalec " .
+                        PrijavaService::vrniIdTrenutnegaUporabnika() . " je posodobil izdelek $id");
                     echo ViewUtil::renderJSON($data, 200);
                 } catch(InvalidArgumentException $e){
                     echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 400);
@@ -76,6 +84,8 @@ class IzdelekVir {
         if(PrijavaService::uporabnikJeProdajalec()) {
             try {
                 IzdelekService::izbrisiIzdelek($id);
+                LogService::info("prodajalec", "IZDELEK", "Prodajalec " .
+                    PrijavaService::vrniIdTrenutnegaUporabnika() . " je izbrisal izdelek $id");
                 echo ViewUtil::renderJSON(null, 204);
             } catch(InvalidArgumentException $e){
                 echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 404);
@@ -105,6 +115,8 @@ class IzdelekVir {
             if(ViewUtil::checkValues($data)){
                 try {
                     $novi_izdelek = IzdelekService::shraniIzdelek($data, $SLIKE);
+                    LogService::info("prodajalec", "IZDELEK", "Prodajalec " .
+                        PrijavaService::vrniIdTrenutnegaUporabnika() . " je shranil izdelek $novi_izdelek");
                     echo ViewUtil::renderJSON($novi_izdelek, 201);
                 } catch(InvalidArgumentException $e){
                     echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 400);
@@ -123,6 +135,8 @@ class IzdelekVir {
         if(PrijavaService::uporabnikJeProdajalec()) {
             try {
                 SlikaService::izbrisiSliko($id_slike);
+                LogService::info("prodajalec", "IZDELEK-SLIKA", "Prodajalec " .
+                    PrijavaService::vrniIdTrenutnegaUporabnika() . " je izbrisal sliko $id_slike");
                 echo ViewUtil::renderJSON(null, 204);
             } catch (Exception $e) {
                 echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 500);
@@ -137,6 +151,8 @@ class IzdelekVir {
             try {
                 $SLIKA = $_FILES["slika"];
                 SlikaService::shraniSlikoIzdelka($SLIKA, $id_izdelka);
+                LogService::info("prodajalec", "IZDELEK", "Prodajalec " .
+                    PrijavaService::vrniIdTrenutnegaUporabnika() . " je dodal sliko izdelku $id_izdelka");
                 echo ViewUtil::renderJSON(["status" => "Uspeh!"], 200);
             } catch (InvalidArgumentException $e1) {
                 echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 404);

@@ -44,4 +44,8 @@ class PrijavaService {
         return null;
     }
 
+    public static function vrniIdTrenutnegaUporabnika() {
+        return self::vrniTrenutnegaUporabnika()["id"];
+    }
+
 }

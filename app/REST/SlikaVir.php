@@ -28,6 +28,8 @@ class SlikaVir {
         if(PrijavaService::uporabnikJeProdajalec()) {
             try {
                 SlikaService::shraniSlikoIzdelka($_FILES["slika"], $id);
+                LogService::info("prodajalec", "SLIKA", "Prodajalec " .
+                    PrijavaService::vrniIdTrenutnegaUporabnika() . " je shranil sliko " . $_FILES["slika"]["name"]);
                 echo ViewUtil::renderJSON(["sporocilo" => "Uspeh!"], 201);
             } catch (InvalidArgumentException $e){
                 echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 400);
@@ -44,6 +46,8 @@ class SlikaVir {
         if(PrijavaService::uporabnikJeProdajalec()) {
             try {
                 SlikaService::izbrisiSliko($id);
+                LogService::info("prodajalec", "SLIKA", "Prodajalec " .
+                    PrijavaService::vrniIdTrenutnegaUporabnika() . " je izbrisal sliko $id");
                 echo ViewUtil::renderJSON(["sporocilo" => "Uspeh!"], 204);
             } catch(InvalidArgumentException $e){
                 echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 400);
