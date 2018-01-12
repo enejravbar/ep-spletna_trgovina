@@ -10,3 +10,7 @@ RewriteBase /ep/ep-spletna_trgovina/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*) index.php/$1 [L,PT,QSA]
+
+RewriteCond %{HTTPS} off
+RewriteCond %{REQUEST_URI} ep/ep-spletna_trgovina/index.php/(admin|prodaja|prijava|registracija|osebje)
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
