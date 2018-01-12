@@ -106,6 +106,48 @@ Vue.component('glava-prodajalec', {
 </div>`
 });
 
+Vue.component('glava-login', {
+  template:`
+  <div class="header">
+   <div class="top-header">
+      <div class="container" style="height:15px;">
+      </div>
+   </div>
+   <div class="bottom-header">
+      <div class="container">
+         <div class="header-bottom-left">
+            <div class="logo">
+               <a href="index.html"><img src="images/logo.png" alt=" " /></a>
+            </div>
+
+            <div class="clearfix"> </div>
+         </div>
+         <div class="header-bottom-right">
+
+            <div style="display:block;">
+
+              <div class="dropdown" style="display:inline-block; float:right; margin-left:10px; ">
+               <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" style=" padding: 9px 9px 9px 9px ">Pozdravljen/a Enej
+
+               <span class="caret"></span></button>
+               <ul class="dropdown-menu">
+                 <li ><a href="sellerOrders.html"><span >Pregled naročil</span> </a></li>
+                 <li ><a href="sellerManageCustomers.html"><span >Upravljanje strank</span> </a></li>
+                 <li ><a href="sellerManageProducts.html"><span >Upravljanje artiklov</span> </a></li>
+                 <li ><a href="sellerManageAccount.html"><span >Upravljaj račun</span> </a></li>
+                 <li ><a href="/odjava">Odjava</a></li>
+               </ul>
+              </div>
+
+            </div>
+            <div class="clearfix"> </div>
+         </div>
+         <div class="clearfix"> </div>
+      </div>
+   </div>
+</div>`
+});
+
 Vue.component('noga', {
   template:`
   <div class="footer" style="position:fixed; width:100%; bottom:0px;;">

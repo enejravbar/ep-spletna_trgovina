@@ -41,14 +41,20 @@
                         <span>GESLO <label>*</label></span>
                         <input type="password" v-model="stranka.geslo">
                      </div>
-                     <button type="" value="PRIJAVA" v-on:click="prijaviStranko()">
-          
+                     <input type="submit" value="PRIJAVA" v-on:click="prijaviStranko()" style="margin-top:10px;">
+
                </div>
                <div class=" login-left">
                   <h3>NOVI UPORABNIKI</h3>
                   <p>Če še nimate uporabniškega računa pri nas, ga lahko ustvarite na spodnji povezavi.
-                  <p>
+                  </p>
                      <a class="acount-btn" href="register.html">USTVARI NOV RAČUN</a>
+               </div>
+               <div class=" login-right">
+                  <h3>PRIJAVA ZA OSEBJE</h3>
+                  <p>Če se želite prijaviti kot osebje, prosim sledite spodnji povezavi.</p>
+
+                     <a class="acount-btn" href="register.html">PRIJAVA ZA OSEBJE</a>
                </div>
                <div class="clearfix"> </div>
             </div>
