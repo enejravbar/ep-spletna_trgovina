@@ -188,7 +188,7 @@ class UporabnikVir {
                     $uporabnik = UporabnikService::posodobiStranko($data);
                     LogService::info("prodajalec", "UPORABNIK", "Prodajalec " .
                         PrijavaService::vrniIdTrenutnegaUporabnika() . " je posodobil stranko" . $uporabnik["id"]);
-                    echo ViewUtil::renderJSON($uporabnik, 200);
+                    echo ViewUtil::renderJSON(["uporabnik" => $uporabnik], 200);
                 } catch (InvalidArgumentException $e1) {
                     echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 404);
                 } catch (Exception $e2) {

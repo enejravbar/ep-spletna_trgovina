@@ -30,14 +30,11 @@ class PrijavaVir {
 
     public static function pridobiTrenutnegaUporabnika() {
         if(PrijavaService::uporabnikJePrijavljen()) {
-            $uporabnik = PrijavaService::vrniTrenutnegaUporabnika();
-            if($uporabnik == null) {
-                echo ViewUtil::renderJSON(["prijavljen" => false], 500);
-            } else {
-                echo ViewUtil::renderJSON([
-                    "uporabnik" => $uporabnik,
-                    "prijavljen" => true
-                ], 200);
+            try {
+                $uporabnik = PrijavaService::vrniTrenutnegaIzBaze();
+                echo ViewUtil::renderJSON(["uporabnik" => $uporabnik, "prijavljen" => true], 200);
+            } catch (Exception $e) {
+                echo ViewUtil::renderJSON(["prijavljen" => false, "napaka" => $e->getMessage()], 500);
             }
         } else {
             echo ViewUtil::renderJSON([
