@@ -57,7 +57,10 @@ class Izdelki extends Entiteta {
     }
 
     public static function getNLatest(array $params) {
-        $stmt = parent::getConnection()->prepare("SELECT * FROM izdelki ORDER BY dodan DESC LIMIT :n");
+        $stmt = parent::getConnection()->prepare("select i.*, (select s.id from slike s ".
+            "where izdelek = i.id limit 1) as thumbnail from izdelki i ".
+            "where status != (select id from status_izdelki where naziv = 'ni na voljo') ".
+            "order by dodan desc limit :n");
         $stmt->bindParam(":n", $params["n"], PDO::PARAM_INT);
         $stmt->execute();
 
@@ -65,8 +68,10 @@ class Izdelki extends Entiteta {
     }
 
     public static function getNBestrated(array $params) {
-        $stmt = parent::getConnection()->prepare("SELECT i.*, (SELECT AVG(o.ocena) FROM ocene o ".
-            "WHERE o.id_izdelka = i.id) as avg_ocena FROM izdelki i ORDER BY avg_ocena DESC LIMIT :n;");
+        $stmt = parent::getConnection()->prepare("select i.*, (select avg(o.ocena) from ocene o ".
+            "where o.id_izdelka = i.id) as avg_ocena, (select s.id from slike s where izdelek = i.id limit 1) as thumbnail ".
+            "from izdelki i where status != (select id from status_izdelki where naziv = 'ni na voljo') ".
+            "order by avg_ocena desc limit :n");
         $stmt->bindParam(":n", $params["n"], PDO::PARAM_INT);
         $stmt->execute();
 
