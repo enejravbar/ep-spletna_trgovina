@@ -132,7 +132,7 @@ class UporabnikService {
     }
 
     public static function posodobiStranko($podatki) {
-        if(isset($podatki["geslo1"]) && isset($podatki["geslo2"])) {
+        if($podatki["geslo1"] != "" && $podatki["geslo2"] != "") {
             if($podatki["geslo1"] == $podatki["geslo2"]) {
                 $rowAffected = Uporabniki::updateStrankaZGeslom([
                     "id" => $podatki["id"],
@@ -147,7 +147,7 @@ class UporabnikService {
             } else {
                 throw new InvalidArgumentException("Gesli se ne ujemata!");
             }
-        } else if (!isset($podatki["geslo1"]) && !isset($podatki["geslo2"])) {
+        } else if ($podatki["geslo1"] == "" && $podatki["geslo2"] == "") {
             $rowAffected = Uporabniki::updateStrankaBrezGesla([
                 "id" => $podatki["id"],
                 "ime" => $podatki["ime"],
@@ -244,7 +244,7 @@ class UporabnikService {
     }
 
     public static function posodobiProdajalca($podatki) {
-        if(isset($podatki["geslo1"]) && isset($podatki["geslo2"])) {
+        if($podatki["geslo1"] != "" && $podatki["geslo2"] != "") {
             if($podatki["geslo1"] == $podatki["geslo2"]) {
                 $rowAffected = Uporabniki::updateOsebjeZGeslom([
                     "id" => $podatki["id"],
@@ -256,7 +256,7 @@ class UporabnikService {
             } else {
                 throw new InvalidArgumentException("Gesli se ne ujemata!");
             }
-        } else if (!isset($podatki["geslo1"]) && !isset($podatki["geslo2"])) {
+        } else if ($podatki["geslo1"] == "" && $podatki["geslo2"] == "") {
             $rowAffected = Uporabniki::updateOsebjeBrezGesla([
                 "id" => $podatki["id"],
                 "ime" => $podatki["ime"],
@@ -279,7 +279,7 @@ class UporabnikService {
 
     // admin
     public static function posodobiAdmina($podatki) {
-        if(isset($podatki["geslo1"]) && isset($podatki["geslo2"])) {
+        if($podatki["geslo1"] != "" && $podatki["geslo2"] != "") {
             if($podatki["geslo1"] == $podatki["geslo2"]) {
                 $rowAffected = Uporabniki::updateOsebjeZGeslom([
                     "id" => $podatki["id"],
@@ -291,7 +291,7 @@ class UporabnikService {
             } else {
                 throw new InvalidArgumentException("Gesli se ne ujemata!");
             }
-        } else if (!isset($podatki["geslo1"]) && !isset($podatki["geslo2"])) {
+        } else if ($podatki["geslo1"] == "" && $podatki["geslo2"] == "") {
             $rowAffected = Uporabniki::updateOsebjeBrezGesla([
                 "id" => $podatki["id"],
                 "ime" => $podatki["ime"],

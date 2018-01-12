@@ -44,6 +44,10 @@ class PrijavaService {
         return null;
     }
 
+    public static function vrniTrenutnegaIzBaze() {
+
+    }
+
     public static function vrniIdTrenutnegaUporabnika() {
         return self::vrniTrenutnegaUporabnika()["id"];
     }
