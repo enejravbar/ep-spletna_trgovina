@@ -36,6 +36,18 @@ class IzdelekVir {
         }
     }
 
+    // GET /izdelki/index
+    public static function getForIndex() {
+        try {
+            echo ViewUtil::renderJSON([
+                "zadnji" => IzdelekService::dobiZadnjihNIzdelkov(3),
+                "ocenjeni" => IzdelekService::dobiNNajboljeOcenjenihIzdelkov(3)
+            ], 200);
+        } catch(Exception $e) {
+            echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 400);
+        }
+    }
+
     // PUT /izdelki/:id
     public static function posodobi($id){
         if(PrijavaService::uporabnikJeProdajalec()){

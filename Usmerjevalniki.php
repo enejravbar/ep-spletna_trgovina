@@ -333,6 +333,11 @@ class Usmerjevalniki {
                         break;
                 }
             },
+            "/^api\/izdelki\/index$/" => function($method) {
+                if($method == "GET") {
+                    IzdelekVir::getForIndex();
+                }
+            },
             // kategorije
             "/^api\/kategorije$/" => function($method){
                 KategorijaVir::pridobiVse();

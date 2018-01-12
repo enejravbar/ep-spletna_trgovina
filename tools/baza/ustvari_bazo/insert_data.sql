@@ -26,12 +26,12 @@ INSERT INTO ep.vloge(naziv) VALUES('prodajalec');
 INSERT INTO ep.vloge(naziv) VALUES('stranka');
 
 -- izdelki
-INSERT INTO ep.izdelki(kategorija, ime, opis, cena, status)
-  VALUES (1, 'HTC One', 'Preizkusite najnovejši model znamke HTC - HTC One!\n\nTo je telefon velikih zmogljivosti, ki vam bo zdržal veliko več kot ostala poceni kitajska roba.', 399.99, 1);
-INSERT INTO ep.izdelki(kategorija, ime, opis, cena, status)
-  VALUES(2, 'Polnilec za HTC One', 'To je super polnilec za telefon, ki deluje za vse HTC telefone, pa tudi za nekatere druge.\n\nKupite ga še danes in poglejte kaj pomeni imeti super polnilec', 12.95, 2);
-INSERT INTO ep.izdelki(kategorija, ime, opis, cena, status)
-  VALUES(1, 'Huawei P10', 'Moderen telefon z visoko zmogljivostjo za nizko ceno!\n\nKamera 10MP, 4GB RAM-a, baterija ki zdrži 20h.\n\nKaj še čakate? Naročite zdaj!', 499.99, 3);
+INSERT INTO ep.izdelki(kategorija, ime, opis, cena, status, dodan)
+  VALUES (1, 'HTC One', 'Preizkusite najnovejši model znamke HTC - HTC One!\n\nTo je telefon velikih zmogljivosti, ki vam bo zdržal veliko več kot ostala poceni kitajska roba.', 399.99, 1, NOW());
+INSERT INTO ep.izdelki(kategorija, ime, opis, cena, status, dodan)
+  VALUES(2, 'Polnilec za HTC One', 'To je super polnilec za telefon, ki deluje za vse HTC telefone, pa tudi za nekatere druge.\n\nKupite ga še danes in poglejte kaj pomeni imeti super polnilec', 12.95, 2, NOW());
+INSERT INTO ep.izdelki(kategorija, ime, opis, cena, status, dodan)
+  VALUES(1, 'Huawei P10', 'Moderen telefon z visoko zmogljivostjo za nizko ceno!\n\nKamera 10MP, 4GB RAM-a, baterija ki zdrži 20h.\n\nKaj še čakate? Naročite zdaj!', 499.99, 3, NOW());
 
 -- slike
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
