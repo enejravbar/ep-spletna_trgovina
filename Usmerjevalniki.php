@@ -405,6 +405,9 @@ class Usmerjevalniki {
             "/^api\/test\/prodajalci/" => function($method) {
                 UporabnikVir::pridobiVseProdajalce();
             },
+            "/^api\/test\/izdelki$/" => function($method) {
+                IzdelekVir::testirajDodajanjeIzdelka();
+            },
             "/^test\/izdelek\/(\d+)$/" => function($method, $id) {
                 echo Slika::pridobiStevilkoSlike(["izdelek_id" => $id]);
             },

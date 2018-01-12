@@ -136,4 +136,23 @@ class IzdelekVir {
         }
     }
 
+    public static function testirajDodajanjeIzdelka() {
+        $data = filter_input_array(INPUT_POST, Izdelki::pridobiPravila());
+        $FILES = $_FILES["slika"];
+        $SLIKE = array();
+
+        foreach ($FILES["name"] as $key => $value) {
+            array_push($SLIKE, [
+                "name" => $FILES["name"][$key],
+                "size" => $FILES["size"][$key],
+                "type" => $FILES["type"][$key],
+                "tmp_name" => $FILES["tmp_name"][$key],
+                "error" => $FILES["error"][$key]
+            ]);
+        }
+
+        var_dump($data);
+        var_dump($SLIKE);
+    }
+
 }
