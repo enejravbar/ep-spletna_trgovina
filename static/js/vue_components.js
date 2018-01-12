@@ -1,7 +1,12 @@
 
-
 Vue.component('glava', {
   props:['root_url'],
+  data: function(){
+    return {
+      prijavljen:false,
+      vloga:null
+    }
+  },
   template:`
   <div class="header">
    <div class="top-header">
@@ -63,7 +68,36 @@ Vue.component('glava', {
          <div class="clearfix"> </div>
       </div>
    </div>
-</div>`
+</div>`,
+mounted: function(){
+  this.preveriPrijavo();
+},
+methods:{
+  preveriPrijavo: function(){
+    var request = new XMLHttpRequest();
+    var ref=this;
+    request.open('GET', this.root_url+'api/profil', true);
+    request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    request.send();
+
+    request.addEventListener("load", function() {
+      var response = JSON.parse(request.responseText);
+      console.log("Response "+response);
+
+      if(response.prijavljen){
+        ref.prijavljen=true;
+        ref.vloga=response.vloga;
+      }else{
+        ref.prijavljen=false;
+        ref.vloga=null;
+      }
+    });
+    request.addEventListener("error", function() {
+        console.log("NAPAKA!");
+    });
+  }
+}
+
 });
 
 Vue.component('glava-prodajalec', {
@@ -105,10 +139,30 @@ Vue.component('glava-prodajalec', {
          <div class="clearfix"> </div>
       </div>
    </div>
-</div>`
+</div>`,
+mounted: function(){
+  this.preveriPrijavo();
+},
+methods:{
+  preveriPrijavo: function(){
+    var request = new XMLHttpRequest();
+    request.open('GET', this.root_url+'api/profil', true);
+    request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    request.send();
+
+    request.addEventListener("load", function() {
+      var response = JSON.parse(request.responseText);
+      console.log("Response "+response);
+    });
+    request.addEventListener("error", function() {
+        console.log("NAPAKA!");
+    });
+  }
+}
 });
 
 Vue.component('glava-login', {
+  props:['root_url'],
   template:`
   <div class="header">
    <div class="top-header">
@@ -119,7 +173,7 @@ Vue.component('glava-login', {
       <div class="container">
          <div class="header-bottom-left">
             <div class="logo">
-               <a href="index.html"><img src="images/logo.png" alt=" " /></a>
+               <img :src="root_url+'static/images/logo.png'" alt=" " />
             </div>
 
             <div class="clearfix"> </div>
@@ -147,7 +201,26 @@ Vue.component('glava-login', {
          <div class="clearfix"> </div>
       </div>
    </div>
-</div>`
+</div>`,
+mounted: function(){
+  this.preveriPrijavo();
+},
+methods:{
+  preveriPrijavo: function(){
+    var request = new XMLHttpRequest();
+    request.open('GET', this.root_url+'api/profil', true);
+    request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    request.send();
+
+    request.addEventListener("load", function() {
+      var response = JSON.parse(request.responseText);
+      console.log("Response "+response);
+    });
+    request.addEventListener("error", function() {
+        console.log("NAPAKA!");
+    });
+  }
+}
 });
 
 Vue.component('noga', {
@@ -192,7 +265,7 @@ Vue.component('slide', {
           <h2>FLAT 50% 0FF</h2>
           <label>FOR ALL PURCHASE <b>VALUE</b></label>
           <p>
-            
+
           </p>
           <span class="on-get">KUPI SEDAJ</span>
         </div>
@@ -229,7 +302,7 @@ Vue.component('artikel-domaca-stran', {
         <div class="star-price">
            <div class="dolor-grid">
               <span >CENA:</span>
-              <span class="actual">{{znizana_cena}}€</span>
+              <span class="actual">{{redna_cena}}€</span>
               <span class="rating">
 
               </span>
@@ -292,7 +365,7 @@ Vue.component('navigacijski-menu', {
 });
 
 Vue.component('navigacijski-menu-wrapper', {
-  props:[],
+  props:['root_url'],
   template:`
   <navigacijski-menu>
     <div slot="kategorija" v-for="kategorija in tabelaKategorij">
@@ -304,14 +377,41 @@ Vue.component('navigacijski-menu-wrapper', {
   data: function(){
     return {
       tabelaKategorij:[
-        {ime:"Računalništvo", url:"product.html"},
-        {ime:"Bela Tehnika", url:"product.html"},
-        {ime:"Vrtnarstvo", url:"product.html"},
-        {ime:"Obleke", url:"product.html"}
+
       ]
     }
   },
-  computed:{
+  mounted: function(){
+    this.getData(this);
+
+  },
+  methods:{
+    getData: function(ref){
+      console.log("PRIDOBIVAM PODATKE!!!!!!!!!!!!!")
+      var request = new XMLHttpRequest();
+      request.open('GET', this.root_url+'api/kategorije', true);
+      request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+      request.send();
+
+      request.addEventListener("load", function() {
+        var response = JSON.parse(request.responseText);
+        var tabelaKategorij = response;
+        ref.posodobiKategorije(tabelaKategorij)
+      });
+      request.addEventListener("error", function() {
+          console.log("NAPAKA!");
+      });
+    },
+    posodobiKategorije: function(tabelaKategorij){
+      this.tabelaKategorij=[];
+      for(var i=0; i< tabelaKategorij.length; i++){
+          var kategorija=  {
+            kategorija_id: tabelaKategorij[i].id,
+            ime: tabelaKategorij[i].ime,
+          };
+          this.tabelaKategorij.push(kategorija);
+        }
+    },
   }
 
 });
