@@ -204,22 +204,22 @@ CREATE TABLE IF NOT EXISTS `ocene` (
   COMMENT = 'Ocene izdelkov';
 
 -- kategorije
-INSERT INTO ep.kategorije(ime) VALUES ('mobilni telefoni');
-INSERT INTO ep.kategorije(ime) VALUES ('polnilci');
-INSERT INTO ep.kategorije(ime) VALUES ('torbice in ovitki');
-INSERT INTO ep.kategorije(ime) VALUES ('zaščitne folije in stekla');
-INSERT INTO ep.kategorije(ime) VALUES ('baterije');
+INSERT INTO ep.kategorije(ime) VALUES ('Mobilni telefoni');
+INSERT INTO ep.kategorije(ime) VALUES ('Polnilci');
+INSERT INTO ep.kategorije(ime) VALUES ('Torbice in ovitki');
+INSERT INTO ep.kategorije(ime) VALUES ('Zaščitne folije in stekla');
+INSERT INTO ep.kategorije(ime) VALUES ('Baterije');
 
 -- status_izdelki
-INSERT INTO ep.status_izdelki(naziv) VALUES('na zalogi');
-INSERT INTO ep.status_izdelki(naziv) VALUES('zadnji kosi');
-INSERT INTO ep.status_izdelki(naziv) VALUES('ni na voljo');
+INSERT INTO ep.status_izdelki(naziv) VALUES('Na zalogi');
+INSERT INTO ep.status_izdelki(naziv) VALUES('Zadnji kosi');
+INSERT INTO ep.status_izdelki(naziv) VALUES('Ni na voljo');
 INSERT INTO ep.status_izdelki(naziv) VALUES('neaktiven');
 
 -- status_narocila
-INSERT INTO ep.status_narocila(naziv) VALUES('oddano');
-INSERT INTO ep.status_narocila(naziv) VALUES('potrjeno');
-INSERT INTO ep.status_narocila(naziv) VALUES('stornirano');
+INSERT INTO ep.status_narocila(naziv) VALUES('Oddano');
+INSERT INTO ep.status_narocila(naziv) VALUES('Potrjeno');
+INSERT INTO ep.status_narocila(naziv) VALUES('Stornirano');
 
 -- status_uporabniki
 INSERT INTO ep.status_uporabniki(naziv) VALUES('aktiven');
