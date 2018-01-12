@@ -220,7 +220,7 @@ class Usmerjevalniki {
                 if($method == "GET") {
                     UporabnikVir::posredujPoste();
                 }
-            }
+            },
             // stranke
             "/^api\/stranke$/" => function($method) {
                 switch ($method) {
