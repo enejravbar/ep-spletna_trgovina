@@ -110,67 +110,6 @@ methods:{
 
 });
 
-/*Vue.component('glava-prodajalec', {
-  template:`
-  <div class="header">
-   <div class="top-header">
-      <div class="container" style="height:15px;">
-      </div>
-   </div>
-   <div class="bottom-header">
-      <div class="container">
-         <div class="header-bottom-left">
-            <div class="logo">
-               <a href="index.html"><img src="images/logo.png" alt=" " /></a>
-            </div>
-
-            <div class="clearfix"> </div>
-         </div>
-         <div class="header-bottom-right">
-
-            <div style="display:block;">
-
-              <div class="dropdown" style="display:inline-block; float:right; margin-left:10px; ">
-               <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" style=" padding: 9px 9px 9px 9px ">Pozdravljen/a Enej
-
-               <span class="caret"></span></button>
-               <ul class="dropdown-menu">
-                 <li ><a href="sellerOrders.html"><span >Pregled naročil</span> </a></li>
-                 <li ><a href="sellerManageCustomers.html"><span >Upravljanje strank</span> </a></li>
-                 <li ><a href="sellerManageProducts.html"><span >Upravljanje artiklov</span> </a></li>
-                 <li ><a href="sellerManageAccount.html"><span >Upravljaj račun</span> </a></li>
-                 <li ><a href="/odjava">Odjava</a></li>
-               </ul>
-              </div>
-
-            </div>
-            <div class="clearfix"> </div>
-         </div>
-         <div class="clearfix"> </div>
-      </div>
-   </div>
-</div>`,
-mounted: function(){
-  this.preveriPrijavo();
-},
-methods:{
-  preveriPrijavo: function(){
-    var request = new XMLHttpRequest();
-    request.open('GET', this.root_url+'api/profil', true);
-    request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-    request.send();
-
-    request.addEventListener("load", function() {
-      var response = JSON.parse(request.responseText);
-      console.log("Response "+response);
-    });
-    request.addEventListener("error", function() {
-        console.log("NAPAKA!");
-    });
-  }
-}
-});*/
-
 Vue.component('glava-login', {
   props:['root_url'],
   template:`
@@ -194,26 +133,7 @@ Vue.component('glava-login', {
          <div class="clearfix"> </div>
       </div>
    </div>
-</div>`,
-mounted: function(){
-  this.preveriPrijavo();
-},
-methods:{
-  preveriPrijavo: function(){
-    var request = new XMLHttpRequest();
-    request.open('GET', this.root_url+'api/profil', true);
-    request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-    request.send();
-
-    request.addEventListener("load", function() {
-      var response = JSON.parse(request.responseText);
-      console.log("Response "+response);
-    });
-    request.addEventListener("error", function() {
-        console.log("NAPAKA!");
-    });
-  }
-}
+</div>`
 });
 
 Vue.component('noga', {
@@ -423,7 +343,20 @@ Vue.component('artikel-slika-single-stran', {
 });
 
 Vue.component('stranka-forma-podatki', {
-  props:['stranka'],
+  props:["root_url"],
+  data: function(){
+    return {
+      uporabnik:{
+        ime:"",
+        priimek:"",
+        email:"",
+        naslov:"",
+        telefon:"",
+        geslo1:"",
+        geslo2:"",
+      }
+    }
+  },
   template:`
 <div>
   <div class="panel panel-default" style="">
@@ -435,25 +368,25 @@ Vue.component('stranka-forma-podatki', {
 
          <div class="form-group">
            <label for="ime">IME</label>
-           <input type="text" class="form-control" id="ime" placeholder="" name="pwd" :value="stranka.ime">
+           <input type="text" class="form-control" id="ime" placeholder="" name="pwd" value="" v-model="uporabnik.ime">
          </div>
          <div class="form-group">
            <label for="priimek">PRIIMEK</label>
-           <input type="text" class="form-control" id="priimek" placeholder="" name="pwd" :value="stranka.priimek">
+           <input type="text" class="form-control" id="priimek" placeholder="" name="pwd" v-model="uporabnik.priimek">
          </div>
          <div class="form-group">
            <label for="email">ELEKTRONSKI NASLOV</label>
-           <input type="text" class="form-control" id="email" placeholder="" name="pwd" :value="stranka.email_naslov">
+           <input type="email" class="form-control" id="email" placeholder="" name="pwd" v-model="uporabnik.email" >
          </div>
          <div class="form-group">
            <label for="email">NASLOV</label>
-           <input type="text" class="form-control" id="naslov" placeholder="" name="pwd" :value="stranka.naslov">
+           <input type="text" class="form-control" id="naslov" placeholder="" name="pwd" v-model="uporabnik.naslov">
          </div>
          <div class="form-group">
            <label for="email">TELEFONSKA ŠTEVILKA</label>
-           <input type="text" class="form-control" id="tel_stevilka" placeholder="" name="pwd" :value="stranka.tel_stevilka">
+           <input type="text" class="form-control" id="tel_stevilka" placeholder="" name="pwd" v-model="uporabnik.telefon">
          </div>
-         <button  class="btn btn-success" style="display:inline-block">Shrani spremembe</button>
+         <button  class="btn btn-success" style="display:inline-block" v-on:click="posodobiPodatkeStranke()" >Shrani spremembe</button>
          <span class="label label-success"  style="display:inline-block; float:right; padding:6px;">Podatki uspešno posodobljeni!</span>
       </div>
       <div class="clearfix"> </div>
@@ -469,14 +402,14 @@ Vue.component('stranka-forma-podatki', {
 
         <div class="form-group">
           <label for="pwd">NOVO GESLO</label>
-          <input type="password" class="form-control" id="pwd" placeholder="Vpiši novo geslo" name="pwd">
+          <input type="password" class="form-control" id="pwd" placeholder="Vpiši novo geslo" name="pwd" v-model="uporabnik.geslo1">
         </div>
         <div class="form-group">
           <label for="pwd1">POTRDI NOVO GESLO</label>
-          <input type="password" class="form-control" id="pwd1" placeholder="Potrdi novo geslo" name="pwd">
+          <input type="password" class="form-control" id="pwd1" placeholder="Potrdi novo geslo" name="pwd" v-model="uporabnik.geslo2">
         </div>
 
-        <button  class="btn btn-success" style="display:inline-block">Shrani spremembe</button>
+        <button  class="btn btn-success" style="display:inline-block" v-on:click="posodobiPodatkeStranke()" >Shrani spremembe</button>
         <span class="label label-success"  style="display:inline-block; float:right; padding:6px;">Podatki uspešno posodobljeni!</span>
 
       </div>
@@ -484,7 +417,29 @@ Vue.component('stranka-forma-podatki', {
     </div>
   </div>
 </div>
-  `
+  `,
+  methods:{
+    posodobiPodatkeStranke: function(){
+      var request = new XMLHttpRequest();
+      var ref=this;
+      var uporabnik=this.uporabnik;
+
+      var data="ime="+uporabnik.ime+"&"+"priimek="+uporabnik.priimek+"&"+"email="+uporabnik.email+"&"+"naslov="+uporabnik.naslov+"&"+"telefon="+uporabnik.telefon;
+      console.log(data);
+      request.open('PUT', this.root_url+'api/profil', true);
+      request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+      request.send();
+
+      request.addEventListener("load", function() {
+        var response = JSON.parse(request.responseText);
+
+      });
+      request.addEventListener("error", function() {
+          console.log("NAPAKA!");
+      });
+    }
+  }
+
 });
 
 Vue.component('prodajalec-forma-podatki', {

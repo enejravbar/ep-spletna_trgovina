@@ -12,13 +12,9 @@
 
      <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
      <script src="<?= LIB_URL .  "jquery/jquery.min.js"  ?>"></script>
-     <script src="<?= LIB_URL .  "jquery/jquery.flexisel.js"  ?>"></script>
-     <script src="<?= LIB_URL .  "jquery/jquery.etalage.min.js"  ?>"></script>
      <script src="<?= LIB_URL .  "vue/vue.js"  ?>"></script>
      <script src="<?= LIB_URL .  "bootstrap/js/bootstrap.js"  ?>"></script>
      <script src="<?= JS_URL .  "vue_components.js"  ?>"></script>
-
-
 
      <script src="<?= JS_URL .  "single.js"  ?>"></script>
 
