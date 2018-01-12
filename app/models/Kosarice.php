@@ -19,7 +19,8 @@ class Kosarice extends Entiteta {
         if (count($kosarica) == 1) {
             return $kosarica[0];
         } else {
-            throw new InvalidArgumentException("Kosarica ne obstaja");
+            return null;
+//            throw new InvalidArgumentException("Kosarica ne obstaja");
         }
     }
 
@@ -44,8 +45,9 @@ class Kosarice extends Entiteta {
         );
     }
 
-    public static function updateKolicino(array $params) {
-        return parent::modify_update("UPDATE kosarice SET kolicina = :kolicina ".
+    public static function spremeniKolicino(array $params) {
+
+        return parent::modify_update("UPDATE kosarice SET kolicina = kolicina + :sprememba ".
             "WHERE id_uporabnika = :id_uporabnika AND id_izdelka = :id_izdelka", $params);
     }
 
@@ -62,6 +64,19 @@ class Kosarice extends Entiteta {
         return [
             "id_izdelka" => FILTER_VALIDATE_INT,
             "kolicina" => FILTER_VALIDATE_INT
+        ];
+    }
+
+    public static function pridobiPravilaSpremembaKolicine() {
+        return [
+            "id_izdelka" => FILTER_VALIDATE_INT,
+            "sprememba" => [
+                'filter' => FILTER_VALIDATE_INT,
+                'options' => [
+                    'min_range' => -1,
+                    'max_range' => 1
+                ]
+            ]
         ];
     }
 }

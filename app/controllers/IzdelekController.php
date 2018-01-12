@@ -10,8 +10,13 @@ require_once "ViewUtil.php";
 
 class IzdelekController {
 
-    public static function prikaziPodrobnostIzdelka(){
-        echo ViewUtil::render("app/views/izdelki/podrobnost-izdelka.php");
+    public static function prikaziPodrobnostIzdelka($id){
+        echo ViewUtil::render("app/views/izdelki/podrobnost-izdelka.php", ["id" => $id]);
+    }
+
+    public static function prikaziSeznamIzdelkov() {
+        $query = $_GET["q"];
+        echo ViewUtil::render("app/views/izdelki/seznam-izdelkov.php", ["query" => $query]);
     }
 
 }

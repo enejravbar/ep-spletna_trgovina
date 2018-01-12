@@ -91,6 +91,16 @@ class Usmerjevalniki {
                         break;
                 }
             },
+            "/^izdelki$/" => function($method) {
+                if($method == "GET") {
+                    IzdelekController::prikaziSeznamIzdelkov();
+                }
+            },
+            "/^izdelki\/(\d+)$/" => function($method, $id) {
+                if($method == "GET") {
+                    IzdelekController::prikaziPodrobnostIzdelka($id);
+                }
+            },
             // ************** PRODAJALEC ***************+
             //pregled strank
             "/^prodaja\/stranke$/" => function($method) {

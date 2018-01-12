@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: miha
- * Date: 7.1.2018
- * Time: 1:14
- */
 
 require_once "app/models/Kosarice.php";
 
@@ -16,22 +10,40 @@ class KosaricaService {
     }
 
     public static function dodajIzdelekVKosarico($podatki) {
-        $id_zapisa = Kosarice::insert([
+        $izdelek = Kosarice::get([
             "id_uporabnika" => $podatki["id_uporabnika"],
-            "id_izdelka" => $podatki["id_izdelka"],
-            "kolicina" => $podatki["kolicina"]
+            "id_izdelka" => $podatki["id_izdelka"]
         ]);
-        if($id_zapisa == 0){
-            throw new InvalidArgumentException("Napaka pri dodajanju v kosarico!");
+        if ($izdelek == null) { // vstavi izdelek v bazo
+            Kosarice::insert([
+                "id_uporabnika" => $podatki["id_uporabnika"],
+                "id_izdelka" => $podatki["id_izdelka"],
+                "kolicina" => $podatki["kolicina"]
+            ]);
+        } else { // povecaj kolicino izdelka za 1
+            self::spremeniKolicinoIzdelkaVKosarici([
+                "id_uporabnika" => $podatki["id_uporabnika"],
+                "id_izdelka" => $podatki["id_izdelka"],
+                "sprememba" => 1
+            ]);
         }
     }
 
     public static function spremeniKolicinoIzdelkaVKosarici($podatki) {
-        Kosarice::updateKolicino([
-            "id_uporabnika" => $podatki["id_uporabnika"],
-            "id_izdelka" => $podatki["id_izdelka"],
-            "kolicina" => $podatki["kolicina"]
-        ]);
+        $odgovor = Kosarice::spremeniKolicino($podatki);
+
+        if ($podatki["sprememba"] == -1) {
+            $izdelek = Kosarice::get([
+                "id_uporabnika" => $podatki["id_uporabnika"],
+                "id_izdelka" => $podatki["id_izdelka"]
+            ]);
+            if ($izdelek["kolicina"] == 0) { // preveri, če je količina prišla na 0. če je ga izbriši iz košarice
+                self::izbrisiIzdelekIzKosarice([
+                    "id_uporabnika" => $podatki["id_uporabnika"],
+                    "id_izdelka" => $podatki["id_izdelka"]
+                ]);
+            }
+        }
     }
 
     public static function izbrisiIzdelekIzKosarice($podatki) {
