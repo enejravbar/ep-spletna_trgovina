@@ -58,7 +58,20 @@ class LoginController {
     }
 
     public static function registrirajStranko(){
-        //TODO:
+        $data = filter_input_array(INPUT_POST, Uporabniki::pravilaZaStranke());
+
+        if(UporabnikService::preveriDaNiPraznihVrednosti($data)){
+            try {
+                $uporabnik = UporabnikService::dodajStranko($data);
+                echo ViewUtil::renderJSON($uporabnik, 201);
+            } catch(InvalidArgumentException $e1) {
+                echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 400);
+            } catch (Exception $e2) {
+                echo ViewUtil::renderJSON(["napaka" => $e2->getMessage()], 500);
+            }
+        } else {
+            echo ViewUtil::renderJSON(["napaka" => "Niso podane vse vrednosti!"], 400);
+        }
     }
 
     public static function odjaviUporabnika(){
@@ -68,7 +81,7 @@ class LoginController {
     }
 
     public static function prijaviOsebje(){
-        $data = filter_input_array(INPUT_POST, Uporabniki::getLoginRules());
+        $data = filter_input_array(INPUT_POST, Uporabniki::pravilaZaPrijavo());
         if(ViewUtil::checkValues($data)){
             $prijavljen = UporabnikService::prijaviOsebje($data);
             if($prijavljen){

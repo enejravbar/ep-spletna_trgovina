@@ -15,10 +15,10 @@ class UporabnikVir {
             try {
                 UporabnikService::izbrisiUporabnika($id);
                 if(PrijavaService::uporabnikJeAdmin()) {
-                    LogService::info("admin", "IZDELEK", "Administrator " .
+                    LogService::info("admin", "UPORABNIK", "Administrator " .
                         PrijavaService::vrniIdTrenutnegaUporabnika() . " je izbrisal uporabnika $id");
                 } else if (PrijavaService::uporabnikJeProdajalec()) {
-                    LogService::info("prodajalec", "IZDELEK", "Prodajalec " .
+                    LogService::info("prodajalec", "UPORABNIK", "Prodajalec " .
                         PrijavaService::vrniIdTrenutnegaUporabnika() . " je izbrisal uporabnika $id");
                 }
                 echo ViewUtil::renderJSON(null, 204);
@@ -38,10 +38,10 @@ class UporabnikVir {
                 UporabnikService::aktivirajUporabnika($id_uporabnika);
 
                 if(PrijavaService::uporabnikJeAdmin()) {
-                    LogService::info("admin", "IZDELEK", "Administrator " .
+                    LogService::info("admin", "UPORABNIK", "Administrator " .
                         PrijavaService::vrniIdTrenutnegaUporabnika() . " je aktiviral uporabnika $id_uporabnika");
                 } else if (PrijavaService::uporabnikJeProdajalec()) {
-                    LogService::info("prodajalec", "IZDELEK", "Prodajalec " .
+                    LogService::info("prodajalec", "UPORABNIK", "Prodajalec " .
                         PrijavaService::vrniIdTrenutnegaUporabnika() . " je aktiviral uporabnika $id_uporabnika");
                 }
 
@@ -60,7 +60,6 @@ class UporabnikVir {
         if(PrijavaService::uporabnikJeProdajalec() || PrijavaService::uporabnikJeAdmin()) {
             try {
                 UporabnikService::aktivirajUporabnika($id_uporabnika);
-
                 if(PrijavaService::uporabnikJeAdmin()) {
                     LogService::info("admin", "UPORABNIK", "Administrator " .
                         PrijavaService::vrniIdTrenutnegaUporabnika() . " je deaktiviral uporabnika $id_uporabnika");
@@ -68,7 +67,6 @@ class UporabnikVir {
                     LogService::info("prodajalec", "UPORABNIK", "Prodajalec " .
                         PrijavaService::vrniIdTrenutnegaUporabnika() . " je deaktiviral uporabnika $id_uporabnika");
                 }
-
                 echo ViewUtil::renderJSON(null, 204);
             } catch (InvalidArgumentException $e1) {
                 echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 404);
@@ -154,6 +152,8 @@ class UporabnikVir {
             if(UporabnikService::preveriDaNiPraznihVrednosti($data)){
                 try {
                     $uporabnik = UporabnikService::dodajStranko($data);
+                    LogService::info("prodajalec", "UPORABNIK", "Prodajalec " .
+                        PrijavaService::vrniIdTrenutnegaUporabnika() . " je dodal stranko $uporabnik");
                     echo ViewUtil::renderJSON($uporabnik, 201);
                 } catch(InvalidArgumentException $e1) {
                     echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 400);
@@ -178,6 +178,8 @@ class UporabnikVir {
                 $data["id"] = $id;
                 try {
                     $uporabnik = UporabnikService::posodobiStranko($data);
+                    LogService::info("prodajalec", "UPORABNIK", "Prodajalec " .
+                        PrijavaService::vrniIdTrenutnegaUporabnika() . " je posodobil stranko" . $uporabnik["id"]);
                     echo ViewUtil::renderJSON($uporabnik, 200);
                 } catch (InvalidArgumentException $e1) {
                     echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 404);
@@ -274,6 +276,8 @@ class UporabnikVir {
             if(UporabnikService::preveriDaNiPraznihVrednosti($data)){
                 try {
                     $uporabnik = UporabnikService::dodajProdajalca($data);
+                    LogService::info("admin", "UPORABNIK", "Administrator " .
+                        PrijavaService::vrniIdTrenutnegaUporabnika() . " je dodal prodajalca " . $uporabnik["id"]);
                     echo ViewUtil::renderJSON($uporabnik, 201);
                 } catch(InvalidArgumentException $e1) {
                     echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 400);
@@ -298,6 +302,8 @@ class UporabnikVir {
                 $data["id"] = $id;
                 try {
                     $uporabnik = UporabnikService::posodobiProdajalca($data);
+                    LogService::info("admin", "UPORABNIK", "Admin " .
+                        PrijavaService::vrniIdTrenutnegaUporabnika() . " je posodobil prodajalca " . $uporabnik["id"]);
                     echo ViewUtil::renderJSON($uporabnik, 200);
                 } catch (InvalidArgumentException $e1) {
                     echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 404);
@@ -308,6 +314,8 @@ class UporabnikVir {
                 $data["id"] = $id;
                 try {
                     $uporabnik = UporabnikService::posodobiProdajalca($data);
+                    LogService::info("admin", "UPORABNIK", "Admin " .
+                        PrijavaService::vrniIdTrenutnegaUporabnika() . " je posodobil prodajalca " . $uporabnik["id"]);
                     echo ViewUtil::renderJSON($uporabnik, 200);
                 } catch (InvalidArgumentException $e1) {
                     echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 404);
