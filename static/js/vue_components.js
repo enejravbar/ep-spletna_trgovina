@@ -181,17 +181,19 @@ Vue.component('noga', {
 });
 
 Vue.component('slide', {
-  props:['slika'],
+  props:['slika_url'],
   template:`
   <article style="position: absolute; width: 100%; opacity: 0;">
      <div class="banner-matter">
         <div class="col-md-5 banner-bag">
-           <img class="img-responsive " :src="slika" alt=" " />
+           <img class="img-responsive " :src="slika_url" alt=" " />
         </div>
         <div class="col-md-7 banner-off">
           <h2>FLAT 50% 0FF</h2>
           <label>FOR ALL PURCHASE <b>VALUE</b></label>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et </p>
+          <p>
+            
+          </p>
           <span class="on-get">KUPI SEDAJ</span>
         </div>
         <div class="clearfix"> </div>
@@ -209,7 +211,7 @@ Vue.component('artikel-domaca-stran', {
         <div class="star-price">
            <div class="dolor-grid">
               <span >CENA:</span>
-              <span class="actual">{{znizana_cena}}€</span>
+              <span class="actual">{{redna_cena}}€</span>
               <span class="rating">
 
               </span>

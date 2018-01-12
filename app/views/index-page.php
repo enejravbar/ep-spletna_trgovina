@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>Big shope1111</title>
+      <title>Big shope</title>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -36,7 +36,8 @@
                   <div class="wrap-in">
                      <div class="wmuSlider example1 slide-grid">
                         <div class="wmuSliderWrapper" v-for="artikel in mnoziceArtiklov.slideShow">
-                           <slide :slika="artikel.slika_url"></slide>
+                           <slide :slika_url="artikel.slika_url"></slide>
+
                         </div>
                      </div>
                   </div>
