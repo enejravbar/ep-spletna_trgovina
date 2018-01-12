@@ -2,7 +2,6 @@
 <html>
    <head>
       <title>Big shope</title>
-      <title>Big shope</title>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -37,7 +36,7 @@
 
                           <div>
                              <span>ELEKTRONSKI NASLOV <label>*</label></span>
-                             <input id="email" type="text" value="<?= $email ?>"  readonly>
+                             <input id="email" type="text" value="<?= $email ?>"  disabled>
                           </div>
                           <div>
                              <span>GESLO <label>*</label></span>

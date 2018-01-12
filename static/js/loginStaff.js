@@ -5,7 +5,7 @@ $(document).ready(function(){
     data: {
       root_url: document.getElementById("rootUrl").value,
       osebje:{
-          email:document.getElementById("email").value,
+          email: document.getElementById("email").value,
           geslo:"",
       },
       prijavaUspesna:true,
