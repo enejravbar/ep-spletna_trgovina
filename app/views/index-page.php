@@ -14,7 +14,6 @@
       <script src="<?= LIB_URL .  "vue/vue.js"  ?>"></script>
       <script src="<?= LIB_URL .  "bootstrap/js/bootstrap.js"  ?>"></script>
       <script src="<?= JS_URL .  "vue_components.js"  ?>"></script>
-      <script src="<?= LIB_URL .  "jquery/jquery.wmuSlider.js"  ?>"></script>
 
       <script src="<?= JS_URL .  "index.js"  ?>"></script>
 
@@ -32,16 +31,6 @@
          <div class="container" >
             <navigacijski-menu-wrapper root_url="<?= ROOT_URL ?>"></navigacijski-menu-wrapper>
             <div class="shoes-grid">
-               <!--<a href="single.html">
-                  <div class="wrap-in">
-                     <div class="wmuSlider example1 slide-grid">
-                        <div class="wmuSliderWrapper" v-for="(artikel,i) in mnoziceArtiklov.slideShow">
-                           <slide :slika_url="artikel.slika_url"></slide>
-
-                        </div>
-                     </div>
-                  </div>
-               </a> -->
                <div class="products">
                   <h5 class="latest-product">PRILJUBLJENI ARTIKLI</h5>
                   <a class="view-all" href="product.html">POGLEJ OSTALE<span> </span></a>

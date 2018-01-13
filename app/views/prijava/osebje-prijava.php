@@ -53,8 +53,8 @@
 
                <div class="clearfix"> </div>
          </div>
-
-        <noga></noga>
       </div>
+      <noga></noga>
+    </div>
    </body>
 </html>

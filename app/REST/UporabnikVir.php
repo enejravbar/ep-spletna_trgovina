@@ -7,6 +7,7 @@ require_once "app/models/StatusUporabnik.php";
 require_once "app/service/PrijavaService.php";
 require_once "app/models/VlogaUporabnik.php";
 require_once "app/models/Posta.php";
+require_once "app/service/LogService.php";
 
 class UporabnikVir {
 
@@ -68,7 +69,7 @@ class UporabnikVir {
     public static function deaktivirajUporabnika($id_uporabnika) {
         if(PrijavaService::uporabnikJeProdajalec() || PrijavaService::uporabnikJeAdmin()) {
             try {
-                UporabnikService::aktivirajUporabnika($id_uporabnika);
+                UporabnikService::deaktivirajUporabnika($id_uporabnika);
                 if(PrijavaService::uporabnikJeAdmin()) {
                     LogService::info("admin", "UPORABNIK", "Administrator " .
                         PrijavaService::vrniIdTrenutnegaUporabnika() . " je deaktiviral uporabnika $id_uporabnika");
