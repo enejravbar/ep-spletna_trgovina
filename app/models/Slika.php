@@ -29,7 +29,7 @@ class Slika extends Entiteta {
     }
 
     public static function insert(array $params) {
-        return parent::modify("INSERT INTO slike(naziv, lokacija, izdelek) VALUES (:naziv, :lokacija, :izdelek)", $params);
+        return parent::modify("INSERT INTO slike(naziv, lokacija, ext, izdelek) VALUES (:naziv, :lokacija, :ext, :izdelek)", $params);
     }
 
     public static function update(array $params) {

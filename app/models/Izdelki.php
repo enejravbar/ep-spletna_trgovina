@@ -8,6 +8,10 @@ class Izdelki extends Entiteta {
         return parent::query("SELECT * FROM izdelki ORDER BY :kaj :smer", $params);
     }
 
+    public static function getStatuseIzdelkov() {
+        return parent::query("SELECT * FROM status_izdelki");
+    }
+
     public static function dobiIzdelkeIzKategorije(array $params) {
         return parent::query("SELECT *, (SELECT s.id FROM slike s WHERE s.izdelek=i.id LIMIT 1) as thumbnail".
             " FROM izdelki i WHERE status != (select id from status_izdelki where naziv = 'neaktiven')".
@@ -84,7 +88,6 @@ class Izdelki extends Entiteta {
             "opis" => FILTER_SANITIZE_SPECIAL_CHARS,
             "cena" => FILTER_VALIDATE_FLOAT,
             "status" => FILTER_VALIDATE_INT,
-            "st_slik" => FILTER_VALIDATE_INT
         ];
     }
 

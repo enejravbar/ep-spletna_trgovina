@@ -220,6 +220,7 @@ INSERT INTO ep.status_izdelki(naziv) VALUES('neaktiven');
 INSERT INTO ep.status_narocila(naziv) VALUES('Oddano');
 INSERT INTO ep.status_narocila(naziv) VALUES('Potrjeno');
 INSERT INTO ep.status_narocila(naziv) VALUES('Stornirano');
+INSERT INTO ep.status_narocila(naziv) VALUES('Preklicano');
 
 -- status_uporabniki
 INSERT INTO ep.status_uporabniki(naziv) VALUES('aktiven');
