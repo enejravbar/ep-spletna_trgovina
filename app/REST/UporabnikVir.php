@@ -154,8 +154,10 @@ class UporabnikVir {
                     LogService::info("prodajalec", "UPORABNIK", "Prodajalec " .
                         PrijavaService::vrniIdTrenutnegaUporabnika() . " je dodal stranko $uporabnik");
                     echo ViewUtil::renderJSON($uporabnik, 201);
+                } catch(UserExistsException $e) {
+                    echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 409);
                 } catch(InvalidArgumentException $e1) {
-                    echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 400);
+                    echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 404);
                 } catch (Exception $e2) {
                     echo ViewUtil::renderJSON(["napaka" => $e2->getMessage()], 500);
                 }

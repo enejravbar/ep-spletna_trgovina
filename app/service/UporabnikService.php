@@ -79,6 +79,11 @@ class UporabnikService {
     public static function dodajStranko($podatki) {
         $origin_password = $podatki["geslo1"];
 
+        $preveri_uporabnika = Uporabniki::dobiUporabnikaGledeNaEmail(["email" => $podatki["email"]]);
+        if($preveri_uporabnika != null) {
+            throw new UserExistsException("Uporabnik s tem emailom že obstaja!");
+        }
+
         $uporabnik = Uporabniki::insert([
             "vloga" => VlogaUporabnik::getIdStranka(),
             "ime" => $podatki["ime"],
