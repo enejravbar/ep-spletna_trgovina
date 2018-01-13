@@ -132,8 +132,8 @@
                       <div style="display:block;" class="row" style="">
                         <div style="display:block;" class="col-mg-12" style="">
                           <button  class="btn btn-success" style="margin-left:15px;padding-left:15px;" v-on:click="dodajIzdelek()">Shrani spremembe</button>
-                          <span class="label label-success"  style="display:inline-block; float:right; padding:6px; margin-right:5px," v-if="ustvarjenNovIzdelek && pritisnjenGumb && prikaziSporocilo">Podatki uspešno posodobljeni!</span>
-                          <span class="label label-warning"  style="display:inline-block; float:right; padding:6px; margin-right:5px,"v-if="!ustvarjenNovIzdelek && pritisnjenGumb && prikaziSporocilo">Prosim preverite podatke!</span>
+                          <span class="label label-success"  style="display:inline-block; float:right; padding:6px; margin-right:5px," v-if="ustvarjenNovIzdelek && pritisnjenGumb && prikaziSporocilo" >Podatki uspešno posodobljeni!</span>
+                          <span class="label label-warning"  style="display:inline-block; float:right; padding:6px; margin-right:5px," v-if="!ustvarjenNovIzdelek && pritisnjenGumb && prikaziSporocilo">Prosim preverite podatke!</span>
                         </div>
                       </div>
 

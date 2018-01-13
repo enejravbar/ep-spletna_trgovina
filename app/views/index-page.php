@@ -33,7 +33,6 @@
             <div class="shoes-grid">
                <div class="products">
                   <h5 class="latest-product">PRILJUBLJENI ARTIKLI</h5>
-                  <a class="view-all" href="product.html">POGLEJ OSTALE<span> </span></a>
                </div>
                <div class="product-left" v-for="(artikel,i) in mnoziceArtiklov.slideShow">
                   <artikel-domaca-stran root_url="<?= ROOT_URL ?>" v-bind:st_slike="i" :artikel="artikel" ></artikel-domaca-stran>
@@ -41,7 +40,7 @@
 
                <div class="products">
                   <h5 class="latest-product">ZADNJI ARTIKLI</h5>
-                  <a class="view-all" href="product.html">POGLEJ OSTALE<span> </span></a>
+
                </div>
                <div class="product-left" v-for="(artikel,i) in mnoziceArtiklov.zadnjiArtikli">
                   <artikel-domaca-stran root_url="<?= ROOT_URL ?>" v-bind:st_slike="i" :artikel="artikel" ></artikel-domaca-stran>

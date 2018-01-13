@@ -1,8 +1,8 @@
-var form_data = new FormData();
 
+var app=null;
 $(document).ready(function(){
 
-  var app = new Vue({
+  app = new Vue({
     el: '#app',
     data: {
       root_url: document.getElementById("rootUrl").value,
@@ -18,6 +18,7 @@ $(document).ready(function(){
       this.getDataKategorije();
       this.getDataStatus();
       this.getDataArtikel();
+      handleImageUploads();
     },
     methods:{
       getDataKategorije: function(){
@@ -105,34 +106,42 @@ $(document).ready(function(){
         this.ustvarjenNovIzdelek=false;
         this.prikaziSporocilo=false;
 
-        form_data.append("ime", this.artikel.ime);
-        form_data.append("opis", this.artikel.opis);
-        form_data.append("cena", this.artikel.cena);
-        form_data.append("status", this.artikel.status);
-        form_data.append("kategorija", this.artikel.kategorija);
+        var artikel={
+          ime:this.artikel.ime,
+          opis:this.artikel.opis,
+          cena:this.artikel.cena,
+          status:this.artikel.status,
+          kategorija:this.artikel.kategorija,
 
-        $.ajax({
-          url: ref.root_url+"api/izdelki",
-          data: form_data,
-          enctype: "multipart/form-data",
-          processData: false,
-          contentType: false,
-          type: "POST",
-          success: function(response, textStatus, xhr){
-            if(xhr.status==201){
-              ref.ustvarjenNovIzdelek=true;
-              ref.prikaziSporocilo=true;
-            }else{
-              ref.ustvarjenNovIzdelek=false;
-              ref.prikaziSporocilo=true;
-            }
-          },
-          error: function(textStatus, xhr){
-            console.log("NAPAKA ",response);
+        }
+
+        var data=JSON_to_URLEncoded(artikel);
+        var request = new XMLHttpRequest();
+        request.open('PUT', this.root_url+'api/izdelki/'+this.artikel_id, true);
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        request.send(data);
+
+        request.addEventListener("load", function() {
+          var response = JSON.parse(request.responseText);
+          if(request.status>=200 && request.status<300 ){
+            ref.ustvarjenNovIzdelek=true;
+            ref.prikaziSporocilo=true;
+          }else{
+            ref.ustvarjenNovIzdelek=false;
+            ref.prikaziSporocilo=true;
           }
+
         });
+        request.addEventListener("error", function() {
+            console.log("NAPAKA!");
+        });
+
       },
 
+      zapisiNovePodatkeArtikla: function(){
+        var ref=this;
+
+      },
       odstraniSliko: function(slika){
         var request = new XMLHttpRequest();
         var ref=this;
@@ -153,7 +162,7 @@ $(document).ready(function(){
     }
   });
 
-  handleImageUploads();
+
 
 });
 
@@ -175,13 +184,30 @@ function handleImageUploads(){
 
       title: "Naloži slike"
       }).on('files.bs.filedialog', function(ev) {
+
           var files = ev.files;
-
-
-
+          var form_data = new FormData();
           for ( var i in files ) {
               form_data.append("files[]", files[i]);
           }
+          var root_url= document.getElementById("rootUrl").value;
+          var artikel_id= document.getElementById("artikel_id").value;
+
+          $.ajax({
+            url: root_url+"api/izdelki/"+artikel_id+"/slike",
+            data: form_data,
+            enctype: "multipart/form-data",
+            processData: false,
+            contentType: false,
+            type: "POST",
+            success: function(response, textStatus, xhr){
+              console.log("Uspešno dodajanje slik")
+              app.getDataArtikel();
+            },
+            error: function(textStatus, xhr){
+              app.getDataArtikel();
+            }
+          });
 
         });
 

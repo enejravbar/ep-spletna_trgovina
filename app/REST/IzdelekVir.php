@@ -65,7 +65,7 @@ class IzdelekVir {
             $_PUT = [];
             parse_str(file_get_contents("php://input"), $_PUT);
             $data = filter_var_array($_PUT, Izdelki::pridobiPravila());
-
+            //var_dump($data);
             if(ViewUtil::checkValues($data)){
                 $data["id"] = $id;
                 try{

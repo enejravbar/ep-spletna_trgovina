@@ -153,33 +153,8 @@ Vue.component('glava-login', {
 });
 
 Vue.component('noga', {
-  template:`
-  <div class="footer" style="position:fixed; width:100%; bottom:0px;;">
-   <div class="footer-top">
-      <div class="container">
-         <div class="latter">
-            <h6>NEWS-LETTER</h6>
-            <div class="sub-left-right">
-               <form>
-                  <input type="text" value="Vaš elektronski naslov" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Vaš elektronski naslov';}" />
-                  <input type="submit" value="NAROČI SE" />
-               </form>
-            </div>
-            <div class="clearfix"> </div>
-         </div>
-         <div class="latter-right">
+  template:`<div></div>`
 
-         </div>
-         <div class="clearfix"> </div>
-      </div>
-   </div>
-   <div class="header">
-      <div class="top-header" >
-         <div class="container" style="height:15px;">
-         </div>
-      </div>
-   </div>
-</div>`
 });
 
 
