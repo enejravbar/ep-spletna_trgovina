@@ -313,14 +313,15 @@ class Usmerjevalniki {
             },
             "/^api\/izdelki\/(\d+)\/slike\/(\d+)$/" => function($method, $id_izdelka, $id_slike) {
                 switch ($method) {
-                    case "POST" :
-                        //dodaj sliko
-                        IzdelekVir::dodajSlikoIzdelka($id_izdelka);
-                        break;
                     case "DELETE":
                         //izbrisi sliko
                         IzdelekVir::izbrisiSlikoIzdelka($id_slike);
                         break;
+                }
+            },
+            "/^api\/izdelki\/(\d+)\/slike$/" => function($method, $id) {
+                if($method == "POST") {
+                    IzdelekVir::dodajSlikoIzdelka($id);
                 }
             },
             "/^api\/izdelki\/index$/" => function($method) {
