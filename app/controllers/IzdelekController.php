@@ -20,7 +20,12 @@ class IzdelekController {
         } else {
             $query = null;
         }
-        echo ViewUtil::render("app/views/izdelki/seznam-izdelkov.php", ["query" => $query]);
+        if(isset($_GET["kategorija"])) {
+          $kategorija = $_GET["kategorija"];
+        } else {
+          $kategorija = null;
+        }
+        echo ViewUtil::render("app/views/izdelki/seznam-izdelkov.php", ["query" => $query, "kategorija" => $kategorija]);
     }
 
 }

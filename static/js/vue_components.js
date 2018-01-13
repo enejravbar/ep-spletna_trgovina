@@ -14,7 +14,8 @@ Vue.component('glava', {
   data: function(){
     return {
       prijavljen:false,
-      uporabnik:null
+      uporabnik:null,
+      iskalniNiz:"",
     }
   },
   template:`
@@ -32,8 +33,8 @@ Vue.component('glava', {
                </a>
             </div>
             <div class="search" style="margin-top:26px;" v-if=" (prijavljen && uporabnik.vloga==3) || !prijavljen ">
-               <input type="text" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" >
-               <input type="submit"  value="ISKANJE">
+               <input type="text" value="" v-model="iskalniNiz" >
+               <input type="submit"  value="ISKANJE" v-on:click=isciArtikle()>
             </div>
             <div class="clearfix"> </div>
          </div>
@@ -115,6 +116,9 @@ methods:{
     request.addEventListener("error", function() {
         console.log("NAPAKA!");
     });
+  },
+  isciArtikle: function(){
+    window.location.href = this.root_url+"izdelki?q="+this.iskalniNiz;
   }
 }
 
@@ -285,8 +289,9 @@ Vue.component('navigacijski-menu-wrapper', {
       this.tabelaKategorij=[];
       for(var i=0; i< tabelaKategorij.length; i++){
           var kategorija=  {
-            kategorija_id: tabelaKategorij[i].id,
+            id: tabelaKategorij[i].id,
             ime: tabelaKategorij[i].ime,
+            url: this.root_url+"izdelki?kategorija="+tabelaKategorij[i].id,
           };
           this.tabelaKategorij.push(kategorija);
         }
@@ -296,21 +301,20 @@ Vue.component('navigacijski-menu-wrapper', {
 });
 
 Vue.component('artikel-product-stran', {
-  props:['povezava_artikel','slika_url','ime_artikla','redna_cena','znizana_cena'],
+  props:['artikel'],
   template:`
   <div class="product-grid">
    <div class="content_box">
-      <a :href="povezava_artikel">
+      <a :href="artikel.povezava_artikel">
          <div class="left-grid-view grid-view-left">
-            <img :src="slika_url" class="img-responsive watch-right" alt=""/>
+            <img :src="artikel.slika_url" class="img-responsive watch-right" alt=""/>
          </div>
       </a>
-      <a :href="povezava_artikel"><h4>{{ime_artikla}}</h4></a>
-      <p>It is a long established fact that a reader</p>
+      <a :href="povezava_artikel"><h4>{{artikel.ime_artikla}}</h4></a>
       <div class="star-price">
          <div class="dolor-grid">
             <span >CENA:</span>
-            <span class="actual">{{redna_cena}}€</span>
+            <span class="actual">{{artikel.redna_cena}}€</span>
             <span class="rating">
 
             </span>
