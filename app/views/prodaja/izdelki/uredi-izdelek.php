@@ -31,7 +31,7 @@
    <body>
       <div id="app" v-cloak>
         <input type="hidden" value="<?= ROOT_URL ?>" id="rootUrl"/>
-        <input type="hidden" value="<?= ROOT_URL ?>" id="rootUrl"/>
+        <input type="hidden" value="<?= $id ?>" id="artikel_id"/>
         <glava root_url="<?=ROOT_URL?>"></glava>
          <div class="container" >
 
@@ -42,12 +42,16 @@
                    <div class="panel panel-default">
                     <div class="panel-body">
                       <div style="display:block;">
-                        <div style="display:inline-block;"><span style="font-size:20px; margin-top:8px;">DODAJANJE/UREJANJE ARTIKLOV</span></div>
+                        <div style="display:inline-block;"><span style="font-size:20px; margin-top:8px;">UREJANJE ARTIKLOV</span></div>
                       </div>
                     </div>
                   </div>
 
-                  <button id="open_btn" class="btn btn-lg btn-info" style="float:right;">Dodaj slike</button>
+                  <div style="display:block;" class="row">
+                    <div style="display:block;" class="col-mg-12" style="padding-top:20px;">
+                      <button id="open_btn" class="btn btn-lg btn-info" style="margin-left:15px;">Dodaj slike</button>
+                    </div>
+                  </div>
 
                   <table id="cart" class="table table-hover table-condensed" style="margin-top: 20px;">
                        <thead>
@@ -60,11 +64,11 @@
                      </thead>
                      <tbody>
 
-                        <tr v-for="slika_url in artikel.tabela_urljev" >
+                        <tr v-for="slika in artikel.tabelaSlik" >
 
-                           <td data-th="Izdelek">
+                           <td data-th="">
                              <div class="row">
-                               <div class="col-sm-2 hidden-xs"><a :href="slika_url"><img :src="artikel.slika_url" alt="..." class="img-responsive" style="margin-top:12px; width:50px;"/></a></div>
+                               <div class="col-sm-2 hidden-xs"><img :src="root_url+''+slika.lokacija" alt="..." class="img-responsive" style="margin-top:12px; width:50px;"/></div>
                                <div class="col-sm-8">
 
                                </div>
@@ -74,7 +78,7 @@
                            <td class="actions" data-th="">
 
                              <div style="display:block;" style="">
-                               <button type="button" class="btn btn-danger" style="display: inline-block; float:right;  width:40.5%;  margin-top:20px;" >Odstrani</button>
+                               <button type="button" class="btn btn-danger" style="display: inline-block; float:right;  width:40.5%;  margin-top:20px;" v-on:click="odstraniSliko(slika)" >Odstrani</button>
 
                              </div>
                            </td>
@@ -85,31 +89,56 @@
 
                    </table>
 
+                  <div class="panel panel-default" style="">
+                    <div class="panel-heading">
+                      <h4>PODATKI O ARTIKLU</h4>
+                    </div>
+                    <div class="panel-body">
+
+                      <div class="">
+
+                         <div class="form-group">
+                           <label for="ime">Ime</label>
+                           <input type="text" class="form-control" v-model="artikel.ime">
+                         </div>
+                         <div class="form-group">
+                           <label for="comment">Opis</label>
+                           <textarea class="form-control" rows="5" id="comment" v-model="artikel.opis"></textarea>
+                         </div>
+                         <div class="form-group">
+                           <label for="sel1">Status</label>
+                           <select class="form-control" id="sel1" v-model="artikel.status">
+                             <option v-for="status in tabelaStatusov" :value="status.id">{{status.ime}}</option>
+
+                           </select>
+                         </div>
+                         <div class="form-group">
+                           <label for="sel1">Kategorija</label>
+                           <select class="form-control" id="sel1" v-model="artikel.kategorija">
+                             <option v-for="kategorija in tabelaKategorij" :value="kategorija.id">{{kategorija.ime}}</option>
+                           </select>
+                         </div>
+                         <div class="form-group">
+                           <label for="priimek">Cena</label>
+                           <input type="text" class="form-control" id="cena" placeholder="" name="pwd" value="" v-model="artikel.cena">
+                         </div>
 
 
-                   <div class="panel panel-default" style="">
-                     <div class="panel-heading">
-                       <h4>PODATKI O ARTIKLU</h4>
-                     </div>
-                     <div class="panel-body">
-                       <div class="">
+                      </div>
+                      <div class="clearfix"> </div>
+                    </div>
+                    <div class="panel-footer">
 
-                          <div class="form-group">
-                            <label for="ime">Naziv</label>
-                            <input type="text" class="form-control" id="ime" placeholder="" name="pwd" value="">
-                          </div>
-                          <div class="form-group">
-                            <label for="priimek">Cena</label>
-                            <input type="text" class="form-control" id="cena" placeholder="" name="pwd" value="">
-                          </div>
+                      <div style="display:block;" class="row" style="">
+                        <div style="display:block;" class="col-mg-12" style="">
+                          <button  class="btn btn-success" style="margin-left:15px;padding-left:15px;" v-on:click="dodajIzdelek()">Shrani spremembe</button>
+                          <span class="label label-success"  style="display:inline-block; float:right; padding:6px; margin-right:5px," v-if="ustvarjenNovIzdelek && pritisnjenGumb && prikaziSporocilo">Podatki uspešno posodobljeni!</span>
+                          <span class="label label-warning"  style="display:inline-block; float:right; padding:6px; margin-right:5px,"v-if="!ustvarjenNovIzdelek && pritisnjenGumb && prikaziSporocilo">Prosim preverite podatke!</span>
+                        </div>
+                      </div>
 
-                          <button  class="btn btn-success" style="display:inline-block">Shrani spremembe</button>
-                          <span class="label label-success"  style="display:inline-block; float:right; padding:6px;">Podatki uspešno posodobljeni!</span>
-                       </div>
-                       <div class="clearfix"> </div>
-                     </div>
-                   </div>
-
+                    </div>
+                  </div>
 
 
                  </div>

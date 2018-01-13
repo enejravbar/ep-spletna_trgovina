@@ -77,7 +77,7 @@
 
                                   <div style="display:block;" style="">
                                     <button type="button" class="btn btn-danger" style="display: inline-block; float:right;  width:40.5%;  margin-top:20px;"  v-on:click="odstraniIzdelek(artikel)" >Odstrani</button>
-                                    <button type="button" class="btn btn-warning" style="display: inline-block; float:right;  width:40.5%; margin-right:1%; margin-top:20px;">Uredi</button>
+                                    <a :href="root_url+'prodaja/izdelki/'+artikel.id+'/uredi'"><button type="button" class="btn btn-warning" style="display: inline-block; float:right;  width:40.5%; margin-right:1%; margin-top:20px;">Uredi</button></a>
 
                                   </div>
                                 </td>

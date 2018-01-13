@@ -6,14 +6,8 @@ $(document).ready(function(){
     el: '#app',
     data: {
       root_url: document.getElementById("rootUrl").value,
-      artikel_id:null
-      artikel:{
-            ime:"",
-            opis:"",
-            cena:"",
-            status:"",
-            kategorija:""
-      },
+      artikel_id:document.getElementById("artikel_id").value,
+      artikel:{},
       tabelaKategorij:[],
       tabelaStatusov:[],
       ustvarjenNovIzdelek:false,
@@ -23,6 +17,7 @@ $(document).ready(function(){
     mounted: function(){
       this.getDataKategorije();
       this.getDataStatus();
+      this.getDataArtikel();
     },
     methods:{
       getDataKategorije: function(){
@@ -52,6 +47,32 @@ $(document).ready(function(){
         request.addEventListener("load", function() {
           var response = JSON.parse(request.responseText);
           ref.posodobiStatuse(response);
+        });
+        request.addEventListener("error", function() {
+            console.log("NAPAKA!");
+        });
+      },
+      getDataArtikel: function(){
+        var request = new XMLHttpRequest();
+        var ref=this;
+        console.log("Id artikla je: "+ this.artikel_id);
+        request.open('GET', this.root_url+'api/izdelki/'+this.artikel_id, true);
+        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        request.send();
+
+        request.addEventListener("load", function() {
+          var response = JSON.parse(request.responseText);
+          var artikel={
+                id:response.izdelek.id,
+                ime:response.izdelek.ime,
+                opis:response.izdelek.opis,
+                cena:response.izdelek.cena,
+                status:response.izdelek.status,
+                kategorija:response.izdelek.kategorija,
+                tabelaSlik:response.slike
+          };
+          console.log("Id artikla je: "+ artikel.tabelaSlik);
+          ref.artikel=artikel;
         });
         request.addEventListener("error", function() {
             console.log("NAPAKA!");
@@ -110,8 +131,25 @@ $(document).ready(function(){
             console.log("NAPAKA ",response);
           }
         });
-      }
+      },
 
+      odstraniSliko: function(slika){
+        var request = new XMLHttpRequest();
+        var ref=this;
+
+        request.open('DELETE', this.root_url+'api/izdelki/'+this.artikel_id+"/slike/"+slika.id, true);
+        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        request.send();
+
+        request.addEventListener("load", function() {
+          //var response = JSON.parse(request.responseText);
+          ref.getDataArtikel();
+        });
+        request.addEventListener("error", function() {
+            console.log("NAPAKA!");
+            ref.getDataArtikel();
+        });
+      }
     }
   });
 

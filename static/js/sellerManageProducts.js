@@ -45,6 +45,7 @@ $(document).ready(function(){
         this.tabelaArtiklov=[];
         for(var i=0; i<tabelaArtiklov.length; i++){
             artikel={
+              id:tabelaArtiklov[i].id,
               povezava_artikel:this.root_url+"izdelki/"+tabelaArtiklov[i].id,
               slika_url: this.root_url+"api/slike/"+tabelaArtiklov[i].thumbnail,
               ime_artikla: tabelaArtiklov[i].ime,
