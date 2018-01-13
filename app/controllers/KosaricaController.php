@@ -12,7 +12,12 @@ require_once "app/service/PrijavaService.php";
 class KosaricaController {
 
     public static function prikaziKosarico(){
-        echo ViewUtil::render("app/views/stranka/kosarica/kosarica.php");
+        if(PrijavaService::uporabnikJeStranka()) {
+            echo ViewUtil::render("app/views/stranka/kosarica/kosarica.php");
+        } else {
+            ViewUtil::redirect(BASE_URL);
+        }
+
     }
 
     public static function naBlagajno(){
