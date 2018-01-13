@@ -19,10 +19,7 @@ $(document).ready(function(){
       novUporabnik:{
         ime:"",
         priimek:"",
-        naslov:"",
         email:"",
-        posta:"",
-        telefon:"",
         geslo1:"",
         geslo2:"",
       },
@@ -35,7 +32,6 @@ $(document).ready(function(){
     },
     mounted: function(){
       this.getData();
-      this.getDataPoste();
     },
     events: {
        urejanjeStranke: function () {
@@ -47,7 +43,7 @@ $(document).ready(function(){
       getData: function(){
         var request = new XMLHttpRequest();
         var ref=this;
-        request.open('GET', this.root_url+'api/stranke', true);
+        request.open('GET', this.root_url+'api/prodajalci', true);
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
         request.send();
 
@@ -57,23 +53,6 @@ $(document).ready(function(){
           ref.posodobiTabeloStrank(tabelaStrank);
         });
         request.addEventListener("error", function() {
-        });
-      },
-      getDataPoste: function(){
-        var request = new XMLHttpRequest();
-        var ref=this;
-
-        //console.log(data);
-        request.open('GET',this.root_url+'api/poste' ,true);
-        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-        request.send();
-
-        request.addEventListener("load", function() {
-          var response = JSON.parse(request.responseText);
-          ref.tabelaPosta=response
-        });
-        request.addEventListener("error", function() {
-            console.log("NAPAKA!");
         });
       },
       spremeniStatusStranke: function(stranka){
@@ -144,7 +123,7 @@ $(document).ready(function(){
         var uporabnik=this.novUporabnik;
         var data=JSON_to_URLEncoded(uporabnik);
 
-        request.open('POST', this.root_url+'api/stranke', true);
+        request.open('POST', this.root_url+'api/prodajalci', true);
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         request.send(data);
 

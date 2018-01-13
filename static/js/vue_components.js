@@ -16,6 +16,7 @@ Vue.component('glava', {
       prijavljen:false,
       uporabnik:null,
       iskalniNiz:"",
+      prijavaPreverjena:false,
     }
   },
   template:`
@@ -32,7 +33,7 @@ Vue.component('glava', {
                 <img :src="root_url+'static/images/logo.png'" alt=" " />
                </a>
             </div>
-            <div class="search" style="margin-top:26px;" v-if=" (prijavljen && uporabnik.vloga==3) || !prijavljen ">
+            <div class="search" style="margin-top:26px;" v-if=" (prijavljen && uporabnik.vloga==3) || !prijavljen && prijavaPreverjena">
                <input type="text" value="" v-model="iskalniNiz" >
                <input type="submit"  value="ISKANJE" v-on:click=isciArtikle()>
             </div>
@@ -68,9 +69,15 @@ Vue.component('glava', {
                  <li ><a :href="root_url+'odjava'">Odjava</a></li>
                </ul>
 
+               <ul class="dropdown-menu" v-if="uporabnik.vloga==1">
+                 <li ><a :href="root_url+'admin'"><span >Upravljanje prodajalcev</span> </a></li>
+                 <li ><a :href="root_url+'profil'"><span >Upravljaj račun</span> </a></li>
+                 <li ><a :href="root_url+'odjava'">Odjava</a></li>
+               </ul>
+
               </div>
 
-              <div style="display:inline-block; float:right; margin-left:10px;" v-if="!prijavljen">
+              <div style="display:inline-block; float:right; margin-left:10px;" v-if="!prijavljen && prijavaPreverjena">
                  <ul class="login" >
                     <li>
                       <div>
@@ -112,6 +119,7 @@ methods:{
         ref.prijavljen=false;
         ref.uporabnik=null;
       }
+      ref.prijavaPreverjena=true;
     });
     request.addEventListener("error", function() {
         console.log("NAPAKA!");
@@ -136,7 +144,7 @@ Vue.component('glava-login', {
       <div class="container">
          <div class="header-bottom-left">
             <div class="logo">
-            <a :href=>
+            <a :href="root_url">
                <img :src="root_url+'static/images/logo.png'" alt=" " />
             </a>
             </div>
@@ -287,7 +295,7 @@ Vue.component('artikel-product-stran', {
             <img :src="artikel.slika_url" class="img-responsive watch-right" alt=""/>
          </div>
       </a>
-      <a :href="povezava_artikel"><h4>{{artikel.ime_artikla}}</h4></a>
+      <a :href="artikel.povezava_artikel"><h4>{{artikel.ime_artikla}}</h4></a>
       <div class="star-price">
          <div class="dolor-grid">
             <span >CENA:</span>
@@ -620,6 +628,125 @@ Vue.component('stranka-forma-podatki-prodajalec', {
 
 });
 
+Vue.component('prodajalec-forma-podatki-admin', {
+  props:["root_url","stranka_id"],
+  data: function(){
+    return {
+      uporabnik:{
+        ime:"",
+        priimek:"",
+        email:"",
+        geslo1:"",
+        geslo2:"",
+      },
+      tabelaPosta:[],
+      posodobljeniPodatki:false,
+      pritisnjenGumb:false
+    }
+
+  },
+  template:`
+<div>
+  <div class="panel panel-default" style="">
+    <div class="panel-heading">
+      <h3>OSEBNI PODATKI</h3>
+    </div>
+    <div class="panel-body">
+      <div class="">
+
+         <div class="form-group">
+           <label for="ime">IME</label>
+           <input type="text" class="form-control" placeholder="" name="pwd" value="" v-model="uporabnik.ime">
+         </div>
+         <div class="form-group">
+           <label for="priimek">PRIIMEK</label>
+           <input type="text" class="form-control"  placeholder="" name="pwd" v-model="uporabnik.priimek">
+         </div>
+         <div class="form-group">
+           <label for="email">ELEKTRONSKI NASLOV</label>
+           <input type="email" class="form-control"  placeholder="" name="pwd" v-model="uporabnik.email" >
+         </div>
+         <div class="form-group">
+           <label for="pwd">NOVO GESLO</label>
+           <input type="password" class="form-control"  placeholder="Vpiši novo geslo" name="pwd" v-model="uporabnik.geslo1">
+         </div>
+         <div class="form-group">
+           <label for="pwd1">POTRDI NOVO GESLO</label>
+           <input type="password" class="form-control"  placeholder="Potrdi novo geslo" name="pwd" v-model="uporabnik.geslo2">
+         </div>
+
+         <button  class="btn btn-success" style="display:inline-block" v-on:click="posodobiPodatkeStranke()" >Shrani spremembe</button>
+         <span class="label label-success"  style="display:inline-block; float:right; padding:6px;" v-if="posodobljeniPodatki" >Podatki uspešno posodobljeni!</span>
+         <span class="label label-warning"  style="display:inline-block; float:right; padding:6px;" v-if="!posodobljeniPodatki && pritisnjenGumb" >Preverite pravilnost podatkov!</span>
+
+      </div>
+      <div class="clearfix"> </div>
+    </div>
+  </div>
+</div>
+  `,
+  mounted: function(){
+    this.pridobiTrenutnePodatkeStranke();
+  },
+  methods:{
+
+    posodobiPodatkeStranke: function(){
+      //this.pridobiTrenutnePodatkeStranke();
+      var request = new XMLHttpRequest();
+      this.pritisnjenGumb=true;
+      var ref=this;
+      var uporabnik=this.uporabnik;
+      var data=JSON_to_URLEncoded(uporabnik);
+
+      request.open('PUT', this.root_url+'api/prodajalci/'+this.stranka_id, true);
+      request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+      request.send(data);
+
+      request.addEventListener("load", function() {
+        var response = JSON.parse(request.responseText);
+        if(request.status>=200 && request.status<300){
+          ref.posodobljeniPodatki=true;
+          window.location.href = ref.root_url+"admin";
+        }else{
+          ref.posodobljeniPodatki=false;
+        }
+
+      });
+      request.addEventListener("error", function() {
+          console.log("NAPAKA!");
+      });
+    },
+    pridobiTrenutnePodatkeStranke: function(){
+      var request = new XMLHttpRequest();
+      var ref=this;
+      request.open('GET', this.root_url+'api/prodajalci/'+this.stranka_id , true);
+      request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+      request.send();
+
+      request.addEventListener("load", function() {
+        var response = JSON.parse(request.responseText);
+        console.log("Response "+response);
+
+        var uporabnik = {
+          ime:response.ime,
+          priimek:response.priimek,
+          email:response.email,
+          geslo1:"",
+          geslo2:"",
+        };
+
+        ref.uporabnik=uporabnik;
+      });
+      request.addEventListener("error", function() {
+          console.log("NAPAKA!");
+      });
+    }
+
+
+
+  }
+
+});
 
 Vue.component('prodajalec-forma-podatki', {
   props:["root_url"],

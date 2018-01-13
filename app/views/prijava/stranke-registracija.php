@@ -21,6 +21,9 @@
         [v-cloak] {
           display: none;
         }
+        a:hover{
+          cursor:pointer;
+        }
       </style>
    </head>
    <body>
@@ -35,15 +38,19 @@
                      <h3>OSEBNI PODATKI</h3>
                      <div class="mation">
                         <span>IME<label>*</label></span>
-                        <input type="text">
+                        <input type="text" v-model="novUporabnik.ime">
                         <span>PRIIMEK<label>*</label></span>
-                        <input type="text">
+                        <input type="text" v-model="novUporabnik.priimek">
                         <span>ELEKTRONSKI NASLOV<label>*</label></span>
-                        <input type="text">
+                        <input type="text" v-model="novUporabnik.email">
                         <span>NASLOV<label>*</label></span>
-                        <input type="text">
+                        <input type="text" v-model="novUporabnik.naslov" >
+                        <span>POŠTA<label>*</label></span>
+                        <select class="form-control"  v-model="novUporabnik.posta" >
+                          <option v-for="posta in tabelaPosta" :value="posta.postna_st">{{posta.postna_st+' '+posta.naziv}}</option>
+                        </select>
                         <span>TELEFONSKA ŠTEVILKA<label>*</label></span>
-                        <input type="text">
+                        <input type="text" v-model="novUporabnik.telefon">
                      </div>
                      <div class="clearfix"> </div>
                   </div>
@@ -51,18 +58,19 @@
                      <h3>PRIJAVNI PODATKI</h3>
                      <div class="mation">
                         <span>GESLO<label>*</label></span>
-                        <input type="password">
+                        <input type="password" v-model="novUporabnik.geslo1">
                         <span>POTRDI GESLO<label>*</label></span>
-                        <input type="password">
+                        <input type="password" v-model="novUporabnik.geslo2">
                      </div>
                   </div>
                </form>
                <div class="clearfix"> </div>
                <div class="register-but">
-                  <form>
-                     <input type="submit" value="REGISTRIRAJ SE">
-                     <div class="clearfix"> </div>
-                  </form>
+
+                <a class="acount-btn"  v-on:click="registrirajNovoStranko()" v-on:click="registrirajNovoStranko()">REGISTRIRAJ SE</a>
+                <span class="label label-warning"  style="display:inline-block; float:right; padding:10px; margin-top:10px; margin-left:10px;" v-if="!ustvarjenaNovaStranka && pritisnjenGumb && prikaziSporocilo" >{{sporocilo}}</span>
+                <span class="label label-success"  style="display:inline-block; float:right; padding:10px; margin-top:10px; margin-left:10px;" v-if="ustvarjenaNovaStranka && pritisnjenGumb && prikaziSporocilo">Registracija uspešna!</span>
+
                </div>
             </div>
          </div>
