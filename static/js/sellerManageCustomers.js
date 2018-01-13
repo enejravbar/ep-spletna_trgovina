@@ -31,7 +31,7 @@ $(document).ready(function(){
 
         request.addEventListener("load", function() {
           var response = JSON.parse(request.responseText);
-          var tabelaStrank=response.telo;
+          var tabelaStrank=response.uporabniki;
           ref.posodobiTabeloStrank(tabelaStrank);
         });
         request.addEventListener("error", function() {
