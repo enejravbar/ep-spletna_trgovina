@@ -63,7 +63,7 @@ Vue.component('glava', {
                  <li ><a href="sellerOrders.html"><span >Pregled naročil</span> </a></li>
                  <li ><a href="sellerManageCustomers.html"><span >Upravljanje strank</span> </a></li>
                  <li ><a href="sellerManageProducts.html"><span >Upravljanje artiklov</span> </a></li>
-                 <li ><a href="sellerManageAccount.html"><span >Upravljaj račun</span> </a></li>
+                 <li ><a :href="root_url+'profil'"><span >Upravljaj račun</span> </a></li>
                  <li ><a :href="root_url+'odjava'">Odjava</a></li>
                </ul>
 
@@ -333,12 +333,15 @@ Vue.component('stranka-forma-podatki', {
         email:"",
         naslov:"",
         telefon:"",
+        posta:"",
         geslo1:"",
         geslo2:"",
-        posta:1000,
       },
       tabelaPosta:[],
+      posodobljeniPodatki:false,
+      pritisnjenGumb:false
     }
+
   },
   template:`
 <div>
@@ -361,11 +364,10 @@ Vue.component('stranka-forma-podatki', {
            <label for="email">NASLOV</label>
            <input type="text" class="form-control" id="naslov" placeholder="" name="pwd" v-model="uporabnik.naslov">
          </div>
-         <div class="form-group">
+         <div class="form-group" >
            <label for="sel1">POŠTA:</label>
-           <select class="form-control" id="sel1" >
-             <option v-for="posta in tabelaPosta">1</option>
-
+           <select class="form-control" id="sel1" v-model="uporabnik.posta" >
+             <option v-for="posta in tabelaPosta" :value="posta.postna_st">{{posta.postna_st+' '+posta.naziv}}</option>
            </select>
           </div>
          <div class="form-group">
@@ -377,32 +379,19 @@ Vue.component('stranka-forma-podatki', {
            <label for="email">TELEFONSKA ŠTEVILKA</label>
            <input type="text" class="form-control" id="tel_stevilka" placeholder="" name="pwd" v-model="uporabnik.telefon">
          </div>
+
+         <div class="form-group">
+           <label for="pwd">NOVO GESLO</label>
+           <input type="password" class="form-control" id="pwd" placeholder="Vpiši novo geslo" name="pwd" v-model="uporabnik.geslo1">
+         </div>
+         <div class="form-group">
+           <label for="pwd1">POTRDI NOVO GESLO</label>
+           <input type="password" class="form-control" id="pwd1" placeholder="Potrdi novo geslo" name="pwd" v-model="uporabnik.geslo2">
+         </div>
+
          <button  class="btn btn-success" style="display:inline-block" v-on:click="posodobiPodatkeStranke()" >Shrani spremembe</button>
-         <span class="label label-success"  style="display:inline-block; float:right; padding:6px;">Podatki uspešno posodobljeni!</span>
-         <span class="label label-warning"  style="display:inline-block; float:right; padding:6px;">Preverite pravilnost podatkov!</span>
-      </div>
-      <div class="clearfix"> </div>
-    </div>
-  </div>
-
-  <div class="panel panel-default" style="margin-top:25px;">
-    <div class="panel-heading">
-      <h3>PRIJAVNI PODATKI</h3>
-    </div>
-    <div class="panel-body">
-      <div class="">
-
-        <div class="form-group">
-          <label for="pwd">NOVO GESLO</label>
-          <input type="password" class="form-control" id="pwd" placeholder="Vpiši novo geslo" name="pwd" v-model="uporabnik.geslo1">
-        </div>
-        <div class="form-group">
-          <label for="pwd1">POTRDI NOVO GESLO</label>
-          <input type="password" class="form-control" id="pwd1" placeholder="Potrdi novo geslo" name="pwd" v-model="uporabnik.geslo2">
-        </div>
-
-        <button  class="btn btn-success" style="display:inline-block" v-on:click="posodobiPodatkeStranke()" >Shrani spremembe</button>
-        <span class="label label-success"  style="display:inline-block; float:right; padding:6px;">Podatki uspešno posodobljeni!</span>
+         <span class="label label-success"  style="display:inline-block; float:right; padding:6px;" v-if="posodobljeniPodatki" >Podatki uspešno posodobljeni!</span>
+         <span class="label label-warning"  style="display:inline-block; float:right; padding:6px;" v-if="!posodobljeniPodatki && pritisnjenGumb" >Preverite pravilnost podatkov!</span>
 
       </div>
       <div class="clearfix"> </div>
@@ -412,6 +401,7 @@ Vue.component('stranka-forma-podatki', {
   `,
   mounted: function(){
     this.getData();
+    this.pridobiTrenutnePodatkeStranke();
   },
   methods:{
     getData: function(){
@@ -425,7 +415,7 @@ Vue.component('stranka-forma-podatki', {
 
       request.addEventListener("load", function() {
         var response = JSON.parse(request.responseText);
-        console.log(response)
+        ref.tabelaPosta=response
       });
       request.addEventListener("error", function() {
           console.log("NAPAKA!");
@@ -433,28 +423,79 @@ Vue.component('stranka-forma-podatki', {
     },
     posodobiPodatkeStranke: function(){
       var request = new XMLHttpRequest();
+      this.pritisnjenGumb=true;
       var ref=this;
       var uporabnik=this.uporabnik;
       var data=JSON_to_URLEncoded(uporabnik);
-      //console.log(data);
+
       request.open('PUT', this.root_url+'api/profil', true);
       request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
       request.send(data);
 
       request.addEventListener("load", function() {
         var response = JSON.parse(request.responseText);
+        if(request.status>=200 && request.status<300){
+          ref.posodobljeniPodatki=true;
+        }else{
+          ref.posodobljeniPodatki=false;
+        }
+      });
+      request.addEventListener("error", function() {
+          console.log("NAPAKA!");
+      });
+    },
+    pridobiTrenutnePodatkeStranke: function(){
+      var request = new XMLHttpRequest();
+      var ref=this;
+      request.open('GET', this.root_url+'api/profil', true);
+      request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+      request.send();
 
+      request.addEventListener("load", function() {
+        var response = JSON.parse(request.responseText);
+        console.log("Response "+response);
+        var uporabnik=null;
+
+        var uporabnik = {
+          ime:response.uporabnik.ime,
+          priimek:response.uporabnik.priimek,
+          email:response.uporabnik.email,
+          naslov:response.uporabnik.naslov,
+          telefon:response.uporabnik.telefon,
+          posta:response.uporabnik.posta,
+          geslo1:"",
+          geslo2:"",
+        };
+
+        ref.uporabnik=uporabnik;
       });
       request.addEventListener("error", function() {
           console.log("NAPAKA!");
       });
     }
+
+
+
   }
 
 });
 
 Vue.component('prodajalec-forma-podatki', {
-  props:['prodajalec'],
+  props:["root_url"],
+  data: function(){
+    return {
+      uporabnik:{
+        ime:"",
+        priimek:"",
+        email:"",
+        geslo1:"",
+        geslo2:"",
+      },
+      posodobljeniPodatki:false,
+      pritisnjenGumb:false
+    }
+
+  },
   template:`
 <div>
   <div class="panel panel-default" style="">
@@ -466,48 +507,92 @@ Vue.component('prodajalec-forma-podatki', {
 
          <div class="form-group">
            <label for="ime">IME</label>
-           <input type="text" class="form-control" id="ime" placeholder="" name="pwd" :value="prodajalec.ime">
+           <input type="text" class="form-control" id="ime" placeholder="" name="pwd" value="uporabnik.ime" v-model="uporabnik.ime">
          </div>
          <div class="form-group">
            <label for="priimek">PRIIMEK</label>
-           <input type="text" class="form-control" id="priimek" placeholder="" name="pwd" :value="prodajalec.priimek">
+           <input type="text" class="form-control" id="priimek" placeholder="" name="pwd" :value="uporabnik.priimek" v-model="uporabnik.priimek">
          </div>
          <div class="form-group">
            <label for="email">ELEKTRONSKI NASLOV</label>
-           <input type="text" class="form-control" id="email" placeholder="" name="pwd" :value="prodajalec.email_naslov">
+           <input type="email" class="form-control" id="email" placeholder="" name="pwd"  :value="uporabnik.email" v-model="uporabnik.email" >
          </div>
-         <button  class="btn btn-success" style="display:inline-block">Shrani spremembe</button>
-         <span class="label label-success"  style="display:inline-block; float:right; padding:6px;">Podatki uspešno posodobljeni!</span>
-      </div>
-      <div class="clearfix"> </div>
-    </div>
-  </div>
+         <div class="form-group">
+           <label for="pwd">NOVO GESLO</label>
+           <input type="password" class="form-control" id="pwd" placeholder="Vpiši novo geslo" name="pwd" v-model="uporabnik.geslo1">
+         </div>
+         <div class="form-group">
+           <label for="pwd1">POTRDI NOVO GESLO</label>
+           <input type="password" class="form-control" id="pwd1" placeholder="Potrdi novo geslo" name="pwd" v-model="uporabnik.geslo2">
+         </div>
 
-  <div class="panel panel-default" style="margin-top:25px;">
-    <div class="panel-heading">
-      <h3>PRIJAVNI PODATKI</h3>
-    </div>
-    <div class="panel-body">
-      <div class="">
-
-        <div class="form-group">
-          <label for="pwd">NOVO GESLO</label>
-          <input type="password" class="form-control" id="pwd" placeholder="Vpiši novo geslo" name="pwd">
-        </div>
-        <div class="form-group">
-          <label for="pwd1">POTRDI NOVO GESLO</label>
-          <input type="password" class="form-control" id="pwd1" placeholder="Potrdi novo geslo" name="pwd">
-        </div>
-
-        <button  class="btn btn-success" style="display:inline-block">Shrani spremembe</button>
-        <span class="label label-success"  style="display:inline-block; float:right; padding:6px;">Podatki uspešno posodobljeni!</span>
+         <button  class="btn btn-success" style="display:inline-block" v-on:click="posodobiPodatkeStranke()" >Shrani spremembe</button>
+         <span class="label label-success"  style="display:inline-block; float:right; padding:6px;" v-if="posodobljeniPodatki" >Podatki uspešno posodobljeni!</span>
+         <span class="label label-warning"  style="display:inline-block; float:right; padding:6px;" v-if="!posodobljeniPodatki && pritisnjenGumb" >Preverite pravilnost podatkov!</span>
 
       </div>
       <div class="clearfix"> </div>
     </div>
   </div>
 </div>
-  `
+  `,
+  mounted: function(){
+    this.pridobiTrenutnePodatkeStranke();
+  },
+  methods:{
+
+    posodobiPodatkeStranke: function(){
+      var request = new XMLHttpRequest();
+      this.pritisnjenGumb=true;
+      var ref=this;
+      var uporabnik=this.uporabnik;
+      var data=JSON_to_URLEncoded(uporabnik);
+      console.log("data"+data)
+      request.open('PUT', this.root_url+'api/profil', true);
+      request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+      request.send(data);
+
+      request.addEventListener("load", function() {
+        var response = JSON.parse(request.responseText);
+        if(request.status>=200 && request.status<300){
+          ref.posodobljeniPodatki=true;
+        }else{
+          ref.posodobljeniPodatki=false;
+        }
+      });
+      request.addEventListener("error", function() {
+          console.log("NAPAKA!");
+      });
+    },
+
+    pridobiTrenutnePodatkeStranke: function(){
+      var request = new XMLHttpRequest();
+      var ref=this;
+      request.open('GET', this.root_url+'api/profil', true);
+      request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+      request.send();
+
+      request.addEventListener("load", function() {
+        var response = JSON.parse(request.responseText);
+        console.log("Response "+response);
+        var uporabnik=null;
+
+        var uporabnik = {
+          ime:response.uporabnik.ime,
+          priimek:response.uporabnik.priimek,
+          email:response.uporabnik.email,
+          geslo1:"",
+          geslo2:"",
+        };
+
+        ref.uporabnik=uporabnik;
+      });
+      request.addEventListener("error", function() {
+          console.log("NAPAKA!");
+      });
+    }
+  }
+
 });
 
 Vue.component('narocilo', {

@@ -35,7 +35,7 @@ class UporabnikVir {
 
     public static function posredujPoste() {
         try {
-            echo ViewUtil::renderJSON([Posta::getAll()], 200);
+            echo ViewUtil::renderJSON(Posta::getAll(), 200);
         } catch (Exception $e) {
             echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 400);
         }
