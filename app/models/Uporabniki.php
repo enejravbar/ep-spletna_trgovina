@@ -34,10 +34,7 @@ class Uporabniki extends Entiteta {
 
     public static function getByVloga($params) {
         $stmt = parent::getConnection()->prepare("SELECT id, vloga, ime, priimek, email, naslov, " .
-            "posta, telefon, status FROM uporabniki WHERE vloga = :vloga " .
-            "LIMIT :limit OFFSET :offset");
-        $stmt->bindParam(":limit", $params["limit"], PDO::PARAM_INT);
-        $stmt->bindParam(":offset", $params["offset"], PDO::PARAM_INT);
+            "posta, telefon, status FROM uporabniki WHERE vloga = :vloga");
         $stmt->bindParam(":vloga", $params["vloga"], PDO::PARAM_INT);
         $stmt->execute();
 

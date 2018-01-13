@@ -48,7 +48,7 @@ public class SlikaAdapter extends ArrayAdapter<Slika> {
         long id_slike = slike.get(position).id;
 
         final String HOST_LOKALNEGA_RACUNALNIKA = "10.0.2.2";
-        final String URL_SLIKE = "http://" + HOST_LOKALNEGA_RACUNALNIKA + "/pstorm/ep-spletna_trgovina/api/slike/" + id_slike;
+        final String URL_SLIKE = "http://" + HOST_LOKALNEGA_RACUNALNIKA + "/ep/ep-spletna_trgovina/api/slike/" + id_slike;
 
         Picasso.with(context).load(URL_SLIKE).fit().into((ImageView) convertView);
 

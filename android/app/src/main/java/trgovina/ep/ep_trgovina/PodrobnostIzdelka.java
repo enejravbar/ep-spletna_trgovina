@@ -17,6 +17,7 @@ import retrofit2.Response;
 import trgovina.ep.ep_trgovina.adapters.SlikaAdapter;
 import trgovina.ep.ep_trgovina.models.Izdelek;
 import trgovina.ep.ep_trgovina.models.IzdelekResponse;
+import trgovina.ep.ep_trgovina.seja.SessionVar;
 
 public class PodrobnostIzdelka extends AppCompatActivity implements Callback<IzdelekResponse> {
 
@@ -27,6 +28,8 @@ public class PodrobnostIzdelka extends AppCompatActivity implements Callback<Izd
     private IzdelekResponse izdelekResp;
     private ListView slike;
     private SlikaAdapter slikaAdapter;
+    private Button btn_nazaj;
+    private int kategorijaId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,18 @@ public class PodrobnostIzdelka extends AppCompatActivity implements Callback<Izd
         izdelek_ime = (TextView) findViewById(R.id.izd_naziv);
         izdelek_opis = (TextView) findViewById(R.id.izd_opis);
         slike = (ListView) findViewById(R.id.seznam_slik);
+        btn_nazaj = (Button) findViewById(R.id.btn_nazaj_3);
+
+        btn_nazaj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PodrobnostIzdelka.this, SeznamIzdelkov.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("kategorija.id", kategorijaId);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
 
         idIzdelka = preberiID(getIntent());
 
@@ -56,6 +71,7 @@ public class PodrobnostIzdelka extends AppCompatActivity implements Callback<Izd
             izdelek_cena.setText(String.valueOf(izdelekResp.izdelek.cena));
             izdelek_opis.setText(izdelekResp.izdelek.opis);
             izdelek_ime.setText(izdelekResp.izdelek.ime);
+            kategorijaId = izdelekResp.izdelek.kategorija;
         } else {
             Toast.makeText(this, "Napaka pri pridobivanju podatkov o izdelku!", Toast.LENGTH_LONG).show();
         }
@@ -75,5 +91,15 @@ public class PodrobnostIzdelka extends AppCompatActivity implements Callback<Izd
             }
         }
         return 0;
+    }
+
+    @Override
+    public void onBackPressed() {
+        SessionVar session = (SessionVar) getApplicationContext();
+        if(session != null){
+            if(session.prijavljeniUporabnik != null){
+                super.onBackPressed();
+            }
+        }
     }
 }

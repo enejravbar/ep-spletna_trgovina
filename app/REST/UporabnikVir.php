@@ -138,19 +138,8 @@ class UporabnikVir {
 
     public static function pridobiVseStranke() {
         if(PrijavaService::uporabnikJeProdajalec()) {
-            if(isset($_GET["stran"])) {
-                $stran = $_GET["stran"];
-            } else {
-                $stran = 1;
-            }
-            $uporabniki = UporabnikService::vrniVseStranke($stran);
-            echo ViewUtil::renderJSON([
-                "glava" => [
-                    "st_vseh_zadetkov" => $uporabniki["stevec"]["st_zadetkov"],
-                    "st_strani" => $uporabniki["stevec"]["st_strani"]
-                ],
-                "telo" => $uporabniki["uporabniki"]
-            ], 200);
+            $uporabniki = UporabnikService::vrniVseStranke();
+            echo ViewUtil::renderJSON(["uporabniki" => $uporabniki], 200);
         } else {
             echo ViewUtil::renderJSON(["napaka" => "Uporabnik nima zadostnih pravic!"], 401);
         }
@@ -283,19 +272,8 @@ class UporabnikVir {
 
     public static function pridobiVseProdajalce() {
         if(PrijavaService::uporabnikJeAdmin()) {
-            if(isset($_GET["stran"])) {
-                $stran = $_GET["stran"];
-            } else {
-                $stran = 1;
-            }
-            $uporabniki = UporabnikService::vrniVseProdajalce($stran);
-            echo ViewUtil::renderJSON([
-                "glava" => [
-                    "st_vseh_zadetkov" => $uporabniki["stevec"]["st_zadetkov"],
-                    "st_strani" => $uporabniki["stevec"]["st_strani"]
-                ],
-                "telo" => $uporabniki["uporabniki"]
-            ], 200);
+            $uporabniki = UporabnikService::vrniVseProdajalce();
+            echo ViewUtil::renderJSON(["uporabniki" => $uporabniki], 200);
         } else {
             echo ViewUtil::renderJSON(["napaka" => "Uporabnik nima zadostnih pravic!"], 401);
         }

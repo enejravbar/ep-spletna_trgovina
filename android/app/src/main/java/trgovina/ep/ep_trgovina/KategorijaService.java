@@ -17,7 +17,7 @@ public class KategorijaService {
     interface RESTApi {
 
         String HOST_LOKALNEGA_RACUNALNIKA = "10.0.2.2";
-        String URL = "http://" + HOST_LOKALNEGA_RACUNALNIKA + "/pstorm/ep-spletna_trgovina/api/";
+        String URL = "http://" + HOST_LOKALNEGA_RACUNALNIKA + "/ep/ep-spletna_trgovina/api/";
 
         @GET("kategorije")
         Call<List<Kategorija>> vrniVse();
