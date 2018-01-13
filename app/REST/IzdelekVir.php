@@ -11,21 +11,9 @@ class IzdelekVir {
 
     // GET /izdelki
     public static function getAll(){
-        if(isset($_GET["stran"])) {
-            $stran = $_GET["stran"];
-        } else {
-            $stran = 1;
-        }
-
         try {
-            $izdelki = IzdelekService::pridobiVseIzdelke($stran);
-            echo ViewUtil::renderJSON([
-                "glava" => [
-                    "st_vseh_zadetkov" => $izdelki["stevec"]["st_zadetkov"],
-                    "st_strani" => $izdelki["stevec"]["st_strani"]
-                ],
-                "telo" => $izdelki["izdelki"]
-            ], 200);
+            $izdelki = IzdelekService::pridobiVseIzdelke();
+            echo ViewUtil::renderJSON(["izdelki" => $izdelki], 200);
         } catch (Exception $e) {
             echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 500);
         }

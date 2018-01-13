@@ -58,15 +58,8 @@ class UporabnikService {
     }
 
     // stranke
-    public static function vrniVseStranke($stran = 1, $limit = null) {
-        $limit = ($limit == null)? (int)ConfigurationUtil::getConfByKey("query_stranke_limit") : (int)$limit;
-        $offset = $limit * ($stran - 1);
-        $rez = array();
-        $rez["uporabniki"] = Uporabniki::getByVloga(["vloga" => VlogaUporabnik::getIdStranka(),
-            "offset" => $offset, "limit" => $limit]);
-        $rez["stevec"] = Uporabniki::countByVloga(["vloga" => VlogaUporabnik::getIdStranka(),
-            "limit" => $limit])[0];
-        return $rez;
+    public static function vrniVseStranke() {
+        return Uporabniki::getByVloga(["vloga" => VlogaUporabnik::getIdStranka()]);
     }
 
     public static function vrniStranko($id) {
@@ -182,16 +175,8 @@ class UporabnikService {
     }
 
     // prodajalci
-    public static function vrniVseProdajalce($stran = 1, $limit = null) {
-        $limit = ($limit == null)? (int)ConfigurationUtil::getConfByKey("query_prodajalci_limit") : (int)$limit;
-
-        $offset = $limit * ($stran - 1);
-        $rez = array();
-        $rez["uporabniki"] = Uporabniki::getByVloga(["vloga" => VlogaUporabnik::getIdProdaja(),
-            "offset" => $offset, "limit" => $limit]);
-        $rez["stevec"] = Uporabniki::countByVloga(["vloga" => VlogaUporabnik::getIdProdaja(),
-            "limit" => $limit])[0];
-        return $rez;
+    public static function vrniVseProdajalce() {
+        return Uporabniki::getByVloga(["vloga" => VlogaUporabnik::getIdProdaja()]);
     }
 
     public static function vrniProdajalca($id) {
