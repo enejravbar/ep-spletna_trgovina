@@ -29,7 +29,6 @@ class SlikaService {
 
         $ime_slike = $ime_slike . "." . $imageFileType;
 
-        echo "TIP SLIKE: " . $imageFileType . "\n";
         Slika::insert(["naziv" => $ime_slike, "lokacija" => $target_file, "ext" => $imageFileType, "izdelek" => $ID_IZDELKA]);
     }
 

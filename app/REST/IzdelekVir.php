@@ -122,7 +122,7 @@ class IzdelekVir {
                 try {
                     $novi_izdelek = IzdelekService::shraniIzdelek($data, $SLIKE);
                     LogService::info("prodajalec", "IZDELEK", "Prodajalec " .
-                        PrijavaService::vrniIdTrenutnegaUporabnika() . " je shranil izdelek $novi_izdelek");
+                        PrijavaService::vrniIdTrenutnegaUporabnika() . " je shranil izdelek " . $novi_izdelek["id"]);
                     echo ViewUtil::renderJSON($novi_izdelek, 201);
                 } catch(InvalidArgumentException $e){
                     echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 400);
