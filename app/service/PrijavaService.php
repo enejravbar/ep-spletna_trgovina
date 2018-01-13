@@ -7,6 +7,7 @@
  */
 
 require_once "app/models/VlogaUporabnik.php";
+require_once "app/models/Uporabniki.php";
 
 class PrijavaService {
 
@@ -45,7 +46,8 @@ class PrijavaService {
     }
 
     public static function vrniTrenutnegaIzBaze() {
-
+        $id = self::vrniIdTrenutnegaUporabnika();
+        return Uporabniki::get(["id" => $id]);
     }
 
     public static function vrniIdTrenutnegaUporabnika() {
