@@ -53,7 +53,9 @@ public class UporabnikovProfil extends AppCompatActivity implements Callback<Upo
 
         SessionVar session = (SessionVar) getApplicationContext();
         if(session != null){
-            uporabnik = session.prijavljeniUporabnik;
+            if(session.prijavljeniUporabnik != null) {
+                uporabnik = session.prijavljeniUporabnik;
+            }
         } else {
             Toast.makeText(UporabnikovProfil.this, "Napaka pri pridobivanju podatkov uporabnika!", Toast.LENGTH_LONG).show();
             return;

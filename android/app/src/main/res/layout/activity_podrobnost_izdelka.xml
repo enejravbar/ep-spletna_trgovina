@@ -80,14 +80,26 @@
     <ListView
         android:id="@+id/seznam_slik"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="100dp"
+        android:layout_above="@+id/btn_nazaj_3"
+        android:layout_alignLeft="@+id/izd_opis"
+        android:layout_alignStart="@+id/izd_opis"
+        android:layout_below="@+id/izd_opis"
+        android:layout_marginTop="20dp"
         android:divider="@null"
         android:dividerHeight="0dp"
-        android:layout_marginTop="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/izd_opis"
-        android:layout_below="@+id/izd_opis"
-        android:layout_alignLeft="@+id/izd_opis"
-        android:layout_alignStart="@+id/izd_opis"></ListView>
+        app:layout_constraintTop_toBottomOf="@+id/izd_opis"></ListView>
+
+    <Button
+        android:id="@+id/btn_nazaj_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Nazaj" />
 
 </RelativeLayout>

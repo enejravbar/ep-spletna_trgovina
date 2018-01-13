@@ -26,6 +26,20 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/btn_nazaj_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Nazaj" />
+
+        <Button
+            android:id="@+id/login_btn2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Prijava" />
+
+        <Button
             android:id="@+id/logout_btn2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

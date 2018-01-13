@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements Callback<Uporabni
     private EditText vnos_geslo;
     private EditText vnos_upime;
     private TextView izpis_napaka;
+    private Button btn_nazaj;
 
 
     @Override
@@ -33,6 +34,15 @@ public class MainActivity extends AppCompatActivity implements Callback<Uporabni
         vnos_geslo = (EditText) findViewById(R.id.vnos_geslo);
         vnos_upime = (EditText) findViewById(R.id.vnos_upime);
         izpis_napaka = (TextView) findViewById(R.id.izpis_napaka);
+        btn_nazaj = (Button) findViewById(R.id.btn_nazaj_2);
+
+        btn_nazaj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, GlavnaStran.class);
+                startActivity(intent);
+            }
+        });
 
         gumb_prijava.setOnClickListener( new View.OnClickListener(){
             @Override

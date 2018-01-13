@@ -28,6 +28,8 @@ public class SeznamIzdelkov extends AppCompatActivity implements Callback<List<I
     private int idKategorije;
     private Button logout_btn2;
     private Button profile_btn2;
+    private Button login_btn2;
+    private Button btn_nazaj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,40 @@ public class SeznamIzdelkov extends AppCompatActivity implements Callback<List<I
         seznam = (ListView) findViewById(R.id.izdelki);
         logout_btn2 = (Button) findViewById(R.id.logout_btn2);
         profile_btn2 = (Button) findViewById(R.id.profile_btn2);
+        login_btn2 = (Button) findViewById(R.id.login_btn2);
+        btn_nazaj = (Button) findViewById(R.id.btn_nazaj_1);
+
+        btn_nazaj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SeznamIzdelkov.this, GlavnaStran.class);
+                startActivity(intent);
+            }
+        });
+
+        SessionVar session = (SessionVar) getApplicationContext();
+        if(session != null) {
+            if(session.prijavljeniUporabnik == null) {
+                login_btn2.setVisibility(View.VISIBLE);
+                logout_btn2.setVisibility(View.GONE);
+                profile_btn2.setVisibility(View.GONE);
+            } else {
+                login_btn2.setVisibility(View.GONE);
+                logout_btn2.setVisibility(View.VISIBLE);
+                profile_btn2.setVisibility(View.VISIBLE);
+            }
+        } else {
+            Toast.makeText(SeznamIzdelkov.this, "Napaka pri pridobivanju seje", Toast.LENGTH_LONG).show();
+        }
+
+        login_btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SeznamIzdelkov.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         izdelekAdapter = new IzdelekAdapter(this);
         seznam.setAdapter(izdelekAdapter);
@@ -57,14 +93,17 @@ public class SeznamIzdelkov extends AppCompatActivity implements Callback<List<I
             }
         });
 
+
         logout_btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SessionVar session = (SessionVar) getApplicationContext();
                 if(session != null){
                     session.prijavljeniUporabnik = null;
-                    Intent intent = new Intent(SeznamIzdelkov.this, MainActivity.class);
-                    startActivity(intent);
+                    Toast.makeText(SeznamIzdelkov.this, "Uspešna odjava!", Toast.LENGTH_SHORT).show();
+                    login_btn2.setVisibility(View.VISIBLE);
+                    logout_btn2.setVisibility(View.GONE);
+                    profile_btn2.setVisibility(View.GONE);
                 } else {
                     Toast.makeText(SeznamIzdelkov.this, "Napaka pri odjavi!", Toast.LENGTH_SHORT).show();
                 }
@@ -111,6 +150,7 @@ public class SeznamIzdelkov extends AppCompatActivity implements Callback<List<I
     @Override
     public void onFailure(Call<List<Izdelek>> call, Throwable t) {
         container.setRefreshing(false);
+        Log.i("NAPAKA", t.getMessage(), t);
         Toast.makeText(this, "Napaka pri pridobivanju izdelkov!", Toast.LENGTH_LONG).show();
     }
 
@@ -122,5 +162,15 @@ public class SeznamIzdelkov extends AppCompatActivity implements Callback<List<I
             }
         }
         return 0;
+    }
+
+    @Override
+    public void onBackPressed() {
+        SessionVar session = (SessionVar) getApplicationContext();
+        if(session != null){
+            if(session.prijavljeniUporabnik != null){
+                super.onBackPressed();
+            }
+        }
     }
 }
