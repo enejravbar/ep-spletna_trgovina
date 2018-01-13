@@ -63,7 +63,7 @@ Vue.component('glava', {
                <ul class="dropdown-menu" v-if="uporabnik.vloga==2">
                  <li ><a href="sellerOrders.html"><span >Pregled naročil</span> </a></li>
                  <li ><a :href="root_url+'prodaja/stranke'"><span >Upravljanje strank</span> </a></li>
-                 <li ><a href="sellerManageProducts.html"><span >Upravljanje artiklov</span> </a></li>
+                 <li ><a :href="root_url+'prodaja/izdelki'"><span >Upravljanje artiklov</span> </a></li>
                  <li ><a :href="root_url+'profil'"><span >Upravljaj račun</span> </a></li>
                  <li ><a :href="root_url+'odjava'">Odjava</a></li>
                </ul>

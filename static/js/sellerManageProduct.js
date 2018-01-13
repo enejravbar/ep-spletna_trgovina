@@ -1,27 +1,105 @@
+var slikeFormData=null;
+
 $(document).ready(function(){
 
   var app = new Vue({
     el: '#app',
     data: {
+      root_url: document.getElementById("rootUrl").value,
       artikel:{
-            id:1,
-            kolicina:1,
-            povezava_artikel:"single.html",
-            tabela_urljev:["images/ba.jpg","images/ba.jpg"],
-            slika_url:"images/ba.jpg",
-            ime_artikla:"Usnjena torba",
-            redna_cena:"400",
-            znizana_cena:"300"
+            ime:"",
+            opis:"",
+            cena:"",
+            status:"",
+            kategorija:"",
+            slika:[],
       },
+      tabelaKategorij:[],
+    },
+    mounted: function(){
+      this.getDataKategorije();
+      this.getDataStatus();
     },
     methods:{
-      odstraniIzdelek: function(artikel){
-        for(var i = this.tabelaArtiklov.length; i--;) {
-            if(this.tabelaArtiklov[i] === artikel) {
-                this.tabelaArtiklov.splice(i, 1);
-            }
-        }
+      getDataKategorije: function(){
+
+        var request = new XMLHttpRequest();
+        var ref=this;
+        request.open('GET', this.root_url+'api/kategorije', true);
+        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        request.send();
+
+        request.addEventListener("load", function() {
+          var response = JSON.parse(request.responseText);
+          var tabelaKategorij = response;
+          ref.posodobiKategorije(tabelaKategorij)
+        });
+        request.addEventListener("error", function() {
+            console.log("NAPAKA!");
+        });
+      },
+      getDataStatus: function(){
+        var request = new XMLHttpRequest();
+        var ref=this;
+        request.open('GET', this.root_url+'api/status', true);
+        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        request.send();
+
+        request.addEventListener("load", function() {
+          var response = JSON.parse(request.responseText);
+
+        });
+        request.addEventListener("error", function() {
+            console.log("NAPAKA!");
+        });
+      },
+      posodobiKategorije: function(tabelaKategorij){
+        this.tabelaKategorij=[];
+        for(var i=0; i< tabelaKategorij.length; i++){
+            var kategorija=  {
+              id: tabelaKategorij[i].id,
+              ime: tabelaKategorij[i].ime,
+              url: this.root_url+"izdelki?kategorija="+tabelaKategorij[i].id,
+            };
+            this.tabelaKategorij.push(kategorija);
+          }
+      },
+      posodobiStatuse: function(tabelaKategorij){
+        /*this.tabelaKategorij=[];
+        for(var i=0; i< tabelaKategorij.length; i++){
+            var kategorija=  {
+              id: tabelaKategorij[i].id,
+              ime: tabelaKategorij[i].ime,
+              url: this.root_url+"izdelki?kategorija="+tabelaKategorij[i].id,
+            };
+            this.tabelaKategorij.push(kategorija);
+          }*/
+      },
+
+      dodajIzdelek: function(){
+        var request = new XMLHttpRequest();
+        //this.pritisnjenGumb=true;
+        var ref=this;
+        var uporabnik=this.uporabnik;
+        var data=JSON_to_URLEncoded(uporabnik);
+
+        request.open('POST', this.root_url+'api/izdelki', true);
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        request.send(data);
+
+        request.addEventListener("load", function() {
+          var response = JSON.parse(request.responseText);
+          if(request.status>=200 && request.status<300){
+            //ref.posodobljeniPodatki=true;
+          }else{
+            //ref.posodobljeniPodatki=false;
+          }
+        });
+        request.addEventListener("error", function() {
+            console.log("NAPAKA!");
+        });
       }
+
     }
   });
 
@@ -55,9 +133,10 @@ function handleImageUploads(){
               form_data.append(file, files[file]);
               console.log("Slike"+file)
           }
-          console.log(form_data);
+          slikeFormData = form_data
+          console.log(slikeFormData);
 
-          $.ajax({
+    /*      $.ajax({
           	url: "/upload",
           	type: "POST",
           	data:  form_data,
@@ -71,7 +150,7 @@ function handleImageUploads(){
               console.log("Slike niso bile uspešno naložene")
               //window.location.replace("sellerManageProduct.html")
             }
-          });
+          });*/
 
         });
 

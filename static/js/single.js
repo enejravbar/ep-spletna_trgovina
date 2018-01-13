@@ -16,7 +16,7 @@ $(document).ready(function(){
     },
     methods:{
       getData: function(ref){
-        console.log("PRIDOBIVAM PODATKE!!!!!!!!!!!!!")
+        //console.log("PRIDOBIVAM PODATKE!!!!!!!!!!!!!")
         var request = new XMLHttpRequest();
         request.open('GET', this.root_url+'api/izdelki/'+this.artikel_id, true);
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
