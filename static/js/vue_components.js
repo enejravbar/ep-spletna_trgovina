@@ -360,39 +360,39 @@ Vue.component('stranka-forma-podatki', {
 
          <div class="form-group">
            <label for="ime">IME</label>
-           <input type="text" class="form-control" id="ime" placeholder="" name="pwd" value="" v-model="uporabnik.ime">
+           <input type="text" class="form-control" placeholder="" name="pwd" value="" v-model="uporabnik.ime">
          </div>
          <div class="form-group">
            <label for="priimek">PRIIMEK</label>
-           <input type="text" class="form-control" id="priimek" placeholder="" name="pwd" v-model="uporabnik.priimek">
+           <input type="text" class="form-control"  placeholder="" name="pwd" v-model="uporabnik.priimek">
          </div>
          <div class="form-group">
            <label for="email">NASLOV</label>
-           <input type="text" class="form-control" id="naslov" placeholder="" name="pwd" v-model="uporabnik.naslov">
+           <input type="text" class="form-control" placeholder="" name="pwd" v-model="uporabnik.naslov">
          </div>
          <div class="form-group" >
            <label for="sel1">POŠTA:</label>
-           <select class="form-control" id="sel1" v-model="uporabnik.posta" >
+           <select class="form-control"  v-model="uporabnik.posta" >
              <option v-for="posta in tabelaPosta" :value="posta.postna_st">{{posta.postna_st+' '+posta.naziv}}</option>
            </select>
           </div>
          <div class="form-group">
            <label for="email">ELEKTRONSKI NASLOV</label>
-           <input type="email" class="form-control" id="email" placeholder="" name="pwd" v-model="uporabnik.email" >
+           <input type="email" class="form-control"  placeholder="" name="pwd" v-model="uporabnik.email" >
          </div>
 
          <div class="form-group">
            <label for="email">TELEFONSKA ŠTEVILKA</label>
-           <input type="text" class="form-control" id="tel_stevilka" placeholder="" name="pwd" v-model="uporabnik.telefon">
+           <input type="text" class="form-control"  placeholder="" name="pwd" v-model="uporabnik.telefon">
          </div>
 
          <div class="form-group">
            <label for="pwd">NOVO GESLO</label>
-           <input type="password" class="form-control" id="pwd" placeholder="Vpiši novo geslo" name="pwd" v-model="uporabnik.geslo1">
+           <input type="password" class="form-control"  placeholder="Vpiši novo geslo" name="pwd" v-model="uporabnik.geslo1">
          </div>
          <div class="form-group">
            <label for="pwd1">POTRDI NOVO GESLO</label>
-           <input type="password" class="form-control" id="pwd1" placeholder="Potrdi novo geslo" name="pwd" v-model="uporabnik.geslo2">
+           <input type="password" class="form-control"  placeholder="Potrdi novo geslo" name="pwd" v-model="uporabnik.geslo2">
          </div>
 
          <button  class="btn btn-success" style="display:inline-block" v-on:click="posodobiPodatkeStranke()" >Shrani spremembe</button>
@@ -517,39 +517,39 @@ Vue.component('stranka-forma-podatki-prodajalec', {
 
          <div class="form-group">
            <label for="ime">IME</label>
-           <input type="text" class="form-control" id="ime" placeholder="" name="pwd" value="" v-model="uporabnik.ime">
+           <input type="text" class="form-control" placeholder="" name="pwd" value="" v-model="uporabnik.ime">
          </div>
          <div class="form-group">
            <label for="priimek">PRIIMEK</label>
-           <input type="text" class="form-control" id="priimek" placeholder="" name="pwd" v-model="uporabnik.priimek">
+           <input type="text" class="form-control"  placeholder="" name="pwd" v-model="uporabnik.priimek">
          </div>
          <div class="form-group">
            <label for="email">NASLOV</label>
-           <input type="text" class="form-control" id="naslov" placeholder="" name="pwd" v-model="uporabnik.naslov">
+           <input type="text" class="form-control"  placeholder="" name="pwd" v-model="uporabnik.naslov">
          </div>
          <div class="form-group" >
            <label for="sel1">POŠTA:</label>
-           <select class="form-control" id="sel1" v-model="uporabnik.posta" >
+           <select class="form-control"  v-model="uporabnik.posta" >
              <option v-for="posta in tabelaPosta" :value="posta.postna_st">{{posta.postna_st+' '+posta.naziv}}</option>
            </select>
           </div>
          <div class="form-group">
            <label for="email">ELEKTRONSKI NASLOV</label>
-           <input type="email" class="form-control" id="email" placeholder="" name="pwd" v-model="uporabnik.email" >
+           <input type="email" class="form-control"  placeholder="" name="pwd" v-model="uporabnik.email" >
          </div>
 
          <div class="form-group">
            <label for="email">TELEFONSKA ŠTEVILKA</label>
-           <input type="text" class="form-control" id="tel_stevilka" placeholder="" name="pwd" v-model="uporabnik.telefon">
+           <input type="text" class="form-control"  placeholder="" name="pwd" v-model="uporabnik.telefon">
          </div>
 
          <div class="form-group">
            <label for="pwd">NOVO GESLO</label>
-           <input type="password" class="form-control" id="pwd" placeholder="Vpiši novo geslo" name="pwd" v-model="uporabnik.geslo1">
+           <input type="password" class="form-control"  placeholder="Vpiši novo geslo" name="pwd" v-model="uporabnik.geslo1">
          </div>
          <div class="form-group">
            <label for="pwd1">POTRDI NOVO GESLO</label>
-           <input type="password" class="form-control" id="pwd1" placeholder="Potrdi novo geslo" name="pwd" v-model="uporabnik.geslo2">
+           <input type="password" class="form-control"  placeholder="Potrdi novo geslo" name="pwd" v-model="uporabnik.geslo2">
          </div>
 
          <button  class="btn btn-success" style="display:inline-block" v-on:click="posodobiPodatkeStranke()" >Shrani spremembe</button>
@@ -585,6 +585,7 @@ Vue.component('stranka-forma-podatki-prodajalec', {
       });
     },
     posodobiPodatkeStranke: function(){
+      //this.pridobiTrenutnePodatkeStranke();
       var request = new XMLHttpRequest();
       this.pritisnjenGumb=true;
       var ref=this;
@@ -599,9 +600,11 @@ Vue.component('stranka-forma-podatki-prodajalec', {
         var response = JSON.parse(request.responseText);
         if(request.status>=200 && request.status<300){
           ref.posodobljeniPodatki=true;
+          window.location.href = ref.root_url+"prodaja/stranke";
         }else{
           ref.posodobljeniPodatki=false;
         }
+
       });
       request.addEventListener("error", function() {
           console.log("NAPAKA!");

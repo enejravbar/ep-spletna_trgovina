@@ -48,7 +48,7 @@
                       <!-- Modal content-->
                       <div class="modal-content">
                         <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <button type="button" class="close" data-dismiss="modal" >&times;</button>
                           <h4 class="modal-title">Dodaj stranko</h4>
                         </div>
                         <div class="modal-body">
@@ -107,10 +107,10 @@
 
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-success" data-dismiss="modal" style="float:left;" v-on:click="registrirajNovoStranko()">Potrdi</button>
+                          <button type="button" class="btn btn-success" style="float:left;" v-on:click="registrirajNovoStranko()">Potrdi</button>
                           <button type="button" class="btn btn-danger" data-dismiss="modal" style=" float:right;">Prekliči</button>
-                          <span class="label label-success"  style="display:inline-block; float:left; padding:6px; margin-left:10px; margin-top:5px;" v-if="ustvarjenaNovaStranka">Stranka je bila uspešno registrirana!</span>
-                          <span class="label label-danger"  style="display:inline-block; float:left; padding:6px; margin-left:10px; margin-top:5px;" v-if="!ustvarjenaNovaStranka && pritisnjenGumb">NAPAKA! Prosim preverite podatke!</span>
+                          <span class="label label-success"  style="display:inline-block; float:left; padding:6px; margin-left:10px; margin-top:5px;" v-if="ustvarjenaNovaStranka && pritisnjenGumb && prikaziSporocilo">Stranka je bila uspešno registrirana!</span>
+                          <span class="label label-danger"  style="display:inline-block; float:left; padding:6px; margin-left:10px; margin-top:5px;" v-if="!ustvarjenaNovaStranka && pritisnjenGumb && prikaziSporocilo">{{sporocilo}}</span>
 
                         </div>
                       </div>
@@ -120,7 +120,7 @@
 
                   <div style="display:block; margin-top:20px;">
 
-                    <button class="btn btn-success" data-toggle="modal" data-target="#dodajStranko" style="float:right; padding-top:8px; padding-bottom:8px;">Dodaj stranko</button>
+                    <button class="btn btn-success" data-toggle="modal" data-target="#dodajStranko" style="float:right; padding-top:8px; padding-bottom:8px;" v-on:click="gumbDodaj()">Dodaj stranko</button>
                   </div>
 
                   <table id="cart" class="table table-hover table-condensed" style="margin-top:40px;">

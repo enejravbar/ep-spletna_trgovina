@@ -8,6 +8,7 @@ require_once "app/service/PrijavaService.php";
 require_once "app/models/VlogaUporabnik.php";
 require_once "app/models/Posta.php";
 require_once "app/service/LogService.php";
+require_once "app/service/exception/UserExistsException.php";
 
 class UporabnikVir {
 
@@ -152,7 +153,7 @@ class UporabnikVir {
                 try {
                     $uporabnik = UporabnikService::dodajStranko($data);
                     LogService::info("prodajalec", "UPORABNIK", "Prodajalec " .
-                        PrijavaService::vrniIdTrenutnegaUporabnika() . " je dodal stranko $uporabnik");
+                        PrijavaService::vrniIdTrenutnegaUporabnika() . " je dodal stranko " . $uporabnik["id"]);
                     echo ViewUtil::renderJSON($uporabnik, 201);
                 } catch(UserExistsException $e) {
                     echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 409);
@@ -233,7 +234,7 @@ class UporabnikVir {
                     echo ViewUtil::renderJSON(["napaka" => $e2->getMessage()], 400);
                 }
             } else {
-                echo ViewUtil::renderJSON(["napaka" => "Nekateri atributi manjkajo!"], 200);
+                echo ViewUtil::renderJSON(["napaka" => "Nekateri atributi manjkajo!"], 400);
             }
         } else {
             echo ViewUtil::renderJSON(["napaka" => "Uporabnik nima zadostnih pravic!"], 401);

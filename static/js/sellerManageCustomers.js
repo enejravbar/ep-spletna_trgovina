@@ -28,13 +28,21 @@ $(document).ready(function(){
       },
       tabelaPosta:[],
       ustvarjenaNovaStranka:false,
-      pritisnjenGumb:false
+      pritisnjenGumb:false,
+      prikaziSporocilo:false,
+      sporocilo:""
 
     },
     mounted: function(){
       this.getData();
       this.getDataPoste();
     },
+    events: {
+       urejanjeStranke: function () {
+         console.log("Stranka posodobljena!")
+         this.getData();
+       },
+     },
     methods:{
       getData: function(){
         var request = new XMLHttpRequest();
@@ -49,7 +57,6 @@ $(document).ready(function(){
           ref.posodobiTabeloStrank(tabelaStrank);
         });
         request.addEventListener("error", function() {
-            console.log("NAPAKA!");
         });
       },
       getDataPoste: function(){
@@ -112,9 +119,27 @@ $(document).ready(function(){
           this.tabelaStrank.push(stranka);
         }
       },
+      gumbDodaj: function(){
+        console.log("Zaznan klik na gumb dodaj")
+        var uporabnik={
+          ime:"",
+          priimek:"",
+          naslov:"",
+          email:"",
+          posta:"",
+          telefon:"",
+          geslo1:"",
+          geslo2:"",
+        };
+        this.novUporabnik=uporabnik;
+        this.prikaziSporocilo=false;
+      },
       registrirajNovoStranko:function(){
+
         var request = new XMLHttpRequest();
         this.pritisnjenGumb=true;
+        this.prikaziSporocilo=false;
+
         var ref=this;
         var uporabnik=this.novUporabnik;
         var data=JSON_to_URLEncoded(uporabnik);
@@ -125,12 +150,24 @@ $(document).ready(function(){
 
         request.addEventListener("load", function() {
           var response = JSON.parse(request.responseText);
+          ref.prikaziSporocilo=true;
+
           if(request.status==201){
             ref.ustvarjenaNovaStranka=true;
+            console.log("stranka uspešno kreirana!");
 
-          }else{
-
+          }else if(request.status==409){
+            ref.sporocilo="Email že obstaja!";
             ref.ustvarjenaNovaStranka=false;
+          }else if(request.status==404){
+            ref.sporocilo="Slabi parametri zahteve!";
+            ref.ustvarjenaNovaStranka=false;
+          }else if(request.status==500){
+            ref.sporocilo="Napaka na strani strežnika!";
+            ref.ustvarjenaNovaStranka=false;
+          }else{          
+              ref.sporocilo="Preveri podatke!";
+              ref.ustvarjenaNovaStranka=false;
           }
           ref.getData();
         });
