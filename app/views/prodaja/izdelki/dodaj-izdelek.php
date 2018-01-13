@@ -65,6 +65,7 @@
                           <div class="form-group">
                             <label for="sel1">Status</label>
                             <select class="form-control" id="sel1" v-model="artikel.status">
+                              <option v-for="status in tabelaStatusov" :value="status.id">{{status.ime}}</option>
 
                             </select>
                           </div>

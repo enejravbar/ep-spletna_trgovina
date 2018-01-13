@@ -1,4 +1,4 @@
-var slikeFormData=null;
+var slikeFiles=null;
 
 $(document).ready(function(){
 
@@ -12,9 +12,10 @@ $(document).ready(function(){
             cena:"",
             status:"",
             kategorija:"",
-            slika:[],
+            files:[],
       },
       tabelaKategorij:[],
+      tabelaStatusov:[],
     },
     mounted: function(){
       this.getDataKategorije();
@@ -47,7 +48,7 @@ $(document).ready(function(){
 
         request.addEventListener("load", function() {
           var response = JSON.parse(request.responseText);
-
+          ref.posodobiStatuse(response);
         });
         request.addEventListener("error", function() {
             console.log("NAPAKA!");
@@ -59,30 +60,28 @@ $(document).ready(function(){
             var kategorija=  {
               id: tabelaKategorij[i].id,
               ime: tabelaKategorij[i].ime,
-              url: this.root_url+"izdelki?kategorija="+tabelaKategorij[i].id,
             };
             this.tabelaKategorij.push(kategorija);
           }
       },
-      posodobiStatuse: function(tabelaKategorij){
-        /*this.tabelaKategorij=[];
-        for(var i=0; i< tabelaKategorij.length; i++){
-            var kategorija=  {
-              id: tabelaKategorij[i].id,
-              ime: tabelaKategorij[i].ime,
-              url: this.root_url+"izdelki?kategorija="+tabelaKategorij[i].id,
+      posodobiStatuse: function(tabelaStatusov){
+        this.tabelaStatusov=[];
+        for(var i=0; i< tabelaStatusov.length; i++){
+            var status=  {
+              id: tabelaStatusov[i].id,
+              ime: tabelaStatusov[i].naziv,
             };
-            this.tabelaKategorij.push(kategorija);
-          }*/
+            this.tabelaStatusov.push(status);
+          }
       },
-
       dodajIzdelek: function(){
         var request = new XMLHttpRequest();
         //this.pritisnjenGumb=true;
         var ref=this;
-        var uporabnik=this.uporabnik;
-        var data=JSON_to_URLEncoded(uporabnik);
+        this.artikel.files=slikeFiles;
 
+        var data=JSON_to_URLEncoded(this.artikel);
+        console.log(data);
         request.open('POST', this.root_url+'api/izdelki', true);
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         request.send(data);
@@ -131,27 +130,9 @@ function handleImageUploads(){
 
           for ( var file in files ) {
               form_data.append(file, files[file]);
-              console.log("Slike"+file)
           }
-          slikeFormData = form_data
-          console.log(slikeFormData);
-
-    /*      $.ajax({
-          	url: "/upload",
-          	type: "POST",
-          	data:  form_data,
-          	contentType: "multipart/form-data",
-          	cache: false,
-          	processData:false,
-          	success: function(data){
-          	   window.location.replace("sellerManageProduct.html");
-          	},
-          	error: function(){
-              console.log("Slike niso bile uspešno naložene")
-              //window.location.replace("sellerManageProduct.html")
-            }
-          });*/
-
+          //console.log( JSON.stringify(files) )
+          slikeFiles=files;
         });
 
     }).on('cancel.bs.filedialog', function(ev) {
