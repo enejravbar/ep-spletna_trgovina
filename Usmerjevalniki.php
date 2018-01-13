@@ -381,6 +381,47 @@ class Usmerjevalniki {
                     KosaricaVir::odstraniIzdelekIzKosarice($id_izdelka);
                 }
             },
+            // narocila
+            "/^api\/narocila$/" => function($method) {
+                if ($method == "GET") {
+                    Narocila::getAll();
+                }
+            },
+            "/^api\/narocila\/(\d+)\/podrobnosti$/" => function($method, $id_narocila) {
+                if ($method == "GET") {
+                    NarociloIzdelekVir::dobiIzdelkeNarocila($id_narocila);
+                }
+            },
+            "/^api\/narocila\/neobdelana$/" => function($method) {
+                if ($method == "GET") {
+                    NarociloVir::dobiNeobdelanaNarocila();
+                }
+            },
+            "/^api\/narocila\/potrjena$/" => function($method) {
+                if ($method == "GET") {
+                    NarociloVir::dobiPotrjenaNarocila();
+                }
+            },
+            "/^api\/narocila\/(\d+)\/potrdi$/" => function($method, $id_narocila) {
+                if ($method == "PUT") {
+                    NarociloVir::potrdiNarocilo($id_narocila);
+                }
+            },
+            "/^api\/narocila\/(\d+)\/preklici$/" => function($method, $id_narocila) {
+                if ($method == "PUT") {
+                    NarociloVir::prekliciNarocilo($id_narocila);
+                }
+            },
+            "/^api\/narocila\/(\d+)\/storniraj$/" => function($method, $id_narocila) {
+                if ($method == "PUT") {
+                    NarociloVir::stornirajNarocilo($id_narocila);
+                }
+            },
+            "/^api\/narocila\/oddaj$/" => function($method) {
+                if ($method == "POST") {
+                    OddajNarocilo::oddajNarocilo();
+                }
+            },
             // ********** ANDROID ************
             // android login
             "/^api\/android\/prijava$/" => function($method){
