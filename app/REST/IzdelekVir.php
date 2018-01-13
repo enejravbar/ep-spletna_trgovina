@@ -128,9 +128,9 @@ class IzdelekVir {
                         PrijavaService::vrniIdTrenutnegaUporabnika() . " je shranil izdelek " . $novi_izdelek["id"]);
                     echo ViewUtil::renderJSON($novi_izdelek, 201);
                 } catch(InvalidArgumentException $e){
-                    echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 400);
+                    echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 415);
                 } catch(Exception $ex){
-                    echo ViewUtil::renderJSON(["napaka" => $ex->getMessage()], 400);
+                    echo ViewUtil::renderJSON(["napaka" => $ex->getMessage()], 500);
                 }
             } else {
                 echo ViewUtil::renderJSON(["napaka" => "Nekatere vrednosti manjkajo!"], 400);

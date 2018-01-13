@@ -29,7 +29,7 @@ class ProdajaController {
 
     public static function prikaziUrejanjeIzdelkov($id){
         if(PrijavaService::uporabnikJeProdajalec()){
-            echo ViewUtil::render("app/views/prodaja/izdelki/uredi-izdelek.php");
+            echo ViewUtil::render("app/views/prodaja/izdelki/uredi-izdelek.php", ["id" => $id]);
         } else {
             ViewUtil::redirect(BASE_URL);
         }
