@@ -105,6 +105,7 @@ class IzdelekVir {
         //if(PrijavaService::uporabnikJeProdajalec()) {
             $data = filter_input_array(INPUT_POST, Izdelki::pridobiPravila());
             $SLIKE = array();
+            var_dump($_FILES);
 
             if(isset($_FILES["files"])) {
                 $FILES = $_FILES["files"];
@@ -117,6 +118,8 @@ class IzdelekVir {
                         "error" => $FILES["error"][$key]
                     ]);
                 }
+            } else {
+              echo "ne jamram iscem resitve";
             }
             if(ViewUtil::checkValues($data)){
                 try {

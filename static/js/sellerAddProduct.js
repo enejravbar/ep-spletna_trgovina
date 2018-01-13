@@ -6,13 +6,13 @@ $(document).ready(function(){
     el: '#app',
     data: {
       root_url: document.getElementById("rootUrl").value,
-      artikel_id:null
       artikel:{
             ime:"",
             opis:"",
             cena:"",
             status:"",
-            kategorija:""
+            kategorija:"",
+            files:[],
       },
       tabelaKategorij:[],
       tabelaStatusov:[],
