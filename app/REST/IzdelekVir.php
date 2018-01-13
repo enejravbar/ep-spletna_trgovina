@@ -10,6 +10,14 @@ require_once "app/service/KategorijaService.php";
 
 class IzdelekVir {
 
+    public static function getStatuseIzdelkov() {
+        try {
+            echo ViewUtil::renderJSON(Izdelki::getStatuseIzdelkov(), 200);
+        } catch (Exception $e) {
+            echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 500);
+        }
+    }
+
     // GET /izdelki
     public static function getAll(){
         try {
@@ -94,7 +102,7 @@ class IzdelekVir {
 
     // POST /izdelki
     public static function shrani(){
-        if(PrijavaService::uporabnikJeProdajalec()) {
+        //if(PrijavaService::uporabnikJeProdajalec()) {
             $data = filter_input_array(INPUT_POST, Izdelki::pridobiPravila());
             $FILES = $_FILES["slika"];
             $SLIKE = array();
@@ -123,9 +131,9 @@ class IzdelekVir {
             } else {
                 echo ViewUtil::renderJSON(["napaka" => "Nekatere vrednosti manjkajo!"], 400);
             }
-        } else {
-            echo ViewUtil::renderJSON(["napaka" => "Uporabnik nima zadostnih pravic!"], 401);
-        }
+       // } else {
+       //     echo ViewUtil::renderJSON(["napaka" => "Uporabnik nima zadostnih pravic!"], 401);
+       // }
     }
 
     public static function izbrisiSlikoIzdelka($id_slike) {

@@ -328,6 +328,12 @@ class Usmerjevalniki {
                     IzdelekVir::getForIndex();
                 }
             },
+            // status
+            "/^api\/status$/" => function($method) {
+                if($method == "GET") {
+
+                }
+            },
             // kategorije
             "/^api\/kategorije$/" => function($method){
                 KategorijaVir::pridobiVse();

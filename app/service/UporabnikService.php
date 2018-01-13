@@ -16,6 +16,7 @@ require_once "app/models/StatusUporabnik.php";
 require_once "app/models/VlogaUporabnik.php";
 require_once "app/models/Posta.php";
 require_once "app/service/PrijavaService.php";
+require_once "app/service/exception/UserExistsException.php";
 
 class UporabnikService {
 
