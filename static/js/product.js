@@ -7,7 +7,8 @@ $(document).ready(function(){
       kategorijaId:document.getElementById("kategorija").value,
       query:document.getElementById("query").value,
       //kategorijaId:2,
-      tabelaArtiklov:[]
+      tabelaArtiklov:[],
+      st_izdelkov:0
     },
     mounted: function(){
 
@@ -32,7 +33,8 @@ $(document).ready(function(){
 
         request.addEventListener("load", function() {
           var response = JSON.parse(request.responseText);
-          ref.posodobiTabeloArtiklov(response);
+          console.log("Artikli so: "+ response);
+          ref.posodobiTabeloArtiklov(response.izdelki);
 
         });
         request.addEventListener("error", function() {
@@ -46,11 +48,12 @@ $(document).ready(function(){
         for(var i=0; i<tabelaArtiklov.length; i++){
             artikel={
               povezava_artikel:this.root_url+"izdelki/"+tabelaArtiklov[i].id,
-              slika_url:this.root_url+"data/images/izdelek5-2.jpeg",
+              slika_url: this.root_url+"api/slike/"+tabelaArtiklov[i].thumbnail,
               ime_artikla: tabelaArtiklov[i].ime,
               redna_cena:tabelaArtiklov[i].cena,
             }
             this.tabelaArtiklov.push(artikel);
+            this.st_izdelkov=tabelaArtiklov.length;
         }
       }
 

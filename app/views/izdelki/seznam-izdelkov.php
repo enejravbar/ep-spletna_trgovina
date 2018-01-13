@@ -36,7 +36,7 @@
                <div class=" w_content">
                   <div class="women">
                      <a href="#">
-                        <h4>Ime kategorije - <span>X Izdelkov</span> </h4>
+                       <h4></h4>
                      </a>
 
                      <div class="clearfix"> </div>

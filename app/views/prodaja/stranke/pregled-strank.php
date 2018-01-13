@@ -53,36 +53,65 @@
                         </div>
                         <div class="modal-body">
 
-                          <form>
-                             <div class="  register-top-grid">
+                          <div>
+                            <div class="panel panel-default" style="">
+                              <div class="panel-heading">
                                 <h3>OSEBNI PODATKI</h3>
-                                <div class="mation">
-                                   <span>IME<label>*</label></span>
-                                   <input type="text">
-                                   <span>PRIIMEK<label>*</label></span>
-                                   <input type="text">
-                                   <span>ELEKTRONSKI NASLOV<label>*</label></span>
-                                   <input type="text">
+                              </div>
+                              <div class="panel-body">
+                                <div class="">
+
+                                   <div class="form-group">
+                                     <label for="ime">IME</label>
+                                     <input type="text" class="form-control" placeholder=""  value="" v-model="novUporabnik.ime">
+                                   </div>
+                                   <div class="form-group">
+                                     <label for="priimek">PRIIMEK</label>
+                                     <input type="text" class="form-control"  placeholder="" value="" v-model="novUporabnik.priimek">
+                                   </div>
+                                   <div class="form-group">
+                                     <label for="email">NASLOV</label>
+                                     <input type="text" class="form-control"  placeholder=""  value="" v-model="novUporabnik.naslov">
+                                   </div>
+                                   <div class="form-group" >
+                                     <label for="sel1">POŠTA:</label>
+                                     <select class="form-control" id="sel1" v-model="novUporabnik.posta" >
+                                       <option v-for="posta in tabelaPosta" :value="posta.postna_st">{{posta.postna_st+' '+posta.naziv}}</option>
+                                     </select>
+                                    </div>
+                                  <div class="form-group">
+                                     <label for="email">ELEKTRONSKI NASLOV</label>
+                                     <input type="email" class="form-control"  placeholder=""  value="" v-model="novUporabnik.email" >
+                                   </div>
+                                   <div class="form-group">
+                                     <label for="email">TELEFONSKA ŠTEVILKA</label>
+                                     <input type="text" class="form-control" v-model="novUporabnik.telefon">
+                                   </div>
+
+                                   <div class="form-group">
+                                     <label >NOVO GESLO</label>
+                                     <input type="password" class="form-control"  placeholder="Vpiši novo geslo" value="" v-model="novUporabnik.geslo1">
+                                   </div>
+                                   <div class="form-group">
+                                     <label >POTRDI NOVO GESLO</label>
+                                     <input type="password" class="form-control" placeholder="Potrdi novo geslo" value=""  v-model="novUporabnik.geslo2">
+                                   </div>
+
                                 </div>
                                 <div class="clearfix"> </div>
-                             </div>
-                             <div class="  register-bottom-grid">
-                                <h3>PRIJAVNI PODATKI</h3>
-                                <div class="mation">
-                                   <span>GESLO<label>*</label></span>
-                                   <input type="text">
-                                   <span>POTRDI GESLO<label>*</label></span>
-                                   <input type="text">
-                                </div>
-                             </div>
-                          </form>
+                              </div>
+                            </div>
+                          </div>
                           <div class="clearfix"> </div>
 
 
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-success" data-dismiss="modal" style="float:left;">Potrdi</button>
-                          <button type="button" class="btn btn-danger" data-dismiss="modal">Prekliči</button>
+                          <button type="button" class="btn btn-success" data-dismiss="modal" style="float:left;" v-on:click="registrirajNovoStranko()">Potrdi</button>
+                          <button type="button" class="btn btn-danger" data-dismiss="modal" style=" float:right;">Prekliči</button>
+                          <span class="label label-success"  style="display:inline-block; float:left; padding:6px; margin-left:10px; margin-top:5px;" v-if="ustvarjenaNovaStranka">Stranka je bila uspešno registrirana!</span>
+                          <span class="label label-danger"  style="display:inline-block; float:left; padding:6px; margin-left:10px; margin-top:5px;" v-if="!ustvarjenaNovaStranka && pritisnjenGumb">NAPAKA! Prosim preverite podatke!</span>
+
                         </div>
                       </div>
 
@@ -122,7 +151,7 @@
                                     <div style="display:block;">
                                       <button type="button" class="btn btn-danger" style="display: inline-block; float:right;   " v-if=" stranka.statusActive==1" v-on:click="spremeniStatusStranke(stranka)" >Deaktiviraj</button>
                                       <button type="button" class="btn btn-success" style="display: inline-block; width:97px; float:right;   " v-if="stranka.statusActive==2 || stranka.statusActive==3" v-on:click="spremeniStatusStranke(stranka)" >Aktiviraj</button>
-                                      <button type="button" class="btn btn-warning" data-toggle="modal" :data-target="'#urediStranko'+stranka.id" style="display: inline-block; float:right; margin-right:1%;" v-on:click="spremeniStatusStranke(stranka)" >Uredi</button>
+                                      <button type="button" class="btn btn-warning" data-toggle="modal" :data-target="'#urediStranko'+stranka.id" style="display: inline-block; float:right; margin-right:1%;" >Uredi</button>
 
                                       <div :id="'urediStranko'+stranka.id" class="modal fade" role="dialog">
                                         <div class="modal-dialog">

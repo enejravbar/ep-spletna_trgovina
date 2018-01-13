@@ -136,7 +136,9 @@ Vue.component('glava-login', {
       <div class="container">
          <div class="header-bottom-left">
             <div class="logo">
+            <a :href=>
                <img :src="root_url+'static/images/logo.png'" alt=" " />
+            </a>
             </div>
 
             <div class="clearfix"> </div>
