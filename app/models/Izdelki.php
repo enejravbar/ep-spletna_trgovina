@@ -9,7 +9,9 @@ class Izdelki extends Entiteta {
     }
 
     public static function dobiIzdelkeIzKategorije(array $params) {
-        return parent::query("SELECT * FROM izdelki WHERE kategorija = :kategorija", $params);
+        return parent::query("SELECT *, (SELECT s.id FROM slike s WHERE s.izdelek=i.id LIMIT 1) as thumbnail".
+            " FROM izdelki i WHERE status != (select id from status_izdelki where naziv = 'neaktiven')".
+            " AND kategorija = :kategorija ORDER BY id ASC", $params);
     }
 
     public static function get(array $id) {

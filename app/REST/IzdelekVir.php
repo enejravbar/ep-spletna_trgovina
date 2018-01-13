@@ -6,6 +6,7 @@ require_once "app/service/IzdelekService.php";
 require_once "app/service/SlikaService.php";
 require_once "app/service/PrijavaService.php";
 require_once "app/service/LogService.php";
+require_once "app/service/KategorijaService.php";
 
 class IzdelekVir {
 
@@ -15,6 +16,9 @@ class IzdelekVir {
             if(isset($_GET["q"])) {
                 $query = $_GET["q"];
                 $izdelki = IzdelekService::isciPoQueryju($query);
+            } else if (isset($_GET["kategorija"])) {
+                $kategorijaId = $_GET["kategorija"];
+                $izdelki = KategorijaService::vrniVseIzdelkePoKategoriji($kategorijaId);
             } else {
                 $izdelki = IzdelekService::pridobiVseIzdelke();
             }
