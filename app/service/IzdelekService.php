@@ -38,6 +38,7 @@ class IzdelekService {
         if($rowAffected <= 0){
             throw new InvalidArgumentException("Napaka pri posodabljanju izdelka!");
         }
+        return $rowAffected;
     }
 
     public static function izbrisiIzdelek($id){

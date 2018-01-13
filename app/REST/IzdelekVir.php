@@ -158,8 +158,26 @@ class IzdelekVir {
     public static function dodajSlikoIzdelka($id_izdelka) {
         if(PrijavaService::uporabnikJeProdajalec()) {
             try {
-                $SLIKA = $_FILES["slika"];
-                SlikaService::shraniSlikoIzdelka($SLIKA, $id_izdelka);
+
+                $SLIKE = array();
+
+                if(isset($_FILES["files"])) {
+                    $FILES = $_FILES["files"];
+                    foreach ($FILES["name"] as $key => $value) {
+                        array_push($SLIKE, [
+                            "name" => $FILES["name"][$key],
+                            "size" => $FILES["size"][$key],
+                            "type" => $FILES["type"][$key],
+                            "tmp_name" => $FILES["tmp_name"][$key],
+                            "error" => $FILES["error"][$key]
+                        ]);
+                    }
+                }
+
+                for($i = 0; $i < count($SLIKE); $i++){
+                    SlikaService::shraniSlikoIzdelka($SLIKE[$i], $id_izdelka);
+                }
+
                 LogService::info("prodajalec", "IZDELEK", "Prodajalec " .
                     PrijavaService::vrniIdTrenutnegaUporabnika() . " je dodal sliko izdelku $id_izdelka");
                 echo ViewUtil::renderJSON(["status" => "Uspeh!"], 200);
