@@ -331,7 +331,7 @@ class Usmerjevalniki {
             // status
             "/^api\/status$/" => function($method) {
                 if($method == "GET") {
-
+                    IzdelekVir::getStatuseIzdelkov();
                 }
             },
             // kategorije
