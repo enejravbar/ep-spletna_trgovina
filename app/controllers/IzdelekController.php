@@ -15,7 +15,11 @@ class IzdelekController {
     }
 
     public static function prikaziSeznamIzdelkov() {
-        $query = $_GET["q"];
+        if(isset($_GET["q"])) {
+            $query = $_GET["q"];
+        } else {
+            $query = null;
+        }
         echo ViewUtil::render("app/views/izdelki/seznam-izdelkov.php", ["query" => $query]);
     }
 

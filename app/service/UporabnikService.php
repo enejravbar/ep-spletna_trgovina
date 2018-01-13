@@ -44,14 +44,14 @@ class UporabnikService {
     }
 
     public static function aktivirajUporabnika($id) {
-        $rowsAffected = Uporabniki::updateStatus(["id" => $id, "vloga" => StatusUporabnik::getIdAktiven()]);
+        $rowsAffected = Uporabniki::updateStatus(["id" => $id, "status" => StatusUporabnik::getIdAktiven()]);
         if($rowsAffected != 1) {
             throw new InvalidArgumentException("Napaka pri aktivaciji uporabnika!");
         }
     }
 
     public static function deaktivirajUporabnika($id) {
-        $rowsAffected = Uporabniki::updateStatus(["id" => $id, "vloga" => StatusUporabnik::getIdNeaktiven()]);
+        $rowsAffected = Uporabniki::updateStatus(["id" => $id, "status" => StatusUporabnik::getIdNeaktiven()]);
         if($rowsAffected != 1) {
             throw new InvalidArgumentException("Napaka pri deaktivaciji uporabnika!");
         }

@@ -27,6 +27,12 @@ class Izdelki extends Entiteta {
             "FROM izdelki i WHERE status != (select id from status_izdelki where naziv = 'neaktiven') ORDER BY id ASC");
     }
 
+    public static function getAllByQuery(array $params) {
+        return parent::query("SELECT *, (SELECT s.id FROM slike s WHERE s.izdelek=i.id LIMIT 1) as thumbnail ".
+            "FROM izdelki i WHERE status != (select id from status_izdelki where naziv = 'neaktiven')".
+            " AND i.ime like :query ORDER BY id ASC", $params);
+    }
+
     public static function getAllByPage(array $params) {
         $stmt = parent::getConnection()->prepare("SELECT *, ".
             "(SELECT s.id FROM slike s WHERE s.izdelek=i.id LIMIT 1) as thumbnail, ".

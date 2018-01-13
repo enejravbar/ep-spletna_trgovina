@@ -17,6 +17,11 @@ class IzdelekService {
         return Izdelki::getAll();
     }
 
+    public static function isciPoQueryju($query) {
+        $query = "%" . $query . "%";
+        return Izdelki::getAllByQuery(["query" => $query]);
+    }
+
     public static function pridobiEnIzdelek($id){
         return Izdelki::get(["id" => $id]);
     }

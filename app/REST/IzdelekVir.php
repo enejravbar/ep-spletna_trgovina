@@ -12,7 +12,12 @@ class IzdelekVir {
     // GET /izdelki
     public static function getAll(){
         try {
-            $izdelki = IzdelekService::pridobiVseIzdelke();
+            if(isset($_GET["q"])) {
+                $query = $_GET["q"];
+                $izdelki = IzdelekService::isciPoQueryju($query);
+            } else {
+                $izdelki = IzdelekService::pridobiVseIzdelke();
+            }
             echo ViewUtil::renderJSON(["izdelki" => $izdelki], 200);
         } catch (Exception $e) {
             echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 500);
