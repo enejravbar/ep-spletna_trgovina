@@ -17,6 +17,7 @@ require_once "app/models/VlogaUporabnik.php";
 require_once "app/models/Posta.php";
 require_once "app/service/PrijavaService.php";
 require_once "app/service/exception/UserExistsException.php";
+require_once "app/service/exception/NiIstoGesloException.php";
 
 class UporabnikService {
 
@@ -83,6 +84,10 @@ class UporabnikService {
         $preveri_uporabnika = Uporabniki::dobiUporabnikaGledeNaEmail(["email" => $podatki["email"]]);
         if($preveri_uporabnika != null) {
             throw new UserExistsException("Uporabnik s tem emailom že obstaja!");
+        }
+
+        if($podatki["geslo1"] != $podatki["geslo2"]) {
+            throw new NiIstoGesloException("Gesli se ne ujemata!");
         }
 
         $uporabnik = Uporabniki::insert([
@@ -215,14 +220,18 @@ class UporabnikService {
     }
 
     public static function dodajProdajalca($podatki) {
-        $origin_password = $podatki["geslo"];
+        $origin_password = $podatki["geslo1"];
 
-        $uporabnik = Uporabniki::insert([
+        if($podatki["geslo1"] != $podatki["geslo2"]) {
+            throw new NiIstoGesloException("Gesli se ne ujemata!");
+        }
+
+        $uporabnik = Uporabniki::insertOsebje([
             "vloga" => VlogaUporabnik::getIdProdaja(),
             "ime" => $podatki["ime"],
             "priimek" => $podatki["priimek"],
             "email" => $podatki["email"],
-            "geslo" => password_hash($podatki["geslo"], PASSWORD_DEFAULT),
+            "geslo" => password_hash($podatki["geslo1"], PASSWORD_DEFAULT),
             "status" => StatusUporabnik::getIdAktiven()
         ]);
         LogService::info("admin", "Registracija", "Prodajalec " . $podatki["email"] .

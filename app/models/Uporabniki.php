@@ -77,6 +77,14 @@ class Uporabniki extends Entiteta {
         );
     }
 
+    public static function insertOsebje(array $params) {
+        return parent::modify(
+            "INSERT INTO uporabniki(vloga, ime, priimek, email, geslo, status) " .
+            "VALUES(:vloga, :ime, :priimek, :email, :geslo, :status)",
+            $params
+        );
+    }
+
     public static function updateStrankaBrezGesla(array $params) {
         return parent::modify_update("UPDATE uporabniki SET ime = :ime, priimek = :priimek," .
         " email = :email, naslov = :naslov, telefon = :telefon, posta = :posta WHERE id = :id", $params);
