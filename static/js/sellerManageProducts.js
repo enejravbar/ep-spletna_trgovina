@@ -64,7 +64,7 @@ $(document).ready(function(){
         var ref=this;
         var request = new XMLHttpRequest();
 
-        request.open('GET', this.root_url+"api/izdelki", true);
+        request.open('GET', this.root_url+"api/izdelki/vsi", true);
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
         request.send();
 

@@ -39,7 +39,7 @@ class IzdelekVir {
     public static function getAllAll() {
         if(PrijavaService::uporabnikJeProdajalec()) {
             try {
-                echo ViewUtil::renderJSON([["izdelki" => IzdelekService::pridobiVseIzdelkeZaUpravljanje()]], 200);
+                echo ViewUtil::renderJSON(["izdelki" => IzdelekService::pridobiVseIzdelkeZaUpravljanje()], 200);
             } catch(Exception $e) {
                 echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 500);
             }

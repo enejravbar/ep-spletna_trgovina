@@ -208,7 +208,7 @@ Vue.component('artikel-domaca-stran', {
 
               </span>
            </div>
-           <a class="now-get get-cart" v-on:click="dodajVKosarico()" v-if="prijavljen" >{{napis}}</a>
+           <a class="now-get get-cart" v-on:click="dodajVKosarico()" v-if="prijavljen && uporabnik.vloga == 3" >{{napis}}</a>
            <div class="clearfix"> </div>
         </div>
      </div>
