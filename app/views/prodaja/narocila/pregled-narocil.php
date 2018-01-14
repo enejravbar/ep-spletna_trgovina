@@ -75,7 +75,7 @@
                                 -->
                                   <td>
 
-                                      <a :href="root_url+'prodaja/narocila/'+narocilo.id_narocila"><button type="button" class="btn btn-info" style="float:right;" >Ogled naročila</button></a>
+                                      <a :href="root_url+'prodaja/narocila/'+narocilo.id_narocila" target="_blank"><button type="button" class="btn btn-info" style="float:right;" >Ogled naročila</button></a>
 
                                   </td>
 
