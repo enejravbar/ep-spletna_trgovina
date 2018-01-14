@@ -3,6 +3,7 @@ $(document).ready(function(){
   var app = new Vue({
     el: '#app',
     data: {
+      root_url:document.getElementById("rootUrl").value,
       tabelaNarocil:[
             {
               id_narocila:1,
@@ -23,27 +24,6 @@ $(document).ready(function(){
             }
 
           ]
-    },
-    computed:{
-        skupnaCenaKosarice:function(narocilo){
-          var skupnaCenaKosarice=0;
-          var artikel=null;
-
-          for (var i=0; i< narocilo.tabelaArtiklov.length; i++) {
-            artikel=narocilo.tabelaArtiklov[i];
-            skupnaCenaKosarice+= parseInt(narocilo.kolicina)*parseFloat(artikel.redna_cena);
-          }
-          return skupnaCenaKosarice;
-        }
-    },
-    methods:{
-      odstraniIzdelekIzKosarice: function(izdelek){
-        for(var i = this.tabelaArtiklov.length; i--;) {
-            if(this.tabelaArtiklov[i] === izdelek) {
-                this.tabelaArtiklov.splice(i, 1);
-            }
-        }
-      }
     }
 
   });

@@ -65,7 +65,7 @@
                     							</td>
 
                     							<td data-th="Status naročila" >
-                                    <span class="label label-success text-center">{{narocilo.status_narocila}}</span>
+                                    <span class="label label-warning text-center">{{narocilo.status_narocila}}</span>
                                   </td>
 
                     							<td data-th="Cena naročila" class="text-center">
