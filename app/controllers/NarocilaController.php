@@ -19,9 +19,9 @@ class NarocilaController {
         }
     }
 
-    public static function prikaziEnoNarocilo(){
+    public static function prikaziEnoNarocilo($id){
         if(PrijavaService::uporabnikJeStranka()){
-            echo ViewUtil::render("app/views/stranka/narocila/podrobnost-narocila.php");
+            echo ViewUtil::render("app/views/stranka/narocila/podrobnost-narocila.php", ["id" => $id]);
         } else {
             ViewUtil::redirect(BASE_URL);
         }

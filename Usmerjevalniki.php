@@ -101,6 +101,16 @@ class Usmerjevalniki {
                     IzdelekController::prikaziPodrobnostIzdelka($id);
                 }
             },
+            "/^narocila$/" => function($method) {
+                if($method == "GET") {
+                    NarocilaController::prikaziNarocila();
+                }
+            },
+            "/^narocila\/(\d+)$/" => function($method, $id) {
+                if($method == "GET") {
+                    NarocilaController::prikaziEnoNarocilo($id);
+                }
+            },
             // ************** PRODAJALEC ***************+
             //pregled strank
             "/^prodaja\/stranke$/" => function($method) {
