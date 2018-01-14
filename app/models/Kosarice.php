@@ -19,8 +19,7 @@ class Kosarice extends Entiteta {
             "inner join izdelki i on i.id = k.id_izdelka where k.id_uporabnika = :id", $params);
     }
 
-    public static function get(array $params)
-    {
+    public static function get(array $params) {
         $kosarica = parent::query(
             "SELECT * FROM kosarice WHERE id_uporabnika = :id_uporabnika AND id_izdelka = :id_izdelka",
             $params
@@ -33,8 +32,7 @@ class Kosarice extends Entiteta {
         }
     }
 
-    public static function getAll()
-    {
+    public static function getAll() {
         return parent::query("SELECT * FROM kosarice ORDER BY id_uporabnika ASC, id_izdelka ASC");
     }
 
@@ -46,10 +44,9 @@ class Kosarice extends Entiteta {
         );
     }
 
-    public static function update(array $params)
-    {
+    public static function update(array $params) {
         return parent::modify_update(
-            "UPDATE kosarice SET kolicina WHERE id_uporabnika = :id_uporabnika AND id_izdelka = :id_izdelka",
+            "UPDATE kosarice SET kolicina = :kolicina WHERE id_uporabnika = :id_uporabnika AND id_izdelka = :id_izdelka",
             $params
         );
     }
@@ -60,8 +57,7 @@ class Kosarice extends Entiteta {
             "WHERE id_uporabnika = :id_uporabnika AND id_izdelka = :id_izdelka", $params);
     }
 
-    public static function delete(array $params)
-    {
+    public static function delete(array $params) {
         return parent::modify_update("DELETE FROM kosarice WHERE id_uporabnika = :id_uporabnika AND id_izdelka = :id_izdelka", $params);
     }
 
