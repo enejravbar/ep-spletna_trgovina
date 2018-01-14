@@ -11,6 +11,11 @@ class KosaricaService {
         return $kosarica;
     }
 
+    public static function kosaricaJePrazna($id_stranke) {
+        $items = Kosarice::steviloIzdelkovVKosarici(["id" => $id_stranke]);
+        return $items <= 0;
+    }
+
     public static function dodajIzdelekVKosarico($podatki) {
         $izdelek = Kosarice::get([
             "id_uporabnika" => $podatki["id_uporabnika"],
