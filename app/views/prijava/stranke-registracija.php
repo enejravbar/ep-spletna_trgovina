@@ -14,6 +14,9 @@
      <script src="<?= LIB_URL .  "vue/vue.js"  ?>"></script>
      <script src="<?= LIB_URL .  "bootstrap/js/bootstrap.js"  ?>"></script>
      <script src="<?= JS_URL .  "vue_components.js"  ?>"></script>
+     <script src='https://www.google.com/recaptcha/api.js'></script>
+     <script src="https://unpkg.com/vue-recaptcha@latest/dist/vue-recaptcha.min.js"></script>
+     <script src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" async defer></script>
 
      <script src="<?= JS_URL .  "register.js"  ?>"></script>
 
@@ -63,7 +66,14 @@
                         <input type="password" v-model="novUporabnik.geslo2">
                      </div>
                   </div>
-               </form>
+
+                <vue-recaptcha
+              ref="recaptcha"
+              @verify="onVerify"
+              @expired="onExpired"
+              :sitekey="sitekey">
+            </vue-recaptcha>
+             </form>
                <div class="clearfix"> </div>
                <div class="register-but">
 

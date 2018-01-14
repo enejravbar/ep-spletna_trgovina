@@ -44,7 +44,7 @@
                      <h4>{{artikel.ime_artikla}}</h4>
                      <div class="cart-b">
                         <div class="left-n ">{{artikel.redna_cena}}€</div>
-                        <a class="now-get get-cart-in" v-on:click="dodajVKosarico()" v-if="prijavljen">{{napis}}</a>
+                        <a class="now-get get-cart-in" v-on:click="dodajVKosarico()" v-if="prijavljen  && uporabnik.vloga == 3">{{napis}}</a>
                         <div class="clearfix"></div>
                      </div>
                      <h6>Na zalogi</h6>

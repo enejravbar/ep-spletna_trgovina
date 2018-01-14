@@ -37,11 +37,7 @@
                       <div style="display:block;">
                         <div style="display:inline-block;"><span style="font-size:20px; margin-top:8px;">Pregled naročil</span></div>
                         <div class="dropdown" style="display:inline-block; float:right; margin-left:10px; ">
-                         <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" style=" padding: 9px 9px 9px 9px ">Vsa naročila</button>
-                         <ul class="dropdown-menu">
-                          <li ><a href="#"><span >Oddana</span> </a></li>
-                          <li ><a href="#"><span >Potrjena</span> </a></li>
-                          <li ><a href="#"><span >Stornirana</span> </a></li>
+
                          </ul>
                         </div>
                       </div>
@@ -52,7 +48,6 @@
                 						<tr>
                 							<th >Datum naročila</th>
                 							<th class="text-center">Status naročila</th>
-                		<!--					<th class="text-center">Cena naročila</th> -->
                               <th style="text-align:right;"></th>
                 						</tr>
                 					</thead>
@@ -68,31 +63,9 @@
                                     <span class="label label-warning text-center">{{narocilo.status_narocila}}</span>
                                   </td>
 
-                    	<!--						<td data-th="Cena naročila" class="text-center">
-                                    {{narocilo.cena_narocila}}
-                                  </td>
-                                -->
                                   <td>
-                                      <a :href="root_url+'narocila/'+narocilo.id_narocila"> <button type="button" class="btn btn-info" style="float:right;" data-toggle="modal" :data-target="'#narocilo-modal'+narocilo.id_narocila">Ogled naročila</button> </a>
+                                      <a :href="root_url+'narocila/'+narocilo.id_narocila" target="_blank"> <button type="button" class="btn btn-info" style="float:right;" data-toggle="modal" :data-target="'#narocilo-modal'+narocilo.id_narocila">Ogled naročila</button> </a>
 
-                          <!--            <div :id="'narocilo-modal'+narocilo.id_narocila" class="modal fade" role="dialog">
-                                        <div class="modal-dialog">
-
-                                          <div class="modal-content" >
-                                            <div class="modal-header">
-                                              <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                              <h4 class="modal-title">Podrobnosti naročila</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                              <narocilo :narocilo="narocilo"></narocilo>
-                                            </div>
-                                            <div class="modal-footer">
-                                              <button type="button" class="btn btn-default" data-dismiss="modal">Zapri</button>
-                                            </div>
-                                          </div>
-
-                                        </div>
-                                      </div> -->
                                   </td>
 
                   						</tr>
