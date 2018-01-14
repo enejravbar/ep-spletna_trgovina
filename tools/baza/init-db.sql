@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS `izdelki` (
   PRIMARY KEY (`id`),
   INDEX `fk_izdelki_1_idx` (`kategorija` ASC),
   INDEX `fk_izdelki_2_idx` (`status` ASC),
+  FULLTEXT INDEX `ime_search` (`ime` ASC),
   CONSTRAINT `fk_izdelki_1`
   FOREIGN KEY (`kategorija`)
   REFERENCES `kategorije` (`id`)

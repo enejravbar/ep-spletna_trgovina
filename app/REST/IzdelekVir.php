@@ -144,7 +144,7 @@ class IzdelekVir {
 
     // POST /izdelki
     public static function shrani(){
-        //if(PrijavaService::uporabnikJeProdajalec()) {
+        if(PrijavaService::uporabnikJeProdajalec()) {
             $data = filter_input_array(INPUT_POST, Izdelki::pridobiPravila());
             $SLIKE = array();
 
@@ -159,8 +159,6 @@ class IzdelekVir {
                         "error" => $FILES["error"][$key]
                     ]);
                 }
-            } else {
-              echo "ne jamram iscem resitve";
             }
             if(ViewUtil::checkValues($data)){
                 try {
@@ -176,9 +174,9 @@ class IzdelekVir {
             } else {
                 echo ViewUtil::renderJSON(["napaka" => "Nekatere vrednosti manjkajo!"], 400);
             }
-       // } else {
-       //     echo ViewUtil::renderJSON(["napaka" => "Uporabnik nima zadostnih pravic!"], 401);
-       // }
+        } else {
+            echo ViewUtil::renderJSON(["napaka" => "Uporabnik nima zadostnih pravic!"], 401);
+        }
     }
 
     public static function izbrisiSlikoIzdelka($id_slike) {

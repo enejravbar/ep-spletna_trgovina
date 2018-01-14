@@ -45,7 +45,7 @@ class Izdelki extends Entiteta {
     public static function getAllByQuery(array $params) {
         return parent::query("SELECT *, (SELECT s.id FROM slike s WHERE s.izdelek=i.id LIMIT 1) as thumbnail ".
             "FROM izdelki i WHERE status != (select id from status_izdelki where naziv = 'neaktiven')".
-            " AND i.ime like :query ORDER BY id ASC", $params);
+            " AND MATCH(i.ime) AGAINST (:query IN BOOLEAN MODE) ORDER BY id ASC", $params);
     }
 
     public static function getAllByPage(array $params) {
