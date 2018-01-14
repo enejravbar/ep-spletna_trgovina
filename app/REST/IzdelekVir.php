@@ -147,7 +147,6 @@ class IzdelekVir {
         //if(PrijavaService::uporabnikJeProdajalec()) {
             $data = filter_input_array(INPUT_POST, Izdelki::pridobiPravila());
             $SLIKE = array();
-            var_dump($_FILES);
 
             if(isset($_FILES["files"])) {
                 $FILES = $_FILES["files"];
