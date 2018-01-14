@@ -24,11 +24,47 @@ $(document).ready(function(){
             }
         }
       },
+      aktivirajArtikel: function(artikel){
+        var ref=this;
+        var request = new XMLHttpRequest();
+
+        request.open('PUT', this.root_url+"api/izdelki/"+artikel.id+"/aktiviraj", true);
+        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        request.send();
+
+        request.addEventListener("load", function() {
+          //var response = JSON.parse(request.responseText);
+          ref.getData();
+
+        });
+        request.addEventListener("error", function() {
+            ref.getData();
+            console.log("NAPAKA!");
+        });
+      },
+      deaktivirajArtikel: function(artikel){
+        var ref=this;
+        var request = new XMLHttpRequest();
+
+        request.open('PUT', this.root_url+"api/izdelki/"+artikel.id+"/deaktiviraj", true);
+        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        request.send();
+
+        request.addEventListener("load", function() {
+          //var response = JSON.parse(request.responseText);
+          ref.getData();
+
+        });
+        request.addEventListener("error", function() {
+            ref.getData();
+            console.log("NAPAKA!");
+        });
+      },
       getData: function(){
         var ref=this;
         var request = new XMLHttpRequest();
 
-        request.open('GET', this.root_url+"api/izdelki", true);
+        request.open('GET', this.root_url+"api/izdelki/vsi", true);
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
         request.send();
 
@@ -47,6 +83,7 @@ $(document).ready(function(){
             artikel={
               id:tabelaArtiklov[i].id,
               povezava_artikel:this.root_url+"izdelki/"+tabelaArtiklov[i].id,
+              status:tabelaArtiklov[i].status,
               slika_url: this.root_url+"api/slike/"+tabelaArtiklov[i].thumbnail,
               ime_artikla: tabelaArtiklov[i].ime,
               redna_cena:tabelaArtiklov[i].cena,
