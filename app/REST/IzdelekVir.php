@@ -100,6 +100,36 @@ class IzdelekVir {
         }
     }
 
+    public static function aktivirajIzdelek($id) {
+        if(PrijavaService::uporabnikJeProdajalec()) {
+            try {
+                IzdelekService::aktivirajIzdelek($id);
+                echo ViewUtil::renderJSON(["status" => "uspeh"], 200);
+            } catch (InvalidArgumentException $e1) {
+                echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 404);
+            } catch(Exception $e2) {
+                echo ViewUtil::renderJSON(["napaka" => $e2->getMessage()], 500);
+            }
+        } else {
+            echo ViewUtil::renderJSON(["napaka" => "Nimate zadostnih pravic!"], 401);
+        }
+    }
+
+    public static function deaktivirajIzdelek($id) {
+        if(PrijavaService::uporabnikJeProdajalec()) {
+            try {
+                IzdelekService::deaktivirajIzdelek($id);
+                echo ViewUtil::renderJSON(["status" => "uspeh"], 200);
+            } catch (InvalidArgumentException $e1) {
+                echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 404);
+            } catch(Exception $e2) {
+                echo ViewUtil::renderJSON(["napaka" => $e2->getMessage()], 500);
+            }
+        } else {
+            echo ViewUtil::renderJSON(["napaka" => "Nimate zadostnih pravic!"], 401);
+        }
+    }
+
     // POST /izdelki
     public static function shrani(){
         //if(PrijavaService::uporabnikJeProdajalec()) {

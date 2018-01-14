@@ -105,7 +105,7 @@ class UporabnikVir {
 
             switch ($trenutniUporabnik["vloga"]) {
                 case VlogaUporabnik::getIdProdaja():
-                    self::posodobiProdajalca($id);
+                    self::posodobiSelfProdajalca($id);
                     break;
                 case VlogaUporabnik::getIdStranka():
                     self::posodobiSelfStranko($id);
@@ -117,8 +117,6 @@ class UporabnikVir {
         } else {
             echo ViewUtil::renderJSON(["napaka" => "Uporabnik ni prijavljen!"], 401);
         }
-
-
     }
 
     // stranke
@@ -312,6 +310,44 @@ class UporabnikVir {
                 }
             } else {
                 echo ViewUtil::renderJSON(["napaka" => "Niso podane vse vrednosti!"], 400);
+            }
+        } else {
+            echo ViewUtil::renderJSON(["napaka" => "Uporabnik nima zadostnih pravic!"], 401);
+        }
+    }
+
+    public static function posodobiSelfProdajalca($id) {
+        if(PrijavaService::uporabnikJeProdajalec() && PrijavaService::uporabnikJePrijavljen()) {
+            $_PUT = [];
+            parse_str(file_get_contents("php://input"), $_PUT);
+            $data = filter_var_array($_PUT, Uporabniki::pravilaZaProdajalce());
+
+            if(UporabnikService::preveriDaNiPraznihVrednosti($data)) {
+                $data["id"] = $id;
+                try {
+                    $uporabnik = UporabnikService::posodobiProdajalca($data);
+                    LogService::info("admin", "UPORABNIK", "Admin " .
+                        PrijavaService::vrniIdTrenutnegaUporabnika() . " je posodobil prodajalca " . $uporabnik["id"]);
+                    echo ViewUtil::renderJSON($uporabnik, 200);
+                } catch (InvalidArgumentException $e1) {
+                    echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 404);
+                } catch (Exception $e2) {
+                    echo ViewUtil::renderJSON(["napaka" => $e2->getMessage()], 400);
+                }
+            } else if(UporabnikService::preveriDaNiPraznihVrednostiPreskociGeslo($data)) {
+                $data["id"] = $id;
+                try {
+                    $uporabnik = UporabnikService::posodobiProdajalca($data);
+                    LogService::info("admin", "UPORABNIK", "Admin " .
+                        PrijavaService::vrniIdTrenutnegaUporabnika() . " je posodobil prodajalca " . $uporabnik["id"]);
+                    echo ViewUtil::renderJSON($uporabnik, 200);
+                } catch (InvalidArgumentException $e1) {
+                    echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 404);
+                } catch (Exception $e2) {
+                    echo ViewUtil::renderJSON(["napaka" => $e2->getMessage()], 400);
+                }
+            } else {
+                echo ViewUtil::renderJSON(["napaka" => "Nekateri atributi manjkajo!"], 200);
             }
         } else {
             echo ViewUtil::renderJSON(["napaka" => "Uporabnik nima zadostnih pravic!"], 401);

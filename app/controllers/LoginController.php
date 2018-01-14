@@ -10,6 +10,7 @@ require_once "ViewUtil.php";
 require_once "app/service/UporabnikService.php";
 require_once "app/models/Uporabniki.php";
 require_once "app/service/PrijavaService.php";
+require_once "app/service/CaptchaService.php";
 
 class LoginController {
 
@@ -62,8 +63,12 @@ class LoginController {
 
         if(UporabnikService::preveriDaNiPraznihVrednosti($data)){
             try {
-                $uporabnik = UporabnikService::dodajStranko($data);
-                echo ViewUtil::renderJSON($uporabnik, 201);
+                if (CaptchaService::preveriCaptcho($data["captchaVerification"])) {
+                    $uporabnik = UporabnikService::dodajStranko($data);
+                    echo ViewUtil::renderJSON($uporabnik, 201);
+                } else {
+                    echo ViewUtil::renderJSON(["napaka" => "neveljavna captcha"], 428);
+                }
             } catch(InvalidArgumentException $e1) {
                 echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 400);
             } catch (Exception $e2) {

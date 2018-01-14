@@ -132,7 +132,8 @@ class Uporabniki extends Entiteta {
             "geslo2" => FILTER_SANITIZE_SPECIAL_CHARS,
             "naslov" => FILTER_SANITIZE_SPECIAL_CHARS,
             "telefon" => FILTER_SANITIZE_SPECIAL_CHARS,
-            "posta" => FILTER_VALIDATE_INT
+            "posta" => FILTER_VALIDATE_INT,
+            "captchaVerification" => []
         ];
     }
 
