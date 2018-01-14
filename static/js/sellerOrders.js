@@ -137,7 +137,7 @@ $(document).ready(function(){
       prekliciNeobdelanoNarocilo: function(narocilo){
         var request = new XMLHttpRequest();
         var ref=this;
-        request.open('PUT', this.root_url+'api/narocila/'+narocilo.id.id_narocila+'/preklici', true);
+        request.open('PUT', this.root_url+'api/narocila/'+narocilo.id_narocila+'/preklici', true);
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
         request.send();
 
