@@ -351,6 +351,9 @@ class Usmerjevalniki {
                     IzdelekVir::deaktivirajIzdelek($id);
                 }
             },
+            "/^api\/izdelki\/vsi$/" => function($method) {
+
+            }
             // status
             "/^api\/status$/" => function($method) {
                 if($method == "GET") {
