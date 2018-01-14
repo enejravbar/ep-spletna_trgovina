@@ -128,7 +128,7 @@ $(document).ready(function(){
         request.send(data);
 
         request.addEventListener("load", function() {
-          var response = JSON.parse(request.responseText);
+          //var response = JSON.parse(request.responseText);
           ref.prikaziSporocilo=true;
 
           if(request.status==201){
@@ -151,6 +151,7 @@ $(document).ready(function(){
           ref.getData();
         });
         request.addEventListener("error", function() {
+            ref.getData();
             console.log("NAPAKA!");
         });
       }
