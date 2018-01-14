@@ -29,6 +29,10 @@ class Narocila extends Entiteta {
         }
     }
 
+    public static function getVrednostNarocila(array $params) {
+        return parent::query("select sum(cena * kolicina) as suma from narocilo_izdelki where id_narocila = :id", $params)[0]["suma"];
+    }
+
     public static function get(array $params)
     {
         $narocilo = parent::query("SELECT * FROM narocila WHERE id = :id_narocila", $params);

@@ -10,8 +10,10 @@ class NarociloIzdelekVir {
         $id_narocila = ["id_narocila" => $id_narocila];
         if (Narocila::preveriPravice($id_narocila)) {
             try {
-                $izdelki_narocila = NarociloIzdelki::dobiIzdelkeIzNarocila($id_narocila);
-                echo ViewUtil::renderJSON($izdelki_narocila, 200);
+                $narocilo["izdelki"] = NarociloIzdelki::dobiIzdelkeIzNarocila($id_narocila);
+                $narocilo["podrobnosti"] = Narocila::get(["id_narocila" => $id_narocila]);
+                $narocilo["vrednost"] = Narocila::getVrednostNarocila(["id" => $id_narocila]);
+                echo ViewUtil::renderJSON($narocilo, 200);
             } catch (InvalidArgumentException $e1) {
                 echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 404);
             } catch (Exception $e2) {
