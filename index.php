@@ -20,4 +20,5 @@ $urls = Usmerjevalniki::getRouters();
 // izvedba usmerjevalnikov:
 Usmerjevalniki::handleRouters($urls, $path);
 // ce se usmerjevalnik ne pometcha, potem sprozi exception:
-ViewUtil::displayError(new InvalidArgumentException("No controller matched!"), true);
+ViewUtil::redirect(BASE_URL);
+// ViewUtil::displayError(new InvalidArgumentException("No controller matched!"), true);
