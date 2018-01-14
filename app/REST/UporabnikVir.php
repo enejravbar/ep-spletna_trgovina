@@ -208,7 +208,7 @@ class UporabnikVir {
             $_PUT = [];
             parse_str(file_get_contents("php://input"), $_PUT);
             $data = filter_var_array($_PUT, Uporabniki::pravilaZaStranke());
-
+            var_dump($data);
             if(UporabnikService::preveriDaNiPraznihVrednosti($data)) {
                 $data["id"] = $id;
                 try {

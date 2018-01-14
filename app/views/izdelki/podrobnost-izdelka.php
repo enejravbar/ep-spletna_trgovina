@@ -47,18 +47,9 @@
                         <a class="now-get get-cart-in" v-on:click="dodajVKosarico()" v-if="prijavljen  && uporabnik.vloga == 3">{{napis}}</a>
                         <div class="clearfix"></div>
                      </div>
-                     <h6>Na zalogi</h6>
+                     <h6>{{artikel.status_artikla}}</h6>
                      <p class="m_text">{{artikel.opis_artikla}}</p>
-                     <div class="share">
-                        <h5>Ocenite artikel :</h5>
-                        <div class="rating">
-                           <span>☆</span>
-                           <span>☆</span>
-                           <span>☆</span>
-                           <span>☆</span>
-                           <span>☆</span>
-                        </div>
-                     </div>
+
                   </div>
 
                   <div class="clearfix"> </div>
