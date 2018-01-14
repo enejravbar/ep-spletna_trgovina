@@ -341,6 +341,16 @@ class Usmerjevalniki {
                     IzdelekVir::getForIndex();
                 }
             },
+            "/^api\/izdelki\/(\d+)\/aktiviraj$/" => function($method, $id) {
+                if($method == "PUT") {
+                    IzdelekVir::aktivirajIzdelek($id);
+                }
+            },
+            "/^api\/izdelki\/(\d+)\/deaktiviraj$/" => function($method, $id) {
+                if($method == "PUT") {
+                    IzdelekVir::deaktivirajIzdelek($id);
+                }
+            },
             // status
             "/^api\/status$/" => function($method) {
                 if($method == "GET") {

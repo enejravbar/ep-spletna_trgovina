@@ -18,6 +18,10 @@ class Izdelki extends Entiteta {
             " AND kategorija = :kategorija ORDER BY id ASC", $params);
     }
 
+    public static function posodobiStatus(array $params) {
+        return parent::modify_update("UPDATE izdelki SET status = :status WHERE id = :id", $params);
+    }
+
     public static function get(array $id) {
         $izdelek = parent::query("SELECT *, (select avg(ocena) from ocene where id_izdelka = i.id) as ocena".
             " FROM izdelki i WHERE id = :id", $id);

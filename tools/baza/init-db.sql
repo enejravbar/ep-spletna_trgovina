@@ -214,7 +214,7 @@ INSERT INTO ep.kategorije(ime) VALUES ('Baterije');
 INSERT INTO ep.status_izdelki(naziv) VALUES('Na zalogi');
 INSERT INTO ep.status_izdelki(naziv) VALUES('Zadnji kosi');
 INSERT INTO ep.status_izdelki(naziv) VALUES('Ni na voljo');
-INSERT INTO ep.status_izdelki(naziv) VALUES('neaktiven');
+INSERT INTO ep.status_izdelki(naziv) VALUES('Neaktiven');
 
 -- status_narocila
 INSERT INTO ep.status_narocila(naziv) VALUES('Oddano');

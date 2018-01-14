@@ -68,6 +68,20 @@ class IzdelekService {
         return self::pridobiEnIzdelek($new_id);
     }
 
+    public static function aktivirajIzdelek($id) {
+        $rowAffected = Izdelki::posodobiStatus(["status" => 1, "id" => $id]);
+        if($rowAffected != 0) {
+            throw new InvalidArgumentException("Napaka pri aktiviranju izdelka!");
+        }
+    }
+
+    public static function deaktivirajIzdelek($id) {
+        $rowAffected = Izdelki::posodobiStatus(["status" => 4, "id" => $id]);
+        if($rowAffected != 0) {
+            throw new InvalidArgumentException("Napaka pri deaktiviranju izdelka!");
+        }
+    }
+
     public static function dobiZadnjihNIzdelkov($n) {
         return Izdelki::getNLatest(["n" => $n]);
     }
