@@ -25,6 +25,7 @@ $(document).ready(function(){
       getData: function(ref){
         console.log("PRIDOBIVAM PODATKE!!!!!!!!!!!!!")
         var request = new XMLHttpRequest();
+        var ref=this;
         request.open('GET', this.root_url+'api/izdelki/index', true);
         request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
         request.send();
@@ -72,5 +73,5 @@ $(document).ready(function(){
 
     }
   });
-  
+
 });

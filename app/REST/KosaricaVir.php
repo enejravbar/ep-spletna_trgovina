@@ -12,7 +12,7 @@ class KosaricaVir {
             try {
                 $uporabnik = PrijavaService::vrniTrenutnegaUporabnika();
                 $kosarica = KosaricaService::vrniVsebinoKosarice($uporabnik["id"]);
-                echo ViewUtil::renderJSON($kosarica, 200);
+                echo ViewUtil::renderJSON(["kosarica" => $kosarica], 200);
             } catch (InvalidArgumentException $e1) {
                 echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 404);
             } catch (Exception $e2) {

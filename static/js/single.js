@@ -5,6 +5,7 @@ $(document).ready(function(){
     data: {
       root_url: document.getElementById("rootUrl").value,
       artikel_id: document.getElementById("idArtikla").value,
+      napis:"V KOŠARICO",
       artikel:{
 
       }
@@ -46,8 +47,36 @@ $(document).ready(function(){
         }
         this.artikel=artikel;
         console.log("ARTIKEL----------"+artikel);
-      }
+      },
+      dodajVKosarico: function(){
+        var ref=this;
+        var request = new XMLHttpRequest();
+        var data = {
+          id_izdelka: this.artikel.id,
+          kolicina:1,
+        };
 
+        data=JSON_to_URLEncoded(data);
+
+        request.open('POST', this.root_url+'api/kosarica', true);
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        request.send(data);
+
+        request.addEventListener("load", function() {
+          //var response = JSON.parse(request.responseText);
+          ref.prikazObvestila();
+        });
+        request.addEventListener("error", function() {
+            console.log("NAPAKA!");
+        });
+
+      },
+      prikazObvestila: function(){
+        var ref=this;
+        ref.napis="V KOŠARICI"
+        setTimeout(function(){ ref.napis="V KOŠARICO" }, 1300);
+
+      }
     }
   });
 

@@ -44,7 +44,7 @@ Vue.component('glava', {
             <div style="display:block;">
 
               <div class="cart" style="display:inline-block;float:right; margin-left:10px;" v-if="(prijavljen  && uporabnik.vloga==3)">
-                <a href="cart.html">
+                <a :href="root_url+'kosarica'">
                   <button class="btn btn-default" type="button" ><span> </span>KOŠARICA
                   </button>
                 </a>
@@ -168,6 +168,11 @@ Vue.component('noga', {
 
 Vue.component('artikel-domaca-stran', {
   props:['root_url','artikel','slika_url','ime_artikla','redna_cena','znizana_cena','st_slike'],
+  data: function(){
+    return{
+          napis:"V KOŠARICO",
+    }
+  },
   template:`
   <div v-if="st_slike<=1" class="col-md-4 chain-grid ">
      <a :href="root_url+'izdelki/'+artikel.id"><img class="img-responsive chain" :src="artikel.slika_url" alt=" " /></a>
@@ -181,7 +186,7 @@ Vue.component('artikel-domaca-stran', {
 
               </span>
            </div>
-           <a class="now-get get-cart" href="#">V KOŠARICO</a>
+           <a class="now-get get-cart"  v-on:click="dodajVKosarico()">{{napis}}</a>
            <div class="clearfix"> </div>
         </div>
      </div>
@@ -199,12 +204,45 @@ Vue.component('artikel-domaca-stran', {
 
               </span>
            </div>
-           <a class="now-get get-cart" href="#">V KOŠARICO</a>
+           <a class="now-get get-cart" v-on:click="dodajVKosarico()">{{napis}}</a>
            <div class="clearfix"> </div>
         </div>
      </div>
   </div>
-  `
+  `,
+  methods: {
+    dodajVKosarico: function(){
+      var ref=this;
+      var request = new XMLHttpRequest();
+      var data = {
+        id_izdelka: this.artikel.id,
+        kolicina:1,
+      };
+
+      data=JSON_to_URLEncoded(data);
+
+      request.open('POST', this.root_url+'api/kosarica', true);
+      request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+      request.send(data);
+
+      request.addEventListener("load", function() {
+        var response = JSON.parse(request.responseText);
+
+        ref.prikazObvestila();
+      });
+      request.addEventListener("error", function() {
+          console.log("NAPAKA!");
+      });
+
+    },
+    prikazObvestila: function(){
+      var ref=this;
+      ref.napis="V KOŠARICI"
+      setTimeout(function(){ ref.napis="V KOŠARICO" }, 1300);
+
+    }
+  }
+
 });
 
 Vue.component('kategorija', {
@@ -287,6 +325,11 @@ Vue.component('navigacijski-menu-wrapper', {
 
 Vue.component('artikel-product-stran', {
   props:['artikel'],
+  data: function(){
+    return{
+          napis:"V KOŠARICO",
+    }
+  },
   template:`
   <div class="product-grid">
    <div class="content_box">
@@ -304,11 +347,43 @@ Vue.component('artikel-product-stran', {
 
             </span>
          </div>
-         <a class="now-get get-cart" href="#">V KOŠARICO</a>
+         <a class="now-get get-cart" v-on:click="dodajVKosarico()">{{napis}}</a>
          <div class="clearfix"> </div>
       </div>
    </div>
-</div>`
+</div>`,
+methods:{
+  dodajVKosarico: function(){
+    var ref=this;
+    var request = new XMLHttpRequest();
+    var data = {
+      id_izdelka: this.artikel.id,
+      kolicina:1,
+    };
+
+    data=JSON_to_URLEncoded(data);
+
+    request.open('POST', this.root_url+'api/kosarica', true);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    request.send(data);
+
+    request.addEventListener("load", function() {
+      //var response = JSON.parse(request.responseText);
+      ref.prikazObvestila();
+    });
+    request.addEventListener("error", function() {
+        console.log("NAPAKA!");
+    });
+
+  },
+  prikazObvestila: function(){
+    var ref=this;
+    ref.napis="V KOŠARICI"
+    setTimeout(function(){ ref.napis="V KOŠARICO" }, 1300);
+
+  }
+}
+
 });
 
 
