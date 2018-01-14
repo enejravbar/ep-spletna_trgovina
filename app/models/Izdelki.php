@@ -112,10 +112,9 @@ class Izdelki extends Entiteta {
     }
 
     public static function getNBestrated(array $params) {
-        $stmt = parent::getConnection()->prepare("select i.*, (select avg(o.ocena) from ocene o ".
-            "where o.id_izdelka = i.id) as avg_ocena, (select s.id from slike s where izdelek = i.id limit 1) as thumbnail ".
+        $stmt = parent::getConnection()->prepare("select i.*, (select s.id from slike s where izdelek = i.id limit 1) as thumbnail ".
             "from izdelki i where status != (select id from status_izdelki where naziv = 'ni na voljo') ".
-            "order by avg_ocena desc limit :n");
+            "order by rand() limit :n");
         $stmt->bindParam(":n", $params["n"], PDO::PARAM_INT);
         $stmt->execute();
 
