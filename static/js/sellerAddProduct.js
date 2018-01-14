@@ -98,6 +98,7 @@ $(document).ready(function(){
           contentType: false,
           type: "POST",
           success: function(response, textStatus, xhr){
+            console.log("Status je "+xhr.status)
             if(xhr.status==201){
               ref.ustvarjenNovIzdelek=true;
               ref.prikaziSporocilo=true;
@@ -107,7 +108,14 @@ $(document).ready(function(){
             }
           },
           error: function(textStatus, xhr){
-            console.log("NAPAKA ",response);
+            console.log("Status je "+xhr.status)
+            if(xhr.status==201){
+              ref.ustvarjenNovIzdelek=true;
+              ref.prikaziSporocilo=true;
+            }else{
+              ref.ustvarjenNovIzdelek=false;
+              ref.prikaziSporocilo=true;
+            }
           }
         });
       }
