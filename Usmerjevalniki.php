@@ -259,9 +259,11 @@ class Usmerjevalniki {
                 }
             },
             //potrditev stranke
-            "/^api\/potrdi\/(.+)$/" => function($method, $kljuc){
-                UporabnikService::potrdiUporabnika($kljuc);
-                ViewUtil::redirect(BASE_URL);
+            "/^api\/potrdi\/(.+)$/" => function($method, $kljuc) {
+                if ($method == "GET") {
+                    UporabnikService::potrdiUporabnika($kljuc);
+                    ViewUtil::redirect(BASE_URL);
+                }
             },
             // prodajalci
             "/^api\/prodajalci$/" => function($method) {
@@ -323,7 +325,7 @@ class Usmerjevalniki {
                         break;
                 }
             },
-            "/^api\/izdelki\/(\d+)\/slike\/(\d+)$/" => function($method, $id_izdelka, $id_slike) {
+            "/^api\/izdelki\/(\d+)\/slike\/(\d+)$/" => function($method, $id_slike) {
                 switch ($method) {
                     case "DELETE":
                         //izbrisi sliko
@@ -363,19 +365,23 @@ class Usmerjevalniki {
                 }
             },
             // kategorije
-            "/^api\/kategorije$/" => function($method){
-                KategorijaVir::pridobiVse();
+            "/^api\/kategorije$/" => function($method) {
+                if ($method == "GET") {
+                    KategorijaVir::pridobiVse();
+                }
             },
-            "/^api\/kategorije\/(\d+)\/izdelki$/" => function($method, $id){
-                KategorijaVir::pridobiVseIzdelkeIzKategorije($id);
+            "/^api\/kategorije\/(\d+)\/izdelki$/" => function($method, $id) {
+                if ($method == "GET") {
+                    KategorijaVir::pridobiVseIzdelkeIzKategorije($id);
+                }
             },
             // slike
-            "/^api\/slike\/izdelek\/(\d+)$/" => function($method, $id){
+            "/^api\/slike\/izdelek\/(\d+)$/" => function($method, $id) {
                 if($method == "POST"){
                     SlikaVir::shraniSliko($id);
                 }
             },
-            "/^api\/slike\/(\d+)$/" => function($method, $id){
+            "/^api\/slike\/(\d+)$/" => function($method, $id) {
                 switch ($method){
                     case "DELETE":
                         SlikaVir::izbrisiSliko($id);
@@ -470,67 +476,6 @@ class Usmerjevalniki {
                     default:
                         UporabnikVir::posredujUporabnikaZSeznamomPost($id);
                         break;
-                }
-
-            },
-            // ------------------------ TEST -------------------------
-            "/^api\/test\/stranke$/" => function($method) {
-                UporabnikVir::pridobiVseStranke();
-            },
-            "/^api\/test\/prodajalci/" => function($method) {
-                UporabnikVir::pridobiVseProdajalce();
-            },
-            "/^api\/test\/izdelki$/" => function($method) {
-                IzdelekVir::testirajDodajanjeIzdelka();
-            },
-            "/^test\/izdelek\/(\d+)$/" => function($method, $id) {
-                echo Slika::pridobiStevilkoSlike(["izdelek_id" => $id]);
-            },
-            //test image
-            "/^slika\/preview$/" => function(){
-                echo ViewUtil::render("app/views/slika-preview.php", [
-                    "slika_url" => "data/images/in-flames-desktop.jpg"
-                ]);
-            },
-            "/^slika\/test$/" => function($method){
-                if($method == "POST"){
-                    //shrani sliko
-                    if(isset($_POST["submit"])){
-                        try {
-                            FileService::naloziSliko($_FILES["img"], "testna_slika123");
-                            echo ViewUtil::renderJSON(["msg" => "Uspeh!"], 200);
-                        } catch(InvalidArgumentException $e){
-                            echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 400);
-                        } catch(Exception $ex) {
-                            echo ViewUtil::renderJSON(["napaka" => $ex->getMessage()], 400);
-                        }
-                    } else {
-                        echo ViewUtil::renderJSON(["napaka" => "tukaj sem"], 400);
-                    }
-                } else {
-                    echo ViewUtil::render("app/views/slika.php");
-                }
-            },
-            "/^test_log$/" => function() {
-                LogService::info("", "test", "To je sporocilo za logirat vse");
-                LogService::error("prodajalec", "test", "To je sporocilo za logirat prodajalce");
-                LogService::warning("admin", "test", "To je sporocilo za logirat admine");
-            },
-            "/^test_register$/" => function() {
-                UporabnikService::dodajUporabnika(null);
-            },
-            //testni routi
-            "/^test_mail$/" => function() {
-                $email = new Email(
-                    "miha_jamsek@windowslive.com",
-                    "Zadeva",
-                    "app/views/confirmation-email.php",
-                    ["kljuc" => "kljuc123", "ime" => "Janez", "email" => "janez@gmail.com", "geslo" => "abc123"]
-                );
-                try {
-                    EmailService::posljiEmail($email);
-                } catch (Exception $e){
-                    echo $e;
                 }
             }
         ];

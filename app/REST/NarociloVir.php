@@ -6,6 +6,7 @@ require_once "app/models/NarociloIzdelki.php";
 require_once "app/models/Kosarice.php";
 require_once "app/models/Izdelki.php";
 require_once "app/service/PrijavaService.php";
+require_once "app/service/LogService.php";
 
 class NarociloVir {
 
@@ -55,6 +56,8 @@ class NarociloVir {
                 $narocilo = Narocila::get(["id_narocila" => $id_narocila]);
                 if ($narocilo["status"] == 1) {
                     Narocila::updateStatus(["id" => $id_narocila, "status" => 2]);
+                    LogService::info("prodajalec", "NAROCILO", "Prodajalec " .
+                        PrijavaService::vrniIdTrenutnegaUporabnika() . " je potrdil naročilo $id_narocila");
                     echo ViewUtil::renderJSON(["status" => "uspeh"], 200);
                 }
                 else {
@@ -76,6 +79,8 @@ class NarociloVir {
                 $narocilo = Narocila::get(["id_narocila" => $id_narocila]);
                 if ($narocilo["status"] == 1) {
                     Narocila::updateStatus(["id" => $id_narocila, "status" => 4]);
+                    LogService::info("prodajalec", "NAROCILO", "Prodajalec " .
+                        PrijavaService::vrniIdTrenutnegaUporabnika() . " je preklical naročilo $id_narocila");
                     echo ViewUtil::renderJSON(["status" => "uspeh"], 200);
                 } else {
                     echo ViewUtil::renderJSON(["status" => "ni dovoljeno"], 403);
@@ -97,6 +102,8 @@ class NarociloVir {
                 $narocilo = Narocila::get(["id_narocila" => $id_narocila]);
                 if ($narocilo["status"] == 2) {
                     Narocila::updateStatus(["id" => $id_narocila, "status" => 3]);
+                    LogService::info("prodajalec", "NAROCILO", "Prodajalec " .
+                        PrijavaService::vrniIdTrenutnegaUporabnika() . " je storniral naročilo $id_narocila");
                     echo ViewUtil::renderJSON(["status" => "uspeh"], 200);
                 } else {
                     echo ViewUtil::renderJSON(["status" => "ni dovoljeno"], 403);
