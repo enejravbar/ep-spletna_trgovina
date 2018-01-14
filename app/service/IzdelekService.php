@@ -17,6 +17,10 @@ class IzdelekService {
         return Izdelki::getAll();
     }
 
+    public static function pridobiVseIzdelkeZaUpravljanje(){
+        return Izdelki::getAllAll();
+    }
+
     public static function isciPoQueryju($query) {
         $query = "%" . $query . "%";
         return Izdelki::getAllByQuery(["query" => $query]);

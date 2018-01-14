@@ -36,6 +36,18 @@ class IzdelekVir {
         }
     }
 
+    public static function getAllAll() {
+        if(PrijavaService::uporabnikJeProdajalec()) {
+            try {
+                echo ViewUtil::renderJSON([["izdelki" => IzdelekService::pridobiVseIzdelkeZaUpravljanje()]], 200);
+            } catch(Exception $e) {
+                echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 500);
+            }
+        } else {
+            echo ViewUtil::renderJSON(["napaka" => "Nimaš zadostnih pravic!"], 401);
+        }
+    }
+
     // GET /izdelki/:id
     public static function get($id){
         try {
