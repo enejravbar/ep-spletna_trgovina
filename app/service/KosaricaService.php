@@ -6,7 +6,9 @@ require_once "app/models/Kosarice.php";
 class KosaricaService {
 
     public static function vrniVsebinoKosarice($id_stranke) {
-        return Kosarice::dobiKosaricoUporabnika(["id_uporabnika" => $id_stranke]);
+        $kosarica["izdelki"] = Kosarice::dobiKosaricoUporabnika(["id_uporabnika" => $id_stranke]);
+        $kosarica["vrednost"] = Kosarice::dobiVrednostKosarice(["id" => $id_stranke]);
+        return $kosarica;
     }
 
     public static function dodajIzdelekVKosarico($podatki) {

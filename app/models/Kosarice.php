@@ -5,9 +5,14 @@ require_once "app/models/Entiteta.php";
 class Kosarice extends Entiteta {
 
     public static function dobiKosaricoUporabnika(array $id_uporabnika) {
-        return parent::query("SELECT i.id, k.kolicina, i.ime, i.cena FROM kosarice k ".
-            "INNER JOIN izdelki i ON i.id = k.id_izdelka ".
+        return parent::query("SELECT i.id, k.kolicina, i.ime, i.cena, (i.cena * k.kolicina) as izdelek_skupaj".
+            " FROM kosarice k INNER JOIN izdelki i ON i.id = k.id_izdelka ".
             "WHERE k.id_uporabnika = :id_uporabnika ORDER BY i.id ASC", $id_uporabnika);
+    }
+
+    public static function dobiVrednostKosarice(array $params) {
+        return parent::query("select sum(k.kolicina * i.cena) from kosarice k ".
+            "inner join izdelki i on i.id = k.id_izdelka where k.id_uporabnika = :id", $params);
     }
 
     public static function get(array $params)

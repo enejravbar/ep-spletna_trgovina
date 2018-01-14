@@ -32,6 +32,7 @@ class PrijavaVir {
         if(PrijavaService::uporabnikJePrijavljen()) {
             try {
                 $uporabnik = PrijavaService::vrniTrenutnegaIzBaze();
+                unset($uporabnik["geslo"]);
                 echo ViewUtil::renderJSON(["uporabnik" => $uporabnik, "prijavljen" => true], 200);
             } catch (Exception $e) {
                 echo ViewUtil::renderJSON(["prijavljen" => false, "napaka" => $e->getMessage()], 500);
