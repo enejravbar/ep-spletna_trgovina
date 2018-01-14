@@ -398,6 +398,11 @@ class Usmerjevalniki {
                     Narocila::getAll();
                 }
             },
+            "/^api\/narocila\/stranka$/" => function($method) {
+                if($method == "GET") {
+                    NarociloVir::dobiNarocilaKupca();
+                }
+            },
             "/^api\/narocila\/(\d+)\/podrobnosti$/" => function($method, $id_narocila) {
                 if ($method == "GET") {
                     NarociloIzdelekVir::dobiIzdelkeNarocila($id_narocila);
