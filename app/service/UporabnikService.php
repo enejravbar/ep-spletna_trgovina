@@ -217,7 +217,7 @@ class UporabnikService {
     public static function dodajProdajalca($podatki) {
         $origin_password = $podatki["geslo"];
 
-        $uporabnik = Uporabniki::insert([
+        $uporabnik = Uporabniki::insertOsebje([
             "vloga" => VlogaUporabnik::getIdProdaja(),
             "ime" => $podatki["ime"],
             "priimek" => $podatki["priimek"],
