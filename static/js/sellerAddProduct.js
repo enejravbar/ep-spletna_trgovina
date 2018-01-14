@@ -97,6 +97,15 @@ $(document).ready(function(){
           processData: false,
           contentType: false,
           type: "POST",
+          statusCode: {
+             404: function() {
+                 console.log("-1-1-1-1 WE GOT 404!");
+             },
+             201: function() {
+               ref.ustvarjenNovIzdelek=true;
+               ref.prikaziSporocilo=true;
+             }
+          },
           success: function(response, textStatus, xhr){
             console.log("Status je "+xhr.status)
             if(xhr.status==201){
@@ -109,13 +118,9 @@ $(document).ready(function(){
           },
           error: function(textStatus, xhr){
             console.log("Status je "+xhr.status)
-            if(xhr.status==201){
-              ref.ustvarjenNovIzdelek=true;
-              ref.prikaziSporocilo=true;
-            }else{
               ref.ustvarjenNovIzdelek=false;
               ref.prikaziSporocilo=true;
-            }
+
           }
         });
       }
