@@ -51,7 +51,7 @@ class NarociloVir {
             try {
                 $narocilo = Narocila::get(["id_narocila" => $id_narocila]);
                 if ($narocilo["status"] == 1) {
-                    Narocila::update(["id" => $id_narocila, "status" => 2]);
+                    Narocila::updateStatus(["id" => $id_narocila, "status" => 2]);
                     echo ViewUtil::renderJSON(["status" => "uspeh"], 200);
                 }
                 else {
@@ -72,7 +72,7 @@ class NarociloVir {
             try {
                 $narocilo = Narocila::get(["id_narocila" => $id_narocila]);
                 if ($narocilo["status"] == 1) {
-                    Narocila::update(["id" => $id_narocila, "status" => 4]);
+                    Narocila::updateStatus(["id" => $id_narocila, "status" => 4]);
                     echo ViewUtil::renderJSON(["status" => "uspeh"], 200);
                 } else {
                     echo ViewUtil::renderJSON(["status" => "ni dovoljeno"], 403);
@@ -93,7 +93,7 @@ class NarociloVir {
             try {
                 $narocilo = Narocila::get(["id_narocila" => $id_narocila]);
                 if ($narocilo["status"] == 2) {
-                    Narocila::update(["id" => $id_narocila, "status" => 3]);
+                    Narocila::updateStatus(["id" => $id_narocila, "status" => 3]);
                     echo ViewUtil::renderJSON(["status" => "uspeh"], 200);
                 } else {
                     echo ViewUtil::renderJSON(["status" => "ni dovoljeno"], 403);
