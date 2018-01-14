@@ -22,7 +22,12 @@ class KosaricaController {
 
     public static function naBlagajno(){
         if(PrijavaService::uporabnikJeStranka()){
-            echo ViewUtil::render("app/views/stranka/kosarica/blagajna.php");
+            $trenutniUporabnik = PrijavaService::vrniIdTrenutnegaUporabnika();
+            if(KosaricaService::kosaricaJePrazna($trenutniUporabnik)) {
+                ViewUtil::redirect(BASE_URL . "kosarica");
+            } else {
+                echo ViewUtil::render("app/views/stranka/kosarica/blagajna.php");
+            }
         } else {
             ViewUtil::redirect(BASE_URL);
         }

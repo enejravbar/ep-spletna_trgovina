@@ -10,6 +10,10 @@ class Kosarice extends Entiteta {
             "WHERE k.id_uporabnika = :id_uporabnika ORDER BY i.id ASC", $id_uporabnika);
     }
 
+    public static function steviloIzdelkovVKosarici(array $params) {
+        return parent::query("SELECT COUNT(*) as st FROM kosarice k WHERE id_uporabnika = :id", $params)[0]["st"];
+    }
+
     public static function dobiVrednostKosarice(array $params) {
         return parent::query("select sum(k.kolicina * i.cena) from kosarice k ".
             "inner join izdelki i on i.id = k.id_izdelka where k.id_uporabnika = :id", $params);
