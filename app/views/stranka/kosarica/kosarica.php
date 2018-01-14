@@ -97,7 +97,7 @@
                 							<td><a :href="root_url" class="btn btn-warning"><i class="fa fa-angle-left"></i> Nadaljuj z nakupovenjem</a></td>
                 							<td class="hidden-xs"></td>
                 							<td colspan="2"  class="hidden-xs text-center" style="font-size:20px;"><strong>Za plačilo: {{skupnaCenaKosarice}}€</strong></td>
-                							<td><a href="confirmPurchase.html" class="btn btn-success btn-block" style="padding:10px;">Na blagajno <i class="fa fa-angle-right"></i></a></td>
+                							<td><a :href="root_url+'blagajna'" class="btn btn-success btn-block" style="padding:10px;">Na blagajno <i class="fa fa-angle-right"></i></a></td>
                 						</tr>
                 					</tfoot>
                 				</table>

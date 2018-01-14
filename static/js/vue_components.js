@@ -979,11 +979,11 @@ Vue.component('narocilo', {
                 </div>
               </div>
             </td>
-            <td data-th="Cena">{{artikel.redna_cena}} €</td>
-            <td data-th="Količina">
-              <p class="text-center"style=" margin-top:24px;">{{artikel.kolicina}}</p>
+            <td data-th="Cena" style="padding-top:30px;">{{artikel.redna_cena}} €</td>
+            <td data-th="Količina" style="padding-top:30px;">
+              <p class="text-center" >{{artikel.kolicina}}</p>
             </td>
-            <td data-th="Skupna cena" class="text-center" >{{artikel.kolicina*artikel.redna_cena}} €</td>
+            <td data-th="Skupna cena" class="text-center"  style="padding-top:30px;">{{artikel.kolicina*artikel.redna_cena}} €</td>
             <td class="actions" data-th="">
             </td>
 
