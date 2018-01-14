@@ -86,6 +86,10 @@ class UporabnikService {
             throw new UserExistsException("Uporabnik s tem emailom že obstaja!");
         }
 
+        if($podatki["geslo1"] != $podatki["geslo2"]) {
+            throw new NiIstoGesloException("Gesli se ne ujemata!");
+        }
+
         $uporabnik = Uporabniki::insert([
             "vloga" => VlogaUporabnik::getIdStranka(),
             "ime" => $podatki["ime"],

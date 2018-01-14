@@ -156,6 +156,8 @@ class UporabnikVir {
                     echo ViewUtil::renderJSON($uporabnik, 201);
                 } catch(UserExistsException $e) {
                     echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 409);
+                } catch(NiIstoGesloException $e3) {
+                    echo ViewUtil::renderJSON(["napaka" => $e3->getMessage()], 400);
                 } catch(InvalidArgumentException $e1) {
                     echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 404);
                 } catch (Exception $e2) {
