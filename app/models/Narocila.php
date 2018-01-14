@@ -66,6 +66,10 @@ class Narocila extends Entiteta {
         );
     }
 
+    public static function updateStatus(array $params) {
+        return parent::modify_update("UPDATE narocila SET status = :status WHERE id = :id", $params);
+    }
+
     public static function delete(array $id)
     {
         return parent::modify_update("DELETE FROM narocila WHERE id = :id", $id);
