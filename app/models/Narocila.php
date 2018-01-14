@@ -20,8 +20,10 @@ class Narocila extends Entiteta {
         if ($uporabnik["vloga"] == 2)
             return true;
         else {
-            $uporabnik_id = ["uporabnik_id" => $uporabnik["id"]];
-            $data = parent::query("SELECT * FROM narocila WHERE id = :id_narocila AND kupec = :uporabnik_id", $params, $uporabnik_id);
+            //var_dump($params);
+            $params["uporabnik_id"] = $uporabnik["id"];
+            //var_dump($params);
+            $data = parent::query("SELECT * FROM narocila WHERE id = :id_narocila AND kupec = :uporabnik_id", $params);
             if (count($data) == 1)
                 return true;
             else

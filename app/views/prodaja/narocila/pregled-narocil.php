@@ -52,7 +52,7 @@
                 						<tr>
                 							<th >Datum naročila</th>
                 							<th class="text-center">Status naročila</th>
-                							<th class="text-center">Cena naročila</th>
+                						<!--	<th class="text-center">Cena naročila</th> -->
                               <th style="text-align:right;"></th>
                               <th></th>
                 						</tr>
@@ -69,10 +69,10 @@
                                     <span class="label label-success text-center">{{narocilo.status_narocila}}</span>
                                   </td>
 
-                    							<td data-th="Cena naročila" class="text-center">
+        <!--            							<td data-th="Cena naročila" class="text-center">
                                     {{narocilo.cena_narocila}}
                                   </td>
-
+                                -->
                                   <td>
 
                                       <button type="button" class="btn btn-info" style="float:right;" data-toggle="modal" :data-target="'#narocilo-modal'+narocilo.id_narocila">Ogled naročila</button>

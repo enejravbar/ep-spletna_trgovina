@@ -1092,19 +1092,137 @@ Vue.component('narocilo', {
                       ]
                     }*/
       }
-    },
-  computed:{
-      skupnaCenaNarocila:function(){
-          var skupnaCenaKosarice=0;
-          var artikel=null;
-          console.log(this.narocilo)
-          for (var i=0; i< this.narocilo.tabelaArtiklov.length; i++) {
-            artikel=this.narocilo.tabelaArtiklov[i];
-            skupnaCenaKosarice+= parseInt(this.narocilo.kolicina)*parseFloat(artikel.redna_cena);
-          }
-          return skupnaCenaKosarice;
+    }
 
+});
+
+Vue.component('narocilo-ogled', {
+  props:['narociloId'],
+  template:`
+<div >
+  <div class="panel panel-default" style="margin-top:25px;">
+    <div class="panel-heading">
+      <b>PODATKI O NAROČNIKU</b>
+    </div>
+    <div class="panel-body">
+    <p style="padding-top:5px; font-size:17px;" >
+      Ime: {{narocilo.narocnik.ime}}<br>
+      Priimek: {{narocilo.narocnik.priimek}}<br>
+      Naslov: {{narocilo.narocnik.naslov}}<br>
+      Tel. številka: {{narocilo.narocnik.tel_stevilka}}
+    </p>
+    </div>
+  </div>
+
+  <table id="cart" class="table table-hover table-condensed">
+        <thead>
+        <tr>
+          <th style="width:50%">Artikel</th>
+          <th style="width:10%">Cena</th>
+          <th style="width:8%">Količina</th>
+          <th style="width:22%" class="text-center">Skupna cena</th>
+          <th style="width:10%"></th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr v-for="artikel in narocilo.tabelaArtiklov">
+
+            <td data-th="Izdelek">
+              <div class="row">
+                <div class="col-sm-2 hidden-xs"><a :href="artikel.povezava_artikel"><img :src="artikel.slika_url" alt="..." class="img-responsive" style="margin-top:12px; width:50px;"/></a></div>
+                <div class="col-sm-8">
+                  <h4 style="padding-top:30px;">{{artikel.ime_artikla}}</h4>
+                  <p></p>
+                </div>
+              </div>
+            </td>
+            <td data-th="Cena" style="padding-top:30px;">{{artikel.redna_cena}} €</td>
+            <td data-th="Količina" style="padding-top:30px;">
+              <p class="text-center" >{{artikel.kolicina}}</p>
+            </td>
+            <td data-th="Skupna cena" class="text-center"  style="padding-top:30px;">{{artikel.skupna_cena}} €</td>
+            <td class="actions" data-th="">
+            </td>
+
+        </tr>
+
+      </tbody>
+      <tfoot >
+        <tr class="visible-xs">
+          <td class="text-center"><strong>Za plačilo {{narocilo.cena_narocila}} €</strong></td>
+        </tr>
+        <tr style="">
+
+          <td colspan="2" class="hidden-xs"></td>
+
+          <td></td>
+
+          <td class="hidden-xs text-center" style="font-size:20px;"><strong>Za plačilo: {{narocilo.cena_narocila}} €</strong></td>
+          <td class="hidden-xs></td>
+          <td class="hidden-xs></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  `,
+  mounted: function(){
+    //this.getDataArtikli();
+  },
+  data:function(){
+    return{
+      narocilo:{},
+            /*narocilo:{id_narocila:1,
+                      narocnik:{
+                        ime:"Jože1",
+                        priimek:"Gorišek",
+                        naslov:"Ljubljana 232",
+                        tel_stevilka:"041232141",
+                      },
+                      cena_narocila:300,
+                      tabelaArtiklov:[
+                        {kolicina:1, povezava_artikel:"single.html", slika_url:"images/ba.jpg", ime_artikla:"Usnjena torba", redna_cena:"100", znizana_cena:"300"},
+                        {kolicina:1, povezava_artikel:"single.html", slika_url:"images/bag.jpg", ime_artikla:"Usnjena torba1", redna_cena:"100", znizana_cena:"200"},
+                        {kolicina:1, povezava_artikel:"single.html", slika_url:"images/bag1.jpg", ime_artikla:"Usnjena torba2", redna_cena:"100", znizana_cena:"100"},
+                      ]
+                    }*/
       }
+    },
+
+    methods:{
+      getDataNarocnik: function(){
+
+      },
+      getDataArtikli: function(){
+        var request = new XMLHttpRequest();
+        var ref=this;
+        request.open('GET', this.root_url+'api/narocila/'+this.narociloId+"/podrobnosti", true);
+        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        request.send();
+
+        request.addEventListener("load", function() {
+          var response = JSON.parse(request.responseText);
+          ref.narocilo={};
+          ref.narocilo.cena_narocila=response.vrednost;
+
+          var tabelaArtiklov=response.izdelki;
+
+          for(var i=0; i<tabelaArtiklov.length; i++){
+            var artikel={
+              id_izdelek:tabelaNarocil[i].id,
+              ime_artikla:tabelaNarocil[i].ime,
+              redna_cena:tabelaNarocil[i].cena,
+              kolicina:tabelaNarocil[i].kolicina,
+              skupna_cena:tabelaNarocil[i].skupaj_izdelek
+            }
+            ref.narocilo.tabelaArtiklov.push(artikel);
+          }
+
+        });
+        request.addEventListener("error", function() {
+            console.log("NAPAKA!");
+        });
+    }
   }
 
 });

@@ -23,6 +23,7 @@ require_once "app/REST/UporabnikVir.php";
 require_once "app/REST/KategorijaVir.php";
 require_once "app/REST/KosaricaVir.php";
 require_once "app/REST/NarociloVir.php";
+require_once "app/REST/NarociloIzdelekVir.php";
 // debug (to be deleted in production)
 require_once "app/models/Slika.php";
 

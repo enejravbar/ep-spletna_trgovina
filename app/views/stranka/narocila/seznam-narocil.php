@@ -52,7 +52,7 @@
                 						<tr>
                 							<th >Datum naročila</th>
                 							<th class="text-center">Status naročila</th>
-                							<th class="text-center">Cena naročila</th>
+                		<!--					<th class="text-center">Cena naročila</th> -->
                               <th style="text-align:right;"></th>
                 						</tr>
                 					</thead>
@@ -68,16 +68,16 @@
                                     <span class="label label-warning text-center">{{narocilo.status_narocila}}</span>
                                   </td>
 
-                    							<td data-th="Cena naročila" class="text-center">
+                    	<!--						<td data-th="Cena naročila" class="text-center">
                                     {{narocilo.cena_narocila}}
                                   </td>
-
+                                -->
                                   <td>
-                                      <button type="button" class="btn btn-info" style="float:right;" data-toggle="modal" :data-target="'#narocilo-modal'+narocilo.id_narocila">Ogled naročila</button>
-                                      <div :id="'narocilo-modal'+narocilo.id_narocila" class="modal fade" role="dialog">
+                                      <a :href="root_url+'narocila/'+narocilo.id_narocila"> <button type="button" class="btn btn-info" style="float:right;" data-toggle="modal" :data-target="'#narocilo-modal'+narocilo.id_narocila">Ogled naročila</button> </a>
+
+                          <!--            <div :id="'narocilo-modal'+narocilo.id_narocila" class="modal fade" role="dialog">
                                         <div class="modal-dialog">
 
-                                          <!-- Modal content-->
                                           <div class="modal-content" >
                                             <div class="modal-header">
                                               <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -92,7 +92,7 @@
                                           </div>
 
                                         </div>
-                                      </div>
+                                      </div> -->
                                   </td>
 
                   						</tr>

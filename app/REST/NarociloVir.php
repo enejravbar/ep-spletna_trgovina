@@ -13,7 +13,7 @@ class NarociloVir {
         if (PrijavaService::uporabnikJeStranka()) {
             try {
                 $uporabnik = PrijavaService::vrniTrenutnegaUporabnika();
-                $narocila = Narocila::dobiNarocilaKupca(["id" => $uporabnik["id"]]);
+                $narocila = Narocila::dobiNarocilaKupca(["id_kupca" => $uporabnik["id"]]);
                 echo ViewUtil::renderJSON($narocila, 200);
             } catch (Exception $e) {
                 echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 400);

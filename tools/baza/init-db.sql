@@ -174,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `narocilo_izdelki` (
   `id_narocila` INT NOT NULL,
   `ime` VARCHAR(45) NOT NULL,
   `opis` VARCHAR(1000) NULL,
-  `cena` INT NOT NULL,
+  `cena` DOUBLE NOT NULL,
   `kolicina` INT NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_narocilo_izdelki_1`

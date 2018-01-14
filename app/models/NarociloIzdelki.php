@@ -5,7 +5,7 @@ require_once "app/models/Entiteta.php";
 class NarociloIzdelki extends Entiteta {
 
     public static function dobiIzdelkeIzNarocila(array $params) {
-        return parent::query("SELECT * FROM narocilo_izdelki WHERE id_narocila = :id_narocila", $params);
+        return parent::query("SELECT id, id_narocila, ime, opis, cena, kolicina, ROUND((cena*kolicina),2) as skupaj_izdelek FROM narocilo_izdelki WHERE id_narocila = :id_narocila", $params);
     }
 
     public static function get(array $id)
