@@ -59,7 +59,7 @@ class LoginController {
     }
 
     public static function registrirajStranko(){
-        $data = filter_input_array(INPUT_POST, Uporabniki::pravilaZaStranke());
+        $data = filter_input_array(INPUT_POST, Uporabniki::pravilaZaRegistracijoStranke());
 
         if(UporabnikService::preveriDaNiPraznihVrednosti($data)){
             try {

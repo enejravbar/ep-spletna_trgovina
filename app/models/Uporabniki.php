@@ -132,6 +132,19 @@ class Uporabniki extends Entiteta {
             "geslo2" => FILTER_SANITIZE_SPECIAL_CHARS,
             "naslov" => FILTER_SANITIZE_SPECIAL_CHARS,
             "telefon" => FILTER_SANITIZE_SPECIAL_CHARS,
+            "posta" => FILTER_VALIDATE_INT
+        ];
+    }
+
+    public static function pravilaZaRegistracijoStranke() {
+        return [
+            "ime" => FILTER_SANITIZE_SPECIAL_CHARS,
+            "priimek" => FILTER_SANITIZE_SPECIAL_CHARS,
+            "email" => FILTER_VALIDATE_EMAIL,
+            "geslo1" => FILTER_SANITIZE_SPECIAL_CHARS,
+            "geslo2" => FILTER_SANITIZE_SPECIAL_CHARS,
+            "naslov" => FILTER_SANITIZE_SPECIAL_CHARS,
+            "telefon" => FILTER_SANITIZE_SPECIAL_CHARS,
             "posta" => FILTER_VALIDATE_INT,
             "captchaVerification" => []
         ];
