@@ -53,9 +53,9 @@ $(document).ready(function(){
 
             if(statusNarocila==1){
               statusNarocilaText="ODDANO";
-            }else if(statusNarocila==1){
-              statusNarocilaText="POTRJENO";
             }else if(statusNarocila==2){
+              statusNarocilaText="POTRJENO";
+            }else if(statusNarocila==3){
               statusNarocilaText="STORNIRANO";
             }else if(statusNarocila==3){
               statusNarocilaText="PREKLICANO";

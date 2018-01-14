@@ -37,10 +37,10 @@
                       <div style="display:block;">
                         <div style="display:inline-block;"><span style="font-size:20px; margin-top:8px;">Pregled naročil</span></div>
                         <div class="dropdown" style="display:inline-block; float:right; margin-left:10px; ">
-                         <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" style=" padding: 9px 9px 9px 9px ">Vsa naročila</button>
+                         <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" style=" padding: 9px 9px 9px 9px ">Izberi vrsto</button>
                          <ul class="dropdown-menu">
-                          <li ><a href="#"><span >Neobdelana</span> </a></li>
-                          <li ><a href="#"><span >Potrjena</span> </a></li>
+                          <li ><a v-on:click="getDataNarocilaNeobdelana()"><span >Neobdelana</span> </a></li>
+                          <li ><a v-on:click="getDataNarocilaPotrjena()"><span >Potrjena</span> </a></li>
                          </ul>
                         </div>
                       </div>
@@ -75,34 +75,15 @@
                                 -->
                                   <td>
 
-                                      <button type="button" class="btn btn-info" style="float:right;" data-toggle="modal" :data-target="'#narocilo-modal'+narocilo.id_narocila">Ogled naročila</button>
+                                      <a :href="root_url+'prodaja/narocila/'+narocilo.id_narocila"><button type="button" class="btn btn-info" style="float:right;" >Ogled naročila</button></a>
 
-                                      <div :id="'narocilo-modal'+narocilo.id_narocila" class="modal fade" role="dialog">
-                                        <div class="modal-dialog">
-
-                                          <!-- Modal content-->
-                                          <div class="modal-content" >
-                                            <div class="modal-header">
-                                              <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                              <h4 class="modal-title">Podrobnosti naročila</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                              <narocilo :narocilo="narocilo"></narocilo>
-                                            </div>
-                                            <div class="modal-footer">
-                                              <button type="button" class="btn btn-default" data-dismiss="modal">Zapri</button>
-                                            </div>
-                                          </div>
-
-                                        </div>
-                                      </div>
                                   </td>
 
                                   <td>
-                                    <button type="button" class="btn btn-danger" style="float:right; width:100%;" v-if="narocilo.status_narocila=='POTRJENO'">Storniraj</button>
+                                    <button type="button" class="btn btn-danger" style="float:right; width:100%;" v-if="narocilo.status_narocila=='POTRJENO'" v-on:click="stornirajPotrjenoNarocilo(narocilo)">Storniraj</button>
                                     <div style="display:block;">
-                                      <button type="button" class="btn btn-danger" style="display: inline-block; float:right;  width:49.5%;" v-if="narocilo.status_narocila=='NEOBDELANO'">Prekliči</button>
-                                      <button type="button" class="btn btn-success" style="display: inline-block; float:right;  width:49.5%; margin-right:1%;" v-if="narocilo.status_narocila=='NEOBDELANO'">Potrdi</button>
+                                      <button type="button" class="btn btn-danger" style="display: inline-block; float:right;  width:49.5%;" v-if="narocilo.status_narocila=='NEOBDELANO'" v-on:click="prekliciNeobdelanoNarocilo(narocilo)">Prekliči</button>
+                                      <button type="button" class="btn btn-success" style="display: inline-block; float:right;  width:49.5%; margin-right:1%;" v-if="narocilo.status_narocila=='NEOBDELANO'" v-on:click="potrdiNeobdelanoNarocilo(narocilo)">Potrdi</button>
                                     </div>
                                   </td>
 
