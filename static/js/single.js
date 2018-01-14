@@ -8,14 +8,41 @@ $(document).ready(function(){
       napis:"V KOŠARICO",
       artikel:{
 
-      }
+      },
+      prijavljen:false,
+      uporabnik:null,
+      iskalniNiz:"",
+      prijavaPreverjena:false,
     },
     mounted: function(){
-
       this.getData(this);
-
+      this.preveriPrijavo();
     },
     methods:{
+      preveriPrijavo: function(){
+        var request = new XMLHttpRequest();
+        var ref=this;
+        request.open('GET', this.root_url+'api/profil', true);
+        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        request.send();
+
+        request.addEventListener("load", function() {
+          var response = JSON.parse(request.responseText);
+          console.log("Response "+response);
+
+          if(response.prijavljen){
+            ref.prijavljen=true;
+            ref.uporabnik=response.uporabnik;
+          }else{
+            ref.prijavljen=false;
+            ref.uporabnik=null;
+          }
+          ref.prijavaPreverjena=true;
+        });
+        request.addEventListener("error", function() {
+            console.log("NAPAKA!");
+        });
+      },
       getData: function(ref){
         //console.log("PRIDOBIVAM PODATKE!!!!!!!!!!!!!")
         var request = new XMLHttpRequest();

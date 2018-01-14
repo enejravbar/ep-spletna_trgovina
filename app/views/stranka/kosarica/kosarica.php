@@ -90,13 +90,13 @@
 
                 					</tbody>
                 					<tfoot >
-                						<tr class="visible-xs">
-                							<td class="text-center"><strong>Za plačilo {{skupnaCenaKosarice}} €</strong></td>
+                						<tr class="visible-xs" >
+                							<td class="text-center"  ><strong v-if="tabelaArtiklov.length>0">Za plačilo {{skupnaCenaKosarice}} €</strong></td>
                 						</tr>
                 						<tr style="">
                 							<td><a :href="root_url" class="btn btn-warning"><i class="fa fa-angle-left"></i> Nadaljuj z nakupovenjem</a></td>
                 							<td class="hidden-xs"></td>
-                							<td colspan="2"  class="hidden-xs text-center" style="font-size:20px;"><strong>Za plačilo: {{skupnaCenaKosarice}}€</strong></td>
+                							<td colspan="2"  class="hidden-xs text-center" style="font-size:20px;"  ><strong v-if="tabelaArtiklov.length>0">Za plačilo: {{skupnaCenaKosarice}}€</strong></td>
                 							<td>
                                 <a class="btn btn-success btn-block" style="padding:10px;" v-if="tabelaArtiklov.length<=0" disabled>Na blagajno <i class="fa fa-angle-right" ></i>
                                 </a>

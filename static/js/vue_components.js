@@ -56,13 +56,13 @@ Vue.component('glava', {
                <span class="caret"></span></button>
 
                <ul class="dropdown-menu" v-if="uporabnik.vloga==3">
-                <li ><a href="customerOrders.html"><span >Pregled naročil</span> </a></li>
+                <li ><a :href="root_url+'narocila'"><span >Pregled naročil</span> </a></li>
                  <li ><a :href="root_url+'profil'"><span >Upravljaj račun</span> </a></li>
                  <li ><a :href="root_url+'odjava'">Odjava</a></li>
                </ul>
 
                <ul class="dropdown-menu" v-if="uporabnik.vloga==2">
-                 <li ><a href="sellerOrders.html"><span >Pregled naročil</span> </a></li>
+                 <li ><a :href="root_url+'prodaja/narocila'"><span >Pregled naročil</span> </a></li>
                  <li ><a :href="root_url+'prodaja/stranke'"><span >Upravljanje strank</span> </a></li>
                  <li ><a :href="root_url+'prodaja/izdelki'"><span >Upravljanje artiklov</span> </a></li>
                  <li ><a :href="root_url+'profil'"><span >Upravljaj račun</span> </a></li>
@@ -171,6 +171,10 @@ Vue.component('artikel-domaca-stran', {
   data: function(){
     return{
           napis:"V KOŠARICO",
+          prijavljen:false,
+          uporabnik:null,
+          iskalniNiz:"",
+          prijavaPreverjena:false,
     }
   },
   template:`
@@ -186,7 +190,7 @@ Vue.component('artikel-domaca-stran', {
 
               </span>
            </div>
-           <a class="now-get get-cart"  v-on:click="dodajVKosarico()">{{napis}}</a>
+           <a class="now-get get-cart"  v-on:click="dodajVKosarico()" v-if="prijavljen" >{{napis}}</a>
            <div class="clearfix"> </div>
         </div>
      </div>
@@ -204,13 +208,43 @@ Vue.component('artikel-domaca-stran', {
 
               </span>
            </div>
-           <a class="now-get get-cart" v-on:click="dodajVKosarico()">{{napis}}</a>
+           <a class="now-get get-cart" v-on:click="dodajVKosarico()" v-if="prijavljen" >{{napis}}</a>
            <div class="clearfix"> </div>
         </div>
      </div>
   </div>
   `,
+  mounted: function(){
+    this.preveriPrijavo();
+  },
   methods: {
+    preveriPrijavo: function(){
+      var request = new XMLHttpRequest();
+      var ref=this;
+      request.open('GET', this.root_url+'api/profil', true);
+      request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+      request.send();
+
+      request.addEventListener("load", function() {
+        var response = JSON.parse(request.responseText);
+        console.log("Response "+response);
+
+        if(response.prijavljen){
+          ref.prijavljen=true;
+          ref.uporabnik=response.uporabnik;
+        }else{
+          ref.prijavljen=false;
+          ref.uporabnik=null;
+        }
+        ref.prijavaPreverjena=true;
+      });
+      request.addEventListener("error", function() {
+          console.log("NAPAKA!");
+      });
+    },
+    isciArtikle: function(){
+      window.location.href = this.root_url+"izdelki?q="+this.iskalniNiz;
+    },
     dodajVKosarico: function(){
       var ref=this;
       var request = new XMLHttpRequest();
@@ -324,10 +358,14 @@ Vue.component('navigacijski-menu-wrapper', {
 });
 
 Vue.component('artikel-product-stran', {
-  props:['artikel'],
+  props:['artikel','root_url'],
   data: function(){
     return{
           napis:"V KOŠARICO",
+          prijavljen:false,
+          uporabnik:null,
+          iskalniNiz:"",
+          prijavaPreverjena:false,
     }
   },
   template:`
@@ -347,12 +385,39 @@ Vue.component('artikel-product-stran', {
 
             </span>
          </div>
-         <a class="now-get get-cart" v-on:click="dodajVKosarico()">{{napis}}</a>
+         <a class="now-get get-cart" v-on:click="dodajVKosarico()" v-if="prijavljen">{{napis}}</a>
          <div class="clearfix"> </div>
       </div>
    </div>
 </div>`,
+mounted: function(){
+  this.preveriPrijavo();
+},
 methods:{
+  preveriPrijavo: function(){
+    var request = new XMLHttpRequest();
+    var ref=this;
+    request.open('GET', this.root_url+'api/profil', true);
+    request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    request.send();
+
+    request.addEventListener("load", function() {
+      var response = JSON.parse(request.responseText);
+      console.log("Response "+response);
+
+      if(response.prijavljen){
+        ref.prijavljen=true;
+        ref.uporabnik=response.uporabnik;
+      }else{
+        ref.prijavljen=false;
+        ref.uporabnik=null;
+      }
+      ref.prijavaPreverjena=true;
+    });
+    request.addEventListener("error", function() {
+        console.log("NAPAKA!");
+    });
+  },
   dodajVKosarico: function(){
     var ref=this;
     var request = new XMLHttpRequest();

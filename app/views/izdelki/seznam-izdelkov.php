@@ -44,7 +44,7 @@
                </div>
                <div  class="grid-product" >
                   <div v-for="artikel in tabelaArtiklov">
-                     <artikel-product-stran  :artikel="artikel" ></artikel-product-stran>
+                     <artikel-product-stran  root_url="<?= ROOT_URL ?>" :artikel="artikel" ></artikel-product-stran>
                   </div>
                   <div class="clearfix"> </div>
                </div>
