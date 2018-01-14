@@ -70,14 +70,14 @@ class IzdelekService {
 
     public static function aktivirajIzdelek($id) {
         $rowAffected = Izdelki::posodobiStatus(["status" => 1, "id" => $id]);
-        if($rowAffected != 0) {
+        if($rowAffected != 1) {
             throw new InvalidArgumentException("Napaka pri aktiviranju izdelka!");
         }
     }
 
     public static function deaktivirajIzdelek($id) {
         $rowAffected = Izdelki::posodobiStatus(["status" => 4, "id" => $id]);
-        if($rowAffected != 0) {
+        if($rowAffected != 1) {
             throw new InvalidArgumentException("Napaka pri deaktiviranju izdelka!");
         }
     }
