@@ -13,13 +13,18 @@ $(document).ready(function(){
         telefon:"",
         geslo1:"",
         geslo2:"",
+        captchaVerification:""
       },
+      sitekey:"6LdiskAUAAAAAGY5YFT9I0GwQYMJR80KgCaFqFOR",
       tabelaPosta:[],
       ustvarjenaNovaStranka:false,
       pritisnjenGumb:false,
       prikaziSporocilo:false,
       sporocilo:""
 
+    },
+    components: {
+    'vue-recaptcha': VueRecaptcha
     },
     mounted: function(){
       this.getDataPoste();
@@ -83,6 +88,20 @@ $(document).ready(function(){
         request.addEventListener("error", function() {
             console.log("NAPAKA!");
         });
+      },
+
+      onSubmit: function () {
+      this.$refs.invisibleRecaptcha.execute()
+      },
+      onVerify: function (response) {
+        console.log(response);
+        this.novUporabnik.captchaVerification=response;
+      },
+      onExpired: function () {
+        console.log('Expired')
+      },
+      resetRecaptcha () {
+        this.$refs.recaptcha.reset() // Direct call reset method
       }
     }
   });
