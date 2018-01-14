@@ -22,7 +22,6 @@ class IzdelekService {
     }
 
     public static function isciPoQueryju($query) {
-        $query = "%" . $query . "%";
         return Izdelki::getAllByQuery(["query" => $query]);
     }
 
