@@ -45,7 +45,7 @@ class ProdajaController {
 
     public static function prikaziPodrobnostNarocil($id){
         if(PrijavaService::uporabnikJeProdajalec()){
-            echo ViewUtil::render("app/views/prodaja/narocila/podrobnost-narocila.php");
+            echo ViewUtil::render("app/views/prodaja/narocila/podrobnost-narocila.php", ["id" => $id]);
         } else {
             ViewUtil::redirect(BASE_URL);
         }
