@@ -5,29 +5,15 @@ $(document).ready(function(){
     data: {
       root_url:document.getElementById("rootUrl").value,
       tabelaArtiklov:[],
+      skupnaCenaKosarice:0,
       pridobilPodatke:false,
-
-    },
-    computed:{
-        skupnaCenaKosarice:function(){
-          var skupnaCenaKosarice=0;
-          var artikel=null;
-
-          for (var i=0; i< this.tabelaArtiklov.length; i++) {
-            artikel=this.tabelaArtiklov[i];
-            skupnaCenaKosarice+= parseInt(artikel.kolicina)*parseFloat(artikel.redna_cena) ;
-          }
-          return Math.round(skupnaCenaKosarice*100)/100;
-        }
 
     },
     mounted:function(){
       this.pridobiArtikleKosarice();
     },
     methods:{
-      skupnaCenaNaIzdelek: function(artikel){
-        return artikel.kolicina* Math.round(parseFloat(artikel.redna_cena)*100)/100;
-      },
+
       odstraniIzdelekIzKosarice: function(izdelek){
 
         var request = new XMLHttpRequest();
@@ -57,7 +43,7 @@ $(document).ready(function(){
 
         request.addEventListener("load", function() {
           var response = JSON.parse(request.responseText);
-          var tabelaArtiklov=response.kosarica;
+          var tabelaArtiklov=response.kosarica.izdelki;
           ref.tabelaArtiklov=[];
           for(var i=0; i<tabelaArtiklov.length; i++){
             var artikel={
@@ -65,11 +51,14 @@ $(document).ready(function(){
               ime_artikla:tabelaArtiklov[i].ime,
               redna_cena:tabelaArtiklov[i].cena,
               kolicina:tabelaArtiklov[i].kolicina,
+              skupna_cena:tabelaArtiklov[i].izdelek_skupaj,
               slika_url:ref.root_url+"api/slike/"+tabelaArtiklov[i].thumbnail,
             };
             ref.tabelaArtiklov.push(artikel);
           }
+          ref.skupnaCenaKosarice=response.kosarica.vrednost;
           ref.pridobilPodatke=true;
+
         });
         request.addEventListener("error", function() {
             console.log("NAPAKA!");

@@ -32,12 +32,15 @@
 
                <div class=" login-right">
 
-                 <div style="margin-top:40px;" v-if="narociloOddano">
+                 <div style="margin-top:40px;" v-if="gumbKliknjenNarociloOddano">
 
-                   <div class="alert alert-success">
-                    <h2>Vaše naročilo je bilo uspešno oddano!</h2>
+                   <div class="alert alert-success" v-if="narociloOddano">
+                    <h2>{{sporocilo}}</h2>
                   </div>
-                  <td><a href="product.html" class="btn btn-md btn-warning"><i class="fa fa-angle-left"></i> Nadaljuj z nakupovenjem</a></td>
+                  <div class="alert alert-danger" v-if="!narociloOddano">
+                   <h2>{{sporocilo}}</h2>
+                 </div>
+                  <td><a :href="root_url" class="btn btn-md btn-warning"><i class="fa fa-angle-left"></i> Nadaljuj z nakupovenjem</a></td>
                  </div>
 
                  <div style="margin-top:40px;" v-else>
@@ -46,7 +49,7 @@
 
                     <narocilo :narocilo="narocilo"></narocilo>
 
-                    <td><a href="#" class="btn btn-success" style="padding:10px; float:right" v-on:click="oddajNarocilo()" >Oddaj naročilo</a></td>
+                    <td><a  class="btn btn-success" style="padding:10px; float:right" v-on:click="oddajNarocilo()" >Oddaj naročilo</a></td>
                     <td><a :href="root_url+'kosarica'" class="btn btn-warning"><i class="fa fa-angle-left"></i> Nazaj na košarico</a></td>
                  </div>
 

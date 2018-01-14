@@ -22,6 +22,7 @@ require_once "app/REST/PrijavaVir.php";
 require_once "app/REST/UporabnikVir.php";
 require_once "app/REST/KategorijaVir.php";
 require_once "app/REST/KosaricaVir.php";
+require_once "app/REST/NarociloVir.php";
 // debug (to be deleted in production)
 require_once "app/models/Slika.php";
 
@@ -420,7 +421,7 @@ class Usmerjevalniki {
             },
             "/^api\/narocila\/oddaj$/" => function($method) {
                 if ($method == "POST") {
-                    OddajNarocilo::oddajNarocilo();
+                    NarociloVir::oddajNarocilo();
                 }
             },
             // ********** ANDROID ************

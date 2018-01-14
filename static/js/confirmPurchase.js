@@ -19,7 +19,9 @@ $(document).ready(function(){
         },
         tabelaArtiklov:[],
         pridobilPodatke:false,
-        narociloOddano:false
+        gumbKliknjenNarociloOddano:false,
+        narociloOddano:true,
+        sporocilo:""
 
     },
     mounted:function(){
@@ -28,7 +30,31 @@ $(document).ready(function(){
       },
     methods:{
       oddajNarocilo: function(){
-        this.narociloOddano=true;
+        var request = new XMLHttpRequest();
+        var ref=this;
+        this.gumbKliknjenNarociloOddano=true;
+        request.open('POST', this.root_url+'api/narocila/oddaj', true);
+
+        request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        request.send();
+
+        request.addEventListener("load", function() {
+          if(request.status==200){
+            ref.narociloOddano=true;
+            ref.sporocilo="Vaše naročilo je bilo uspešno oddano!"
+          }else if(request.status==404){
+            ref.narociloOddano=false;
+            ref.sporocilo="Naročilo ni bilo oddano, ker ne vsebuje artiklov!"
+          }else{
+            ref.narociloOddano=false;
+            ref.sporocilo="Naročilo ni bilo oddano, prosim poskusite kasneje!"
+          }
+
+        });
+        request.addEventListener("error", function() {
+            console.log("NAPAKA!");
+        });
+
       },
       pridobiArtikleKosarice: function(){
         var request = new XMLHttpRequest();
@@ -39,7 +65,7 @@ $(document).ready(function(){
 
         request.addEventListener("load", function() {
           var response = JSON.parse(request.responseText);
-          var tabelaArtiklov=response.kosarica;
+          var tabelaArtiklov=response.kosarica.izdelki;
           ref.narocilo.tabelaArtiklov=[];
           for(var i=0; i<tabelaArtiklov.length; i++){
             var artikel={
@@ -47,11 +73,13 @@ $(document).ready(function(){
               ime_artikla:tabelaArtiklov[i].ime,
               redna_cena:tabelaArtiklov[i].cena,
               kolicina:tabelaArtiklov[i].kolicina,
+              skupna_cena:tabelaArtiklov[i].izdelek_skupaj,
               slika_url:ref.root_url+"api/slike/"+tabelaArtiklov[i].thumbnail,
             };
             ref.narocilo.tabelaArtiklov.push(artikel);
           }
-          ref.narocilo.pridobilPodatke=true;
+          ref.narocilo.cena_narocila=response.kosarica.vrednost;
+          ref.pridobilPodatke=true;
         });
         request.addEventListener("error", function() {
             console.log("NAPAKA!");

@@ -47,7 +47,7 @@ class Narocila extends Entiteta {
     public static function insert(array $params)
     {
         return parent::modify(
-            "INSERT INTO narocila(kupec, datum, status) VALUES(:kupec, :datum, :status)",
+            "INSERT INTO narocila(kupec, datum, status) VALUES(:kupec, NOW(), :status)",
             $params
         );
     }
