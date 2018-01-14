@@ -9,6 +9,7 @@ require_once "app/models/VlogaUporabnik.php";
 require_once "app/models/Posta.php";
 require_once "app/service/LogService.php";
 require_once "app/service/exception/UserExistsException.php";
+require_once "app/service/exception/NiIstoGesloException.php";
 
 class UporabnikVir {
 
@@ -305,6 +306,8 @@ class UporabnikVir {
                     echo ViewUtil::renderJSON($uporabnik, 201);
                 } catch(InvalidArgumentException $e1) {
                     echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 400);
+                } catch(NiIstoGesloException $e3) {
+                    echo ViewUtil::renderJSON(["napaka" => $e3->getMessage()], 400);
                 } catch (Exception $e2) {
                     echo ViewUtil::renderJSON(["napaka" => $e2->getMessage()], 500);
                 }
