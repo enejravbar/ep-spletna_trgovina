@@ -9,6 +9,7 @@
 
 
 <body>
+    <input type="hidden" value="<?= $id ?> " id="id_narocila" />
 </body>
 
 </html>
