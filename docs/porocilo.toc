@@ -1,0 +1,14 @@
+\select@language {slovene}
+\contentsline {chapter}{\numberline {1}Uvod}{2}{chapter.1}
+\contentsline {chapter}{\numberline {2}Navedba realiziranih storitev}{3}{chapter.2}
+\contentsline {chapter}{\numberline {3}Podatkovni model}{4}{chapter.3}
+\contentsline {chapter}{\numberline {4}Varnost sistema}{5}{chapter.4}
+\contentsline {chapter}{\numberline {5}Izjava o avtorstvu seminarske naloge}{6}{chapter.5}
+\contentsline {chapter}{\numberline {6}Dodatno vzor\IeC {\v c}no poglavje}{9}{chapter.6}
+\contentsline {section}{\numberline {6.1}Dodatni vzor\IeC {\v c}ni odsek ena}{9}{section.6.1}
+\contentsline {section}{\numberline {6.2}Dodatni vzor\IeC {\v c}ni odsek dva}{9}{section.6.2}
+\contentsline {section}{\numberline {6.3}Dodatni vzor\IeC {\v c}ni odsek tri}{9}{section.6.3}
+\contentsline {chapter}{\numberline {7}Zaklju\IeC {\v c}ek}{11}{chapter.7}
+\contentsline {chapter}{\numberline {8}Literatura}{12}{chapter*.2}
+\vspace {15pt}
+\contentsline {chapter}{\numberline {A}Naslov dodatka}{13}{appendix.A}
