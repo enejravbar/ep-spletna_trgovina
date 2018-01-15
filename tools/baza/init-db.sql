@@ -185,25 +185,6 @@ CREATE TABLE IF NOT EXISTS `narocilo_izdelki` (
     ON UPDATE NO ACTION)
   ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `ocene` (
-  `id_uporabnika` INT NOT NULL,
-  `id_izdelka` INT NOT NULL,
-  `ocena` TINYINT(3) UNSIGNED NOT NULL,
-  PRIMARY KEY (`id_uporabnika`, `id_izdelka`),
-  INDEX `fk_ocene_2_idx` (`id_izdelka` ASC),
-  CONSTRAINT `fk_ocene_1`
-  FOREIGN KEY (`id_uporabnika`)
-  REFERENCES `uporabniki` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_ocene_2`
-  FOREIGN KEY (`id_izdelka`)
-  REFERENCES `izdelki` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-  ENGINE = InnoDB
-  COMMENT = 'Ocene izdelkov';
-
 -- kategorije
 INSERT INTO ep.kategorije(ime) VALUES ('Mobilni telefoni');
 INSERT INTO ep.kategorije(ime) VALUES ('Polnilci');
@@ -367,64 +348,3 @@ VALUES (3, 'Zlatan', 'Resnik', 'zlatan.resnik@gmail.com',
 INSERT INTO ep.uporabniki(vloga, ime, priimek, email, geslo, naslov, posta, telefon, status)
 VALUES (3, 'Miro', 'Struna', 'miro.struna@gmail.com',
         '$2y$10$15CJEaukxLwUq1HVrT43h.cb4BPY3rywRm./vxnhtuT.yp7Lp6yYG', 'Koprska 20', 6000, '051344766', 1);
--- ocene
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(5, 13, 3);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(7, 2, 4);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(9, 3, 1);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(6, 11, 3);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(6, 3, 2);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(6, 6, 3);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(9, 14, 3);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(5, 15, 4);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(6, 7, 3);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(7, 12, 1);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(7, 9, 3);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(7, 8, 5);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(6, 14, 2);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(9, 8, 1);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(8, 11, 4);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(7, 1, 1);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(5, 2, 2);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(7, 14, 1);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(9, 2, 1);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(5, 7, 4);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(8, 9, 3);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(7, 4, 3);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(8, 13, 3);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(7, 15, 3);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(9, 9, 3);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(9, 10, 4);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(6, 15, 3);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(7, 7, 4);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(6, 8, 5);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(9, 12, 1);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(6, 12, 3);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(8, 5, 4);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(7, 6, 5);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(8, 10, 5);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(9, 15, 1);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(7, 10, 3);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(6, 1, 3);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(9, 13, 2);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(8, 4, 2);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(7, 3, 1);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(5, 4, 5);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(8, 1, 5);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(5, 12, 5);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(5, 3, 3);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(9, 1, 3);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(8, 7, 2);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(5, 14, 3);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(6, 13, 3);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(6, 9, 1);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(5, 6, 2);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(7, 13, 3);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(8, 15, 5);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(5, 5, 5);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(6, 10, 3);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(9, 7, 4);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(5, 8, 4);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(8, 14, 5);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(6, 4, 5);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(8, 8, 4);
-INSERT INTO ep.ocene(id_uporabnika, id_izdelka, ocena) VALUES(5, 11, 2);

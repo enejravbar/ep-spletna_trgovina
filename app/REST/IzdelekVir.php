@@ -78,7 +78,6 @@ class IzdelekVir {
             $_PUT = [];
             parse_str(file_get_contents("php://input"), $_PUT);
             $data = filter_var_array($_PUT, Izdelki::pridobiPravila());
-            //var_dump($data);
             if(ViewUtil::checkValues($data)){
                 $data["id"] = $id;
                 try{
@@ -117,6 +116,8 @@ class IzdelekVir {
         if(PrijavaService::uporabnikJeProdajalec()) {
             try {
                 IzdelekService::aktivirajIzdelek($id);
+                LogService::info("prodajalec", "IZDELEK", "Prodajalec " .
+                    PrijavaService::vrniIdTrenutnegaUporabnika() . " je aktiviral izdelek $id");
                 echo ViewUtil::renderJSON(["status" => "uspeh"], 200);
             } catch (InvalidArgumentException $e1) {
                 echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 404);
@@ -132,6 +133,8 @@ class IzdelekVir {
         if(PrijavaService::uporabnikJeProdajalec()) {
             try {
                 IzdelekService::deaktivirajIzdelek($id);
+                LogService::info("prodajalec", "IZDELEK", "Prodajalec " .
+                    PrijavaService::vrniIdTrenutnegaUporabnika() . " je deaktiviral izdelek $id");
                 echo ViewUtil::renderJSON(["status" => "uspeh"], 200);
             } catch (InvalidArgumentException $e1) {
                 echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 404);

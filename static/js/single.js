@@ -61,11 +61,25 @@ $(document).ready(function(){
         });
       },
       posodobiPodatkeArtikla: function(response){
+        var statusArtiklaText="";
+        var statusArtiklaId=response.izdelek.status;
+
+        if(statusArtiklaId=="1"){
+          statusArtiklaText="Na zalogi";
+        }else if(statusArtiklaId=="2"){
+          statusArtiklaText="Zadnji kosi";
+        }else if(statusArtiklaId=="3"){
+          statusArtiklaText="Ni na voljo";
+        }else if(statusArtiklaId=="4"){
+          statusArtiklaText="Neaktiven";
+        }
+
         var artikel={
           id:response.izdelek.id,
           ime_artikla:response.izdelek.ime,
           redna_cena:response.izdelek.cena,
           opis_artikla:response.izdelek.opis,
+          status_artikla:statusArtiklaText,
           tabelaUrlSlik:[],
         };
 
