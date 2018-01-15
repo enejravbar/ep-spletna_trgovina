@@ -256,57 +256,57 @@ VALUES('izdelek2-1.jpg', 'data/images/izdelek2-1.jpg', 'jpg', 2);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
 VALUES('izdelek3-1.jpg', 'data/images/izdelek3-1.jpg', 'jpg', 3);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
-VALUES('izdelek3-2.jpeg', 'data/images/izdelek3-2.jpeg', 'jpeg', 3);
+VALUES('izdelek3-2.jpg', 'data/images/izdelek3-2.jpg', 'jpg', 3);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
-VALUES('izdelek7-2.jpeg', 'data/images/izdelek7-2.jpeg', 'jpeg', 7);
+VALUES('izdelek7-2.jpg', 'data/images/izdelek7-2.jpg', 'jpg', 7);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
 VALUES('izdelek4-2.jpg', 'data/images/izdelek4-2.jpg', 'jpg', 4);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
 VALUES('izdelek13-1.jpg', 'data/images/izdelek13-1.jpg', 'jpg', 13);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
-VALUES('izdelek7-1.jpeg', 'data/images/izdelek7-1.jpeg', 'jpeg', 7);
+VALUES('izdelek7-1.jpg', 'data/images/izdelek7-1.jpg', 'jpg', 7);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
-VALUES('izdelek9-1.jpeg', 'data/images/izdelek9-1.jpeg', 'jpeg', 9);
+VALUES('izdelek9-1.jpg', 'data/images/izdelek9-1.jpg', 'jpg', 9);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
-VALUES('izdelek10-1.jpeg', 'data/images/izdelek10-1.jpeg', 'jpeg', 10);
+VALUES('izdelek10-1.jpg', 'data/images/izdelek10-1.jpg', 'jpg', 10);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
-VALUES('izdelek6-1.jpeg', 'data/images/izdelek6-1.jpeg', 'jpeg', 6);
+VALUES('izdelek6-1.jpg', 'data/images/izdelek6-1.jpg', 'jpg', 6);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
-VALUES('izdelek15-3.jpeg', 'data/images/izdelek15-3.jpeg', 'jpeg', 15);
+VALUES('izdelek15-3.jpg', 'data/images/izdelek15-3.jpg', 'jpg', 15);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
-VALUES('izdelek11-2.jpeg', 'data/images/izdelek11-2.jpeg', 'jpeg', 11);
+VALUES('izdelek11-2.jpg', 'data/images/izdelek11-2.jpg', 'jpg', 11);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
-VALUES('izdelek11-1.jpeg', 'data/images/izdelek11-1.jpeg', 'jpeg', 11);
+VALUES('izdelek11-1.jpg', 'data/images/izdelek11-1.jpg', 'jpg', 11);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
-VALUES('izdelek12-1.jpeg', 'data/images/izdelek12-1.jpeg', 'jpeg', 12);
+VALUES('izdelek12-1.jpg', 'data/images/izdelek12-1.jpg', 'jpg', 12);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
-VALUES('izdelek5-1.jpeg', 'data/images/izdelek5-1.jpeg', 'jpeg', 5);
+VALUES('izdelek5-1.jpg', 'data/images/izdelek5-1.jpg', 'jpg', 5);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
-VALUES('izdelek14-2.jpeg', 'data/images/izdelek14-2.jpeg', 'jpeg', 14);
+VALUES('izdelek14-2.jpg', 'data/images/izdelek14-2.jpg', 'jpg', 14);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
-VALUES('izdelek15-2.jpeg', 'data/images/izdelek15-2.jpeg', 'jpeg', 15);
+VALUES('izdelek15-2.jpg', 'data/images/izdelek15-2.jpg', 'jpg', 15);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
-VALUES('izdelek14-1.jpeg', 'data/images/izdelek14-1.jpeg', 'jpeg', 14);
+VALUES('izdelek14-1.jpg', 'data/images/izdelek14-1.jpg', 'jpg', 14);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
-VALUES('izdelek9-2.jpeg', 'data/images/izdelek9-2.jpeg', 'jpeg', 9);
+VALUES('izdelek9-2.jpg', 'data/images/izdelek9-2.jpg', 'jpg', 9);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
-VALUES('izdelek5-2.jpeg', 'data/images/izdelek5-2.jpeg', 'jpeg', 5);
+VALUES('izdelek5-2.jpg', 'data/images/izdelek5-2.jpg', 'jpg', 5);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
-VALUES('izdelek8-1.jpeg', 'data/images/izdelek8-1.jpeg', 'jpeg', 8);
+VALUES('izdelek8-1.jpg', 'data/images/izdelek8-1.jpg', 'jpg', 8);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
 VALUES('izdelek4-1.jpg', 'data/images/izdelek4-1.jpg', 'jpg', 4);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
-VALUES('izdelek15-1.jpeg', 'data/images/izdelek15-1.jpeg', 'jpeg', 15);
+VALUES('izdelek15-1.jpg', 'data/images/izdelek15-1.jpg', 'jpg', 15);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
-VALUES('izdelek8-2.jpeg', 'data/images/izdelek8-2.jpeg', 'jpeg', 8);
+VALUES('izdelek8-2.jpg', 'data/images/izdelek8-2.jpg', 'jpg', 8);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
-VALUES('izdelek12-2.jpeg', 'data/images/izdelek12-2.jpeg', 'jpeg', 12);
+VALUES('izdelek12-2.jpg', 'data/images/izdelek12-2.jpg', 'jpg', 12);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
-VALUES('izdelek14-3.jpeg', 'data/images/izdelek14-3.jpeg', 'jpeg', 14);
+VALUES('izdelek14-3.jpg', 'data/images/izdelek14-3.jpg', 'jpg', 14);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
-VALUES('izdelek6-2.jpeg', 'data/images/izdelek6-2.jpeg', 'jpeg', 6);
+VALUES('izdelek6-2.jpg', 'data/images/izdelek6-2.jpg', 'jpg', 6);
 INSERT INTO ep.slike(naziv, lokacija, ext, izdelek)
-VALUES('izdelek10-2.jpeg', 'data/images/izdelek10-2.jpeg', 'jpeg', 10);
+VALUES('izdelek10-2.jpg', 'data/images/izdelek10-2.jpg', 'jpg', 10);
 
 -- posta
 INSERT INTO ep.posta(postna_st, naziv) VALUES(5000, 'Nova Gorica');
