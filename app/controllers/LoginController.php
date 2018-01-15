@@ -12,6 +12,7 @@ require_once "app/models/Uporabniki.php";
 require_once "app/service/PrijavaService.php";
 require_once "app/service/CaptchaService.php";
 require_once "app/service/exception/NiIstoGesloException.php";
+require_once "app/service/exception/UserExistsException.php";
 
 class LoginController {
 
@@ -72,6 +73,8 @@ class LoginController {
                 }
             } catch(InvalidArgumentException $e1) {
                 echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 400);
+            } catch(UserExistsException $e4) {
+                echo ViewUtil::renderJSON(["napaka" => $e4->getMessage()], 409);
             } catch(NiIstoGesloException $e3) {
                 echo ViewUtil::renderJSON(["napaka" => $e3->getMessage()], 400);
             } catch (Exception $e2) {
