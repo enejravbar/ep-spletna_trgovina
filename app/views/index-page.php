@@ -32,7 +32,7 @@
             <navigacijski-menu-wrapper root_url="<?= ROOT_URL ?>"></navigacijski-menu-wrapper>
             <div class="shoes-grid">
                <div class="products">
-                  <h5 class="latest-product">ZADNJI ARTIKLI</h5>
+                  <h5 class="latest-product">NAŠE STRANKE KUPUJEJO</h5>
                </div>
                <div class="product-left" v-for="(artikel,i) in mnoziceArtiklov.slideShow">
                   <artikel-domaca-stran root_url="<?= ROOT_URL ?>" v-bind:st_slike="i" :artikel="artikel" ></artikel-domaca-stran>
