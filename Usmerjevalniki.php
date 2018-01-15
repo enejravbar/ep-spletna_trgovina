@@ -325,7 +325,7 @@ class Usmerjevalniki {
                         break;
                 }
             },
-            "/^api\/izdelki\/(\d+)\/slike\/(\d+)$/" => function($method, $id_slike) {
+            "/^api\/izdelki\/(\d+)\/slike\/(\d+)$/" => function($method, $id_izdelka, $id_slike) {
                 switch ($method) {
                     case "DELETE":
                         //izbrisi sliko
