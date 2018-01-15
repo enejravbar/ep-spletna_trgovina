@@ -309,6 +309,8 @@ class UporabnikVir {
                     echo ViewUtil::renderJSON(["napaka" => $e1->getMessage()], 400);
                 } catch(NiIstoGesloException $e3) {
                     echo ViewUtil::renderJSON(["napaka" => $e3->getMessage()], 400);
+                } catch(UserExistsException $e4) {
+                    echo ViewUtil::renderJSON(["napaka" => $e4->getMessage()], 409);
                 } catch (Exception $e2) {
                     echo ViewUtil::renderJSON(["napaka" => $e2->getMessage()], 500);
                 }
