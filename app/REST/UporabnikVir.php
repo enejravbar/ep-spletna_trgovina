@@ -267,7 +267,7 @@ class UporabnikVir {
                 echo ViewUtil::renderJSON(["napaka" => $e2->getMessage()], 400);
             }
         } else {
-            echo ViewUtil::renderJSON(["napaka" => "Nekateri atributi manjkajo!"], 200);
+            echo ViewUtil::renderJSON(["napaka" => "Nekateri atributi manjkajo!"], 400);
         }
     }
 
@@ -351,7 +351,7 @@ class UporabnikVir {
                     echo ViewUtil::renderJSON(["napaka" => $e2->getMessage()], 400);
                 }
             } else {
-                echo ViewUtil::renderJSON(["napaka" => "Nekateri atributi manjkajo!"], 200);
+                echo ViewUtil::renderJSON(["napaka" => "Nekateri atributi manjkajo!"], 400);
             }
         } else {
             echo ViewUtil::renderJSON(["napaka" => "Uporabnik nima zadostnih pravic!"], 401);
@@ -389,7 +389,7 @@ class UporabnikVir {
                     echo ViewUtil::renderJSON(["napaka" => $e2->getMessage()], 400);
                 }
             } else {
-                echo ViewUtil::renderJSON(["napaka" => "Nekateri atributi manjkajo!"], 200);
+                echo ViewUtil::renderJSON(["napaka" => "Nekateri atributi manjkajo!"], 400);
             }
         } else {
             echo ViewUtil::renderJSON(["napaka" => "Uporabnik nima zadostnih pravic!"], 401);
@@ -424,7 +424,7 @@ class UporabnikVir {
                     echo ViewUtil::renderJSON(["napaka" => $e2->getMessage()], 400);
                 }
             } else {
-                echo ViewUtil::renderJSON(["napaka" => "Nekateri atributi manjkajo!"], 200);
+                echo ViewUtil::renderJSON(["napaka" => "Nekateri atributi manjkajo!"], 400);
             }
         } else {
             echo ViewUtil::renderJSON(["napaka" => "Uporabnik nima zadostnih pravic!"], 401);
