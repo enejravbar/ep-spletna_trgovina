@@ -23,6 +23,7 @@ class IzdelekVir {
         try {
             if(isset($_GET["q"])) {
                 $query = $_GET["q"];
+                $query = filter_var_array(["q" => $query], Izdelki::pridobiPravilaZaIskanje())["q"];
                 $izdelki = IzdelekService::isciPoQueryju($query);
             } else if (isset($_GET["kategorija"])) {
                 $kategorijaId = $_GET["kategorija"];
