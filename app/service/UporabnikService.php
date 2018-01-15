@@ -226,6 +226,11 @@ class UporabnikService {
             throw new NiIstoGesloException("Gesli se ne ujemata!");
         }
 
+        $preveri_uporabnika = Uporabniki::dobiUporabnikaGledeNaEmail(["email" => $podatki["email"]]);
+        if($preveri_uporabnika != null) {
+            throw new UserExistsException("Uporabnik s tem emailom že obstaja!");
+        }
+
         $uporabnik = Uporabniki::insertOsebje([
             "vloga" => VlogaUporabnik::getIdProdaja(),
             "ime" => $podatki["ime"],
