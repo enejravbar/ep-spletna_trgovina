@@ -121,4 +121,8 @@ class Izdelki extends Entiteta {
         return $stmt->fetchAll();
     }
 
+    public static function pridobiPravilaZaIskanje() {
+        return ["q" => FILTER_SANITIZE_SPECIAL_CHARS];
+    }
+
 }

@@ -23,6 +23,7 @@ class IzdelekVir {
         try {
             if(isset($_GET["q"])) {
                 $query = $_GET["q"];
+                $query = filter_var_array(["q" => $query], Izdelki::pridobiPravilaZaIskanje())["q"];
                 $izdelki = IzdelekService::isciPoQueryju($query);
             } else if (isset($_GET["kategorija"])) {
                 $kategorijaId = $_GET["kategorija"];
@@ -56,6 +57,8 @@ class IzdelekVir {
             echo ViewUtil::renderJSON(["izdelek" => $izdelek, "slike" => $slike], 200);
         } catch (InvalidArgumentException $e){
             echo ViewUtil::renderJSON(["napaka" => $e->getMessage()], 404);
+        } catch(Exception $e2) {
+            echo ViewUtil::renderJSON(["napaka" => $e2->getMessage()], 500);
         }
     }
 
