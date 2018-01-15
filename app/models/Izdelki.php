@@ -23,7 +23,7 @@ class Izdelki extends Entiteta {
     }
 
     public static function get(array $id) {
-        $izdelek = parent::query("SELECT *, (select avg(ocena) from ocene where id_izdelka = i.id) as ocena".
+        $izdelek = parent::query("SELECT *".
             " FROM izdelki i WHERE id = :id", $id);
         if (count($izdelek) == 1) {
             return $izdelek[0];
@@ -51,7 +51,7 @@ class Izdelki extends Entiteta {
     public static function getAllByPage(array $params) {
         $stmt = parent::getConnection()->prepare("SELECT *, ".
             "(SELECT s.id FROM slike s WHERE s.izdelek=i.id LIMIT 1) as thumbnail, ".
-            "(select avg(ocena) from ocene o where o.id_izdelka = i.id) as ocena FROM izdelki i ORDER BY id ASC " .
+            "FROM izdelki i ORDER BY id ASC " .
             "LIMIT :limit OFFSET :offset");
         $stmt->bindParam(":limit", $params["limit"], PDO::PARAM_INT);
         $stmt->bindParam(":offset", $params["offset"], PDO::PARAM_INT);
