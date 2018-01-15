@@ -104,17 +104,22 @@ $(document).ready(function(){
              201: function() {
                ref.ustvarjenNovIzdelek=true;
                ref.prikaziSporocilo=true;
+               window.location.href=ref.root_url+"prodaja/izdelki";
+               form_data = new FormData();
              }
           },
           success: function(response, textStatus, xhr){
-            console.log("Status je "+xhr.status)
+
             if(xhr.status==201){
+              console.log("Status je "+xhr.status);
               ref.ustvarjenNovIzdelek=true;
               ref.prikaziSporocilo=true;
+              window.location.href=ref.root_url+"prodaja/izdelki";
             }else{
               ref.ustvarjenNovIzdelek=false;
               ref.prikaziSporocilo=true;
             }
+            form_data = new FormData();
           },
           error: function(textStatus, xhr){
             console.log("Status je "+xhr.status)

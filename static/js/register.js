@@ -77,6 +77,9 @@ $(document).ready(function(){
           }else if(request.status==404){
             ref.sporocilo="Slabi parametri zahteve!";
             ref.ustvarjenaNovaStranka=false;
+          }else if(request.status==428){
+            ref.sporocilo="Captcha neveljavna!";
+            ref.ustvarjenaNovaStranka=false;
           }else if(request.status==500){
             ref.sporocilo="Napaka na strani strežnika!";
             ref.ustvarjenaNovaStranka=false;

@@ -8,7 +8,8 @@ $(document).ready(function(){
       query:document.getElementById("query").value,
       //kategorijaId:2,
       tabelaArtiklov:[],
-      st_izdelkov:0
+      st_izdelkov:0,
+      nalozeno:false,
     },
     mounted: function(){
 
@@ -35,7 +36,7 @@ $(document).ready(function(){
           var response = JSON.parse(request.responseText);
           console.log("Artikli so: "+ response);
           ref.posodobiTabeloArtiklov(response.izdelki);
-
+          ref.nalozeno=true;
         });
         request.addEventListener("error", function() {
             console.log("NAPAKA!");

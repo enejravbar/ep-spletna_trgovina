@@ -42,6 +42,9 @@
                      <div class="clearfix"> </div>
                   </div>
                </div>
+               <div v-if="tabelaArtiklov.length<=0 && nalozeno">
+                 <h3>Ni zadetkov iskanja!</h3>
+               </div>
                <div  class="grid-product" >
                   <div v-for="artikel in tabelaArtiklov">
                      <artikel-product-stran  root_url="<?= ROOT_URL ?>" :artikel="artikel" ></artikel-product-stran>
